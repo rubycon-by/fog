@@ -81,7 +81,7 @@ module Fog
           merge_attributes(data['updatetemplateresponse'])
         end
 
-        def register
+        def register_as_template
           requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
 
           options = {
@@ -108,6 +108,27 @@ module Fog
           }
           data = service.register_template(options)
           merge_attributes(data['registertemplateresponse'])
+        end
+
+        def register_as_iso
+          requires :display_text, :name, :url, :zone_id
+
+          options = {
+            'displaytext'      => display_text,
+            'name'             => name,
+            'ostypeid'         => os_type_id,
+            'url'              => url,
+            'zoneid'           => zone_id,
+            'account'          => account,
+            'checksum'         => checksum,
+            'domainid'         => domain_id,
+            'isextractable'    => is_extractable,
+            'isfeatured'       => is_featured,
+            'ispublic'         => is_public,
+            'projectid'        => project_id,
+          }
+          data = service.register_iso(options)
+          merge_attributes(data['registerisoresponse'])
         end
 
         def destroy

@@ -124,6 +124,7 @@ module Fog
       request :register_ssh_key_pair
       request :register_user_keys
       request :register_template
+      request :register_iso
       request :remove_from_load_balancer_rule
       request :reset_password_for_virtual_machine
       request :revoke_security_group_ingress
