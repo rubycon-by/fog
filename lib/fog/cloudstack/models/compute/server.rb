@@ -58,6 +58,15 @@ module Fog
           state == 'Running'
         end
 
+        def volumes
+          service.volumes.all('virtualmachineid' => self.id)
+        end
+
+        def snapshots
+          volume_ids = volumes.collect(&:id)
+          volume_ids.collect{ |id| service.snapshots.all('volumeid' => id) }.flatten
+        end
+
         def reboot
           requires :id
           data = service.reboot_virtual_machine('id' => self.id) # FIXME: does this ever fail?
