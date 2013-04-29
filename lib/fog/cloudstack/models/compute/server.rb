@@ -54,6 +54,10 @@ module Fog
           service.flavors.get(self.flavor_id)
         end
 
+        def flavor=(flavor_id)
+          service.change_service_for_virtual_machine('id' => self.id, 'serviceofferingid' => flavor_id )
+        end
+
         def ready?
           state == 'Running'
         end
@@ -118,8 +122,7 @@ module Fog
             'displayname'       => display_name,
             'group'             => group,
             'haenable'          => haenable,
-            'ostypeid'          => guest_os_id,
-            'serviceofferingid' => flavor_id
+            'ostypeid'          => guest_os_id
           }
 
           data = service.update_virtual_machine(options)
