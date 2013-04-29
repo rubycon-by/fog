@@ -72,6 +72,11 @@ module Fog
           volume_ids.collect{ |id| service.snapshots.all('volumeid' => id) }.flatten
         end
 
+        def create_snapshots_for_root_volume
+          volumes = self.volumes.all('type' => 'ROOT')
+          volumes.each{|volume| service.snapshots.create('volume_id' => volume.id) }
+        end
+
         def reboot
           requires :id
           data = service.reboot_virtual_machine('id' => self.id) # FIXME: does this ever fail?
