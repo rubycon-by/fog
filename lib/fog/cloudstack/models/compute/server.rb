@@ -44,6 +44,15 @@ module Fog
           nics.map{|nic| Address.new(nic)}
         end
 
+        def guest_os_name
+          os = service.list_os_types['listostypesresponse']['ostype'].detect{|os| os['id'] == self.guest_os_id }
+          os['description']
+        end
+
+        def password
+          service.get_vm_password(self.id)
+        end
+
         def destroy
           requires :id
           data = service.destroy_virtual_machine("id" => id)

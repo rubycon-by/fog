@@ -11,7 +11,6 @@ module Fog
             'command' => 'resetPasswordForVirtualMachine',
             'id' => id
           }
-          
           request(options)
         end
 
