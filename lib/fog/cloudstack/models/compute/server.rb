@@ -55,7 +55,8 @@ module Fog
         end
 
         def flavor=(flavor_id)
-          service.change_service_for_virtual_machine('id' => self.id, 'serviceofferingid' => flavor_id )
+          data = service.change_service_for_virtual_machine('id' => self.id, 'serviceofferingid' => flavor_id )
+          service.jobs.new(data["changeserviceforvirtualmachineresponse"])
         end
 
         def ready?
