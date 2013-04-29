@@ -9,8 +9,8 @@ module Fog
 
         model Fog::Compute::Cloudstack::Volume
 
-        def all
-          data = service.list_volumes["listvolumesresponse"]["volume"] || []
+        def all(params = {})
+          data = service.list_volumes(params)["listvolumesresponse"]["volume"] || []
           load(data)
         end
 

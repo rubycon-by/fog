@@ -59,6 +59,7 @@ module Fog
       request :create_snapshot_policy
       request :create_user
       request :create_volume
+      request :create_template
       request :create_zone
       request :delete_account
       request :delete_disk_offering
@@ -127,6 +128,7 @@ module Fog
       request :register_ssh_key_pair
       request :register_user_keys
       request :register_template
+      request :register_iso
       request :remove_from_load_balancer_rule
       request :reset_password_for_virtual_machine
       request :revoke_security_group_ingress
@@ -137,6 +139,7 @@ module Fog
       request :update_domain
       request :update_user
       request :update_resource_count
+      request :update_template
       request :update_virtual_machine
 
       class Real

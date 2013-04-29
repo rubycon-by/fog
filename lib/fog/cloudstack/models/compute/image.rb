@@ -38,9 +38,12 @@ module Fog
         attribute :zone_id,            :aliases => 'zoneid'
         attribute :zone_name,          :aliases => 'zonename'
 
-        attr_accessor :bits, :requires_hvm, :snapshot_id, :url, :virtual_machine_id, :volume_id
+        attr_accessor :bits, :requires_hvm, :snapshot_id, :url, :virtual_machine_id, :volume_id, :ssh_key_enabled
 
         def save
+          requires :display_text, :name, :os_type_id
+          requires_one :volume_id, :snapshot_id
+
           options = {
             'displaytext'      => display_text,
             'name'             => name,
@@ -59,6 +62,73 @@ module Fog
           }
           data = service.create_template(options)
           merge_attributes(data['createtemplateresponse'])
+        end
+
+        def update
+          requires :id
+
+          options = {
+            'id'               => id,
+            'bootable'         => bootable,
+            'displaytext'      => display_text,
+            'format'           => format,
+            'name'             => name,
+            'ostypeid'         => os_type_id,
+            'passwordenabled'  => password_enabled,
+          }
+
+          data = service.update_template(options)
+          merge_attributes(data['updatetemplateresponse'])
+        end
+
+        def register_as_template
+          requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
+
+          options = {
+            'displaytext'      => display_text,
+            'format'           => format,
+            'hypervisor'       => hypervisor,
+            'name'             => name,
+            'ostypeid'         => os_type_id,
+            'url'              => url,
+            'zoneid'           => zone_id,
+            'account'          => account,
+            'bits'             => bits,
+            'checksum'         => checksum,
+            'details'          => details,
+            'domainid'         => domain_id,
+            'isextractable'    => is_extractable,
+            'isfeatured'       => is_featured,
+            'ispublic'         => is_public,
+            'passwordenabled'  => password_enabled,
+            'projectid'        => project_id,
+            'requireshvm'      => requires_hvm,
+            'sshkeyenabled'  => ssh_key_enabled,
+            'templatetag'      => template_tag
+          }
+          data = service.register_template(options)
+          merge_attributes(data['registertemplateresponse'])
+        end
+
+        def register_as_iso
+          requires :display_text, :name, :url, :zone_id
+
+          options = {
+            'displaytext'      => display_text,
+            'name'             => name,
+            'ostypeid'         => os_type_id,
+            'url'              => url,
+            'zoneid'           => zone_id,
+            'account'          => account,
+            'checksum'         => checksum,
+            'domainid'         => domain_id,
+            'isextractable'    => is_extractable,
+            'isfeatured'       => is_featured,
+            'ispublic'         => is_public,
+            'projectid'        => project_id,
+          }
+          data = service.register_iso(options)
+          merge_attributes(data['registerisoresponse'])
         end
 
         def destroy

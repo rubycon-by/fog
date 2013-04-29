@@ -10,29 +10,42 @@ module Fog
         model Fog::Compute::Cloudstack::Image
 
         def all(filters={})
-          options = get_filter_options(filters)
+          as_iso = filters.delete('as_iso') || false
+          options = get_filter_options(filters, as_iso)
 
-          data = service.list_templates(options)["listtemplatesresponse"]["template"] || []
+          data = if as_iso
+            service.list_isos(options)["listisosresponse"]["iso"] || []
+          else
+            service.list_templates(options)["listtemplatesresponse"]["template"] || []
+          end
           load(data)
         end
 
-        def get(template_id, filters={})
-          filter_option = get_filter_options(filters)
-          options = filter_option.merge('id' => template_id)
+        def get(image_id, filters={})
+          as_iso = filters.delete('as_iso') || false
+          filter_option = get_filter_options(filters, as_iso)
+          options = filter_option.merge('id' => image_id)
 
-          if template = service.list_templates(options)["listtemplatesresponse"]["template"].first
-            new(template)
+          image = if as_iso
+            service.list_isos(options)["listisosresponse"]["iso"].first
+          else
+            service.list_templates(options)["listtemplatesresponse"]["template"].first
           end
-        rescue Fog::Compute::Cloudstack::BadRequest
-          nil
+          new(image)
+
+        end
+
+        def register(attributes={})
+          as_iso = attributes.delete('as_iso') || false
+          image = new(attributes)
+          as_iso ? image.register_as_iso : image.register_as_template
         end
 
         private
 
-        def get_filter_options(filters)
-          default_filter = {
-              'templatefilter' => 'self'
-          }
+        def get_filter_options(filters, as_iso)
+          key = as_iso ? 'isofilter' : 'templatefilter'
+          default_filter = { key => 'self' }
           default_filter.merge(filters)
         end
       end
