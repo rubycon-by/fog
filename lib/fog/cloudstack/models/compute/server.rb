@@ -118,7 +118,8 @@ module Fog
             'displayname'       => display_name,
             'group'             => group,
             'haenable'          => haenable,
-            'ostypeid'          => guest_os_id
+            'ostypeid'          => guest_os_id,
+            'serviceofferingid' => flavor_id
           }
 
           data = service.update_virtual_machine(options)
