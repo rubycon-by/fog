@@ -53,7 +53,7 @@ module Fog
 
         def extract
           requires :id
-          service.extract_iso self.id
+          service.extract_iso get_options_hash.merge!({ 'id' => self.id })
           true
         end
 
