@@ -45,6 +45,13 @@ module Fog
           merge_attributes(data['createtemplateresponse'])
         end
 
+        def copy destination_zone_id
+          requires :id, :zone_id, :destination_zone_id
+          options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
+          service.copy_iso(options)
+          true
+        end
+
         def update options
           requires :id
           service.update_iso({'id' => self.id}.merge!(options))
@@ -52,7 +59,7 @@ module Fog
         end
 
         def extract url = nil
-          requires :id
+          requires :id, :zone_id
           options = { 'id' => self.id, 'zoneid' => self.zone_id }
           options.merge!({'url' => url}) if url.present?
           service.extract_iso options

@@ -47,6 +47,7 @@ module Fog
       request :authorize_security_group_egress
       request :authorize_security_group_ingress
       request :change_service_for_virtual_machine
+      request :copy_iso
       request :create_account
       request :create_disk_offering
       request :create_domain
