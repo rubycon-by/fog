@@ -41,6 +41,28 @@ module Fog
         attr_accessor :bits, :requires_hvm, :snapshot_id, :url, :virtual_machine_id, :volume_id
 
         def save
+          data = service.create_template(get_options_hash)
+          merge_attributes(data['createtemplateresponse'])
+        end
+
+        def update options
+          requires :id
+          res = get_options_hash.merge!(options).merge!({'id' => self.id)})
+          service.update_iso(res)
+          true
+        end
+
+        end
+
+        def destroy
+          requires :id
+          service.delete_template('id' => self.id)
+          true
+        end
+
+        private
+
+        def get_options_hash
           options = {
             'displaytext'      => display_text,
             'name'             => name,
@@ -57,15 +79,8 @@ module Fog
             'virtualmachineid' => virtual_machine_id,
             'volumeid'         => volume_id
           }
-          data = service.create_template(options)
-          merge_attributes(data['createtemplateresponse'])
         end
 
-        def destroy
-          requires :id
-          service.delete_template('id' => self.id)
-          true
-        end
       end # Server
     end # Cloudstack
   end # Compute
