@@ -15,13 +15,11 @@ module Fog
         end
 
         def get(iso_id)
-
           if iso = service.list_isos["listisosresponse"]["iso"].first
             new(iso)
           end
-          rescue Fog::Compute::Cloudstack::BadRequest
-            nil
-          end
+        rescue Fog::Compute::Cloudstack::BadRequest
+          nil
         end
 
       end
