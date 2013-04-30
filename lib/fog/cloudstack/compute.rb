@@ -21,6 +21,8 @@ module Fog
       model :address
       model :disk_offering
       collection :disk_offerings
+      model :iso
+      collection :isos
       model :flavor
       collection :flavors
       model :job
