@@ -51,9 +51,11 @@ module Fog
           true
         end
 
-        def extract
+        def extract url = nil
           requires :id
-          service.extract_iso get_options_hash.merge!({ 'id' => self.id })
+          options = { 'id' => self.id, 'zoneid' => self.zone_id }
+          options.merge!({'url' => url}) if url.present?
+          service.extract_iso options
           true
         end
 
