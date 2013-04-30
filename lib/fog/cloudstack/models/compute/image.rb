@@ -47,8 +47,7 @@ module Fog
 
         def update options
           requires :id
-          res = get_options_hash.merge!(options).merge!({'id' => self.id})
-          service.update_iso(res)
+          service.update_iso({'id' => self.id}.merge!(options))
           true
           # cloud_control.update_iso({'id' => 1707, 'name' => 1232}) it worked
         end
