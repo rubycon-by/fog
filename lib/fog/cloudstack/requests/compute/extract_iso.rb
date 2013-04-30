@@ -6,7 +6,7 @@ module Fog
         def extract_iso(id, mode = "HTTP_DOWNLOAD")
           options = {
             'id' => id,
-            'command' => 'exctractIso',
+            'command' => 'extractIso',
             'mode' => mode
           }
 
