@@ -49,7 +49,12 @@ module Fog
           requires :id
           service.update_iso({'id' => self.id}.merge!(options))
           true
-          # cloud_control.update_iso({'id' => 1707, 'name' => 1232}) it worked
+        end
+
+        def extract
+          requires :id
+          service.extract_iso self.id
+          true
         end
 
         def destroy
