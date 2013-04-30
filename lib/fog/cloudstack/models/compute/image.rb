@@ -50,6 +50,7 @@ module Fog
           res = get_options_hash.merge!(options).merge!({'id' => self.id})
           service.update_iso(res)
           true
+          # cloud_control.update_iso({'id' => 1707, 'name' => 1232}) it worked
         end
 
         def destroy
@@ -58,7 +59,6 @@ module Fog
           true
         end
 
-        private
 
         def get_options_hash
           options = {
