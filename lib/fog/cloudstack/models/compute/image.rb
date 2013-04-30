@@ -46,7 +46,7 @@ module Fog
         end
 
         def copy destination_zone_id
-          requires :id, :zone_id, :destination_zone_id
+          requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
           service.copy_iso(options)
           true
