@@ -5,7 +5,7 @@ module Fog
 
         def copy_iso(options={})
           options.merge!(
-            'command' => 'extractIso',
+            'command' => 'copyIso',
           )
 
           request(options)
