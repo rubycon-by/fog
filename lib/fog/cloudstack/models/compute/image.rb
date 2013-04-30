@@ -52,8 +52,6 @@ module Fog
           true
         end
 
-        end
-
         def destroy
           requires :id
           service.delete_template('id' => self.id)
