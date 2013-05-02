@@ -29,8 +29,8 @@ module Fog
           if template = service.list_templates(options)["listtemplatesresponse"]["template"].try(:first)
             new(template)
           end
-          new(image)
-
+        rescue Fog::Compute::Cloudstack::BadRequest
+          nil
         end
 
         def register(attributes={})
