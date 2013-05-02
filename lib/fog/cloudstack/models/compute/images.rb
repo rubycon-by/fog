@@ -20,7 +20,7 @@ module Fog
           filter_option = get_filter_options(filters)
           options = filter_option.merge('id' => template_id)
 
-          if template = service.list_templates(options)["listtemplatesresponse"]["template"].first
+          if template = service.list_templates(options)["listtemplatesresponse"]["template"].try(:first)
             new(template)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
