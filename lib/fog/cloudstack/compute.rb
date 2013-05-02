@@ -54,6 +54,8 @@ module Fog
       request :create_account
       request :create_disk_offering
       request :create_domain
+      request :create_iso
+      request :create_template
       request :create_load_balancer_rule
       request :create_network
       request :create_port_forwarding_rule

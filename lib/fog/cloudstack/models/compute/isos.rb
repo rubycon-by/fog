@@ -16,7 +16,7 @@ module Fog
         end
 
         def get(iso_id)
-          if iso = service.list_isos('id' => iso_id)["listisosresponse"]["iso"].first
+          if iso = service.list_isos('id' => iso_id)["listisosresponse"]["iso"].try(:first)
             new(iso)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
