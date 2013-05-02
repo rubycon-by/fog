@@ -3,7 +3,7 @@ module Fog
     class Cloudstack
       class Real
 
-        def update_iso(options={})
+        def update_template(options={})
           options.merge!(
             'command' => 'updateTemplate'
           )

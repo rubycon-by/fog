@@ -3,7 +3,7 @@ module Fog
     class Cloudstack
       class Real
 
-        def delete_template(options={})
+        def delete_iso(options={})
           options.merge!(
             'command' => 'deleteIso'
           )

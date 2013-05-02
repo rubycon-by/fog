@@ -3,7 +3,7 @@ module Fog
     class Cloudstack
       class Real
 
-        def extract_iso(options={}, mode = "HTTP_DOWNLOAD")
+        def extract_template(options={}, mode = "HTTP_DOWNLOAD")
           options.merge!(
             'command' => 'extractTemplate',
             'mode' => mode

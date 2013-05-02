@@ -3,7 +3,7 @@ module Fog
     class Cloudstack
       class Real
 
-        def copy_iso(options={})
+        def copy_template(options={})
           options.merge!(
             'command' => 'copyTemplate',
           )
