@@ -39,6 +39,7 @@ module Fog
       collection :snapshots
       model :zone
       collection :zones
+      model :snapshot_policy
 
       request :acquire_ip_address
       request :assign_to_load_balancer_rule
