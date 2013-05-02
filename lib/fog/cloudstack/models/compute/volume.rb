@@ -48,8 +48,7 @@ module Fog
         end
 
         def snapshot_policies
-          requires :id
-          data = service.list_snapshot_policies('id' => id)
+          data = service.list_snapshot_policies('volumeid' => self.id)
           data["listsnapshotpoliciesresponse"]
         end
 
