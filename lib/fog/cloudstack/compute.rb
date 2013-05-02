@@ -21,6 +21,8 @@ module Fog
       model :address
       model :disk_offering
       collection :disk_offerings
+      model :iso
+      collection :isos
       model :flavor
       collection :flavors
       model :job
@@ -49,6 +51,7 @@ module Fog
       request :authorize_security_group_egress
       request :authorize_security_group_ingress
       request :change_service_for_virtual_machine
+      request :copy_iso
       request :create_account
       request :create_disk_offering
       request :create_domain
@@ -80,6 +83,7 @@ module Fog
       request :destroy_virtual_machine
       request :disable_user
       request :enable_user
+      request :extract_iso
       request :generate_usage_records
       request :get_vm_password
       request :list_accounts
@@ -135,8 +139,9 @@ module Fog
       request :reset_password_for_virtual_machine
       request :revoke_security_group_ingress
       request :revoke_security_group_egress
-      request :start_virtual_machine      
+      request :start_virtual_machine
       request :stop_virtual_machine
+      request :update_iso
       request :update_account
       request :update_domain
       request :update_user
@@ -239,7 +244,7 @@ module Fog
               :query => params,
               :headers => headers,
               :method => method,
-              :expects => expects  
+              :expects => expects
             })
 
           rescue Excon::Errors::HTTPStatusError => error
