@@ -8,7 +8,7 @@ module Fog
         attribute :maxsnaps,                   :aliases => 'maxsnaps'
         attribute :schedule,                   :aliases => 'schedule'
         attribute :timezone,                   :aliases => 'timezone'
-        attribute :volume_id,                   :aliases => 'volumeid'
+        attribute :volume_id,                  :aliases => 'volumeid'
 
         def save
           requires :volume_id, :intervaltype, :maxsnaps, :schedule, :timezone
