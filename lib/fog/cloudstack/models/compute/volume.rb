@@ -47,6 +47,12 @@ module Fog
           state == 'Allocated' || state == 'Ready'
         end
 
+        def snapshot_policies
+          requires :id
+          data = service.list_snapshot_policies('id' => id)
+          data["listsnapshotpoliciesresponse"]
+        end
+
         def flavor
           service.disk_offerings.get(self.disk_offering_id)
         end
