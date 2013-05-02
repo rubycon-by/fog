@@ -26,10 +26,8 @@ module Fog
           filter_option = get_filter_options(filters, as_iso)
           options = filter_option.merge('id' => image_id)
 
-          image = if as_iso
-            service.list_isos(options)["listisosresponse"]["iso"].first
-          else
-            service.list_templates(options)["listtemplatesresponse"]["template"].first
+          if template = service.list_templates(options)["listtemplatesresponse"]["template"].try(:first)
+            new(template)
           end
           new(image)
 

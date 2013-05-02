@@ -65,7 +65,7 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_template('id' => self.id)
+          service.delete_iso('id' => self.id)
         end
 
 
@@ -88,7 +88,7 @@ module Fog
           }
         end
 
-      end # Server
+      end # Iso
     end # Cloudstack
   end # Compute
 end # Fog

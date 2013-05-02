@@ -52,9 +52,12 @@ module Fog
       request :authorize_security_group_ingress
       request :change_service_for_virtual_machine
       request :copy_iso
+      request :copy_template
       request :create_account
       request :create_disk_offering
       request :create_domain
+      request :create_iso
+      request :create_template
       request :create_load_balancer_rule
       request :create_network
       request :create_port_forwarding_rule
@@ -75,6 +78,7 @@ module Fog
       request :delete_ssh_key_pair
       request :delete_snapshot
       request :delete_snapshot_policies
+      request :delete_iso
       request :delete_template
       request :delete_user
       request :delete_volume
@@ -84,6 +88,7 @@ module Fog
       request :disable_user
       request :enable_user
       request :extract_iso
+      request :extract_template
       request :generate_usage_records
       request :get_vm_password
       request :list_accounts
@@ -142,6 +147,7 @@ module Fog
       request :start_virtual_machine
       request :stop_virtual_machine
       request :update_iso
+      request :update_template
       request :update_account
       request :update_domain
       request :update_user
