@@ -1,5 +1,5 @@
 require 'fog/core/collection'
-require 'fog/cloudstack/models/compute/iso'
+require 'fog/cloudstack/models/compute/ip'
 
 module Fog
   module Compute
