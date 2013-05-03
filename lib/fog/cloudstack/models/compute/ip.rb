@@ -72,6 +72,8 @@ module Fog
         def get_port_forwardong_rules
           requires :id
           data = service.list_port_forwarding_rules({'ipaddressid' => self.id})
+          rules = data["listpublicipaddressesresponse"]["publicipaddress"] || []
+          load rules
         end
 
         def enable_nat server_id
