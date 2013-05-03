@@ -73,7 +73,7 @@ module Fog
           requires :id
           data = service.list_port_forwarding_rules('ipaddressid' => self.id)
           rules = data["listportforwardingrulesresponse"]["portforwardingrule"] || []
-          # load rules
+          load rules
         end
 
         def enable_nat server_id
