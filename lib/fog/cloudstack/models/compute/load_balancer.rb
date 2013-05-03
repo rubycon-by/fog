@@ -18,7 +18,7 @@ module Fog
 
         def instances
           requires :id
-          service.balancer_instances(self.id)
+          service.balancer_instances.all('id' => self.id)
         end
 
         def ip

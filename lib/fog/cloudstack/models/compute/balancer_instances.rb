@@ -9,7 +9,7 @@ module Fog
 
         model Fog::Compute::Cloudstack::BalancerInstance
 
-        def all(attributes={})
+        def all(attributes)
           response = service.list_load_balancer_rule_instances(attributes)
           data = response["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"] || []
           load(data)
