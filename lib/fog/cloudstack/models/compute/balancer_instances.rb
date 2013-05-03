@@ -9,14 +9,14 @@ module Fog
 
         model Fog::Compute::Cloudstack::BalancerInstance
 
-        def all(balancer_id)
-          response = service.list_load_balancer_rule_instances(balancer_id)
+        def all(attributes={})
+          response = service.list_load_balancer_rule_instances(attributes)
           data = response["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"] || []
           load(data)
         end
 
-        def get(balance_id)
-          if data = service.list_load_balancer_rules('id' => balance_id)["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"].try(:first)
+        def get(instance_id)
+          if data = service.list_load_balancer_rules('id' => instance_id)["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"].try(:first)
             new(data)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
