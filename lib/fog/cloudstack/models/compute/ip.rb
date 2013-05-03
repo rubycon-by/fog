@@ -48,6 +48,32 @@ module Fog
         # attribute :hypervisor
 
 
+        def get_port_forwardong_rules
+          requires :id
+          data = service.list_port_forwarding_rules({'ipaddressid' => self.id})
+        end
+
+        def create_forwarting_rule privateport, publicport, protocol, server_id
+          requires :id
+          options = {
+            'privateport' => privateport,
+            'publicport' => publicport,
+            'protocol' => protocol,
+            'virtualmachineid' => server_id,
+            'ipaddressid' => self.id
+          }
+          data = service.create_port_forwarting_rule(options)
+        end
+
+        def destroy_forwarting_rule rule_id
+          data = service.delete_port_forwarting_rule({'id' => rule_id})
+        end
+
+        def get_port_forwardong_rules
+          requires :id
+          data = service.list_port_forwarding_rules({'ipaddressid' => self.id})
+        end
+
         def enable_nat server_id
           requires :id
           data = service.enable_static_nat({'ipaddressid' => self.id,'virtualmachineid' => server_id})
