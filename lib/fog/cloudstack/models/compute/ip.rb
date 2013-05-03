@@ -50,7 +50,7 @@ module Fog
 
         def enable_nat server_id
           requires :id
-          data = service.enable_static_nat({'virtualmachineid' => server_id})
+          data = service.enable_static_nat({'ipaddressid' => self.id,'virtualmachineid' => server_id})
         end
 
         def disable_nat
