@@ -16,7 +16,7 @@ module Fog
         end
 
         def get(ip_id)
-          if ip = service.list_virtual_machines('id' => ip_id)["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
+          if ip = service.list_public_ip_addresses('id' => ip_id)["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
             new(ip)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
