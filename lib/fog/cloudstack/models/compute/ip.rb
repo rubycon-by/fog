@@ -18,7 +18,7 @@ module Fog
         attribute :state,    :aliases => 'state'
 
 
-        def port_forwardong_rules
+        def port_forwarding_rules
           requires :id
           service.port_forwarding_rules.all({'ipaddressid' => self.id})
         end
