@@ -22,16 +22,17 @@ module Fog
         end
 
         def save
-          requires :name, :private_port, :public_port, :algorithm
-          pfr_ip = service.ips.get(public_ip_id).id
-          options = {
-            'privateport' => private_port,
-            'publicport' => public_port,
-            'name' => name,
-            'algorithm' => algorithm,
-            'ipaddressid' => pfr_ip
-          }
-          service.create_load_balancer_rule(options)
+          p service.ips.get(public_ip_id)
+          # requires :name, :private_port, :public_port, :algorithm
+          # pfr_ip = service.ips.get(public_ip_id).id
+          # options = {
+          #   'privateport' => private_port,
+          #   'publicport' => public_port,
+          #   'name' => name,
+          #   'algorithm' => algorithm,
+          #   'ipaddressid' => pfr_ip
+          # }
+          # service.create_load_balancer_rule(options)
         end
 
         def destroy
