@@ -1,11 +1,11 @@
 require 'fog/core/collection'
-require 'fog/cloudstack/models/compute/port_forwarting_rule'
+require 'fog/cloudstack/models/compute/port_forwarding_rule'
 
 module Fog
   module Compute
     class Cloudstack
 
-      class PortForwartingRules < Fog::Collection
+      class PortForwardingRules < Fog::Collection
 
         model Fog::Compute::Cloudstack::PortForwartingRule
 
