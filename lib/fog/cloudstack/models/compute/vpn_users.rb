@@ -11,12 +11,12 @@ module Fog
 
         def all(attributes={})
           response = service.list_vpn_users attributes
-          data = response["listloadbalancerrulesresponse"]["loadbalancerrule"] || []
+          data = response["listvpnusersresponse"]["vpnuser"] || []
           load(data)
         end
 
         def get(user_id)
-          if data = service.list_vpn_users('id' => user_id)["listloadbalancerrulesresponse"]["loadbalancerrule"].try(:first)
+          if data = service.list_vpn_users('id' => user_id)["listvpnusersresponse"]["vpnuser"].try(:first)
             new(data)
           end
         rescue Fog::Compute::Cloudstack::BadRequest

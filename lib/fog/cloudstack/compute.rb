@@ -51,7 +51,11 @@ module Fog
       collection :zones
       model :snapshot_policy
       collection :snapshot_policies
+      model :vpn_user
+      collection :vpn_users
 
+
+      request :add_vpn_user
       request :acquire_ip_address
       request :assign_to_load_balancer_rule
       request :assign_virtual_machine
@@ -153,6 +157,7 @@ module Fog
       request :register_iso
       request :release_ip_address
       request :remove_from_load_balancer_rule
+      request :remove_vpn_user
       request :reset_password_for_virtual_machine
       request :revoke_security_group_ingress
       request :revoke_security_group_egress
