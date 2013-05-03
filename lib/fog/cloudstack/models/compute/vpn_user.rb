@@ -12,7 +12,7 @@ module Fog
 
 
         def save
-          requires :username
+          requires :username, :password
           options = {'username' => username, 'password' => password}
           service.add_vpn_user(options)
         end

@@ -71,6 +71,7 @@ module Fog
       request :create_iso
       request :create_template
       request :create_load_balancer_rule
+      request :create_remote_access_vpn
       request :create_network
       request :create_port_forwarding_rule
       request :create_security_group
@@ -99,6 +100,7 @@ module Fog
       request :destroy_virtual_machine
       request :disable_user
       request :disable_static_nat
+      request :delete_remote_access_vpn
       request :enable_user
       request :enable_static_nat
       request :extract_iso

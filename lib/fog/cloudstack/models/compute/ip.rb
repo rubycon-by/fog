@@ -18,6 +18,16 @@ module Fog
         attribute :state,    :aliases => 'state'
 
 
+        def enable_vpn
+          requires :id
+          create_remote_access_vpn({'publicipid' => self.id})
+        end
+
+        def disable_vpn
+          requires :id
+          delete_remote_access_vpn({'publicipid' => self.id})
+        end
+
         def port_forwarding_rules
           requires :id
           service.port_forwarding_rules.all({'ipaddressid' => self.id})
