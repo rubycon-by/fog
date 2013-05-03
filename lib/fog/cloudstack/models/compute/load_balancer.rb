@@ -16,9 +16,24 @@ module Fog
         attribute :state,    :aliases => 'state'
         attribute :zoneid,    :aliases => 'zoneid'
 
+        def instances
+          requires :id
+          service.balancer_instances(self.id)
+        end
 
         def ip
+          requires :public_ip_id
           service.ips.get public_ip_id
+        end
+
+        def assign_instances virtual_machine_ids = []
+          requires :id
+          service.assign_to_load_balancer_rule(self.id, virtual_machine_ids)
+        end
+
+        def remove_instances virtual_machine_ids = []
+          requires :id
+          service.remove_from_load_balancer_rule(self.id, virtual_machine_ids)
         end
 
         def save

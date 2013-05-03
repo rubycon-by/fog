@@ -19,6 +19,8 @@ module Fog
 
       model_path 'fog/cloudstack/models/compute'
       model :address
+      model :balancer_instance
+      collection :balancer_instances
       model :disk_offering
       collection :disk_offerings
       model :ip
