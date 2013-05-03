@@ -7,7 +7,7 @@ module Fog
 
       class PortForwardingRules < Fog::Collection
 
-        model Fog::Compute::Cloudstack::PortForwartingRule
+        model Fog::Compute::Cloudstack::PortForwardingRule
 
         def all(attributes={})
           response = service.list_port_forwarding_rules attributes
