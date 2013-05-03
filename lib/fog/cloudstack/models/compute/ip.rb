@@ -72,7 +72,7 @@ module Fog
         def get_port_forwardong_rules
           requires :id
           data = service.list_port_forwarding_rules({'ipaddressid' => self.id})
-          rules = data["listpublicipaddressesresponse"]["publicipaddress"] || []
+          rules = data["listportforwardingrulesresponse"]["portforwardingrule"] || []
           load rules
         end
 
