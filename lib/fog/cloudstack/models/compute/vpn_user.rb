@@ -12,10 +12,9 @@ module Fog
 
 
         def save
-          p self.inspect
-          # requires :username
-          # options = {'username' => username, 'password' => 123}
-          # service.add_vpn_user(options)
+          requires :username
+          options = {'username' => username, 'password' => password}
+          service.add_vpn_user(options)
         end
 
         def destroy
