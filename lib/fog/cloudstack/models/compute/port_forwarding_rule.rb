@@ -32,7 +32,7 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_port_forwarting_rule({'id' => rule_id})
+          service.delete_port_forwarting_rule({'id' => self.id})
         end
 
       end  #Ip
