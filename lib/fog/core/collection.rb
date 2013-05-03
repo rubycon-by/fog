@@ -48,6 +48,7 @@ module Fog
     end
 
     def create(attributes = {})
+      p attributes
       object = new(attributes)
       object.save
       object
