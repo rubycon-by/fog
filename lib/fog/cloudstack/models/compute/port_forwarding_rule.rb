@@ -30,7 +30,7 @@ module Fog
             'publicport' => public_port,
             'protocol' => protocol,
             'virtualmachineid' => virtual_machine_id,
-            'ipaddressid' => ip_address_id
+            'ipaddressid' => pfr_ip
           }
           service.create_port_forwarding_rule(options)
         end
