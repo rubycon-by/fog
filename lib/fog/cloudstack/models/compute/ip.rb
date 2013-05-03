@@ -48,6 +48,15 @@ module Fog
         # attribute :hypervisor
 
 
+        def enable_nat server_id
+          requires :id
+          data = service.enable_static_nat({'virtualmachineid' => server_id})
+        end
+
+        def disable_nat
+          requires :id
+          data = service.disable_static_nat({'ipaddressid' => self.id})
+        end
 
         def save
           requires :zone_id

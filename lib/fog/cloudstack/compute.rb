@@ -88,7 +88,9 @@ module Fog
       request :deploy_virtual_machine
       request :destroy_virtual_machine
       request :disable_user
+      request :disable_static_nat
       request :enable_user
+      request :enable_static_nat
       request :extract_iso
       request :extract_template
       request :generate_usage_records
