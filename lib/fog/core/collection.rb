@@ -50,6 +50,7 @@ module Fog
     def create(attributes = {})
       p attributes
       object = new(attributes)
+      p object.inspect
       object.save
       object
     end

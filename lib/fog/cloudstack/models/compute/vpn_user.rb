@@ -10,8 +10,8 @@ module Fog
         attribute :domain_name,    :aliases => 'domainname'
 
 
-        def save attributes
-          p attributes
+        def save
+          p self.inspect
           # requires :username
           # options = {'username' => username, 'password' => 123}
           # service.add_vpn_user(options)
