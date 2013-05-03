@@ -139,6 +139,7 @@ module Fog
       request :list_templates
       request :list_usage_records
       request :list_users
+      request :list_vpn_users
       request :list_virtual_machines
       request :list_volumes
       request :list_zones
