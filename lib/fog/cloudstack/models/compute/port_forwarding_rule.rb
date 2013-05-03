@@ -18,6 +18,10 @@ module Fog
         attribute :cidrlist,    :aliases => 'cidrlist'
 
 
+        def ip
+          service.ips.get ip_address_id
+        end
+
         def save
           requires :private_port, :public_port, :protocol, :virtual_machine_id
           options = {
@@ -25,7 +29,7 @@ module Fog
             'publicport' => public_port,
             'protocol' => protocol,
             'virtualmachineid' => virtual_machine_id,
-            'ipaddressid' => self.id
+            'ipaddressid' => ip
           }
           service.create_port_forwarding_rule(options)
         end
