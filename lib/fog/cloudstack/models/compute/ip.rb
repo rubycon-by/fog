@@ -23,6 +23,11 @@ module Fog
           service.port_forwarding_rules.all({'ipaddressid' => self.id})
         end
 
+        def load_balancers
+          requires :id
+          service.load_balancers.all({'publicipid' => self.id})
+        end
+
         def enable_nat server_id
           requires :id
           data = service.enable_static_nat({'ipaddressid' => self.id,'virtualmachineid' => server_id})

@@ -39,9 +39,9 @@ module Fog
           service.delete_load_balancer_rule({'id' => self.id})
         end
 
-        def update
+        def update options
           requires :id
-          service.update_load_balancer_rule({'id' => self.id})
+          service.update_load_balancer_rule(options.merge!({'id' => self.id})
         end
 
       end  #Ip
