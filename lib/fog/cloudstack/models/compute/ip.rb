@@ -20,12 +20,12 @@ module Fog
 
         def enable_vpn
           requires :id
-          create_remote_access_vpn({'publicipid' => self.id})
+          service.create_remote_access_vpn({'publicipid' => self.id})
         end
 
         def disable_vpn
           requires :id
-          delete_remote_access_vpn({'publicipid' => self.id})
+          service.delete_remote_access_vpn({'publicipid' => self.id})
         end
 
         def port_forwarding_rules
