@@ -1,0 +1,29 @@
+require 'fog/core/collection'
+require 'fog/cloudstack/models/compute/iso'
+
+module Fog
+  module Compute
+    class Cloudstack
+
+      class Ips < Fog::Collection
+
+        model Fog::Compute::Cloudstack::Ip
+
+        def all(attributes={})
+          response = service.list_public_ip_addresses
+          data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
+          load(data)
+        end
+
+        def get(ip_id)
+          if ip = service.list_virtual_machines('id' => ip_id)["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
+            new(ip)
+          end
+        rescue Fog::Compute::Cloudstack::BadRequest
+          nil
+        end
+      end
+
+    end
+  end
+end

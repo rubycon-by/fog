@@ -21,6 +21,8 @@ module Fog
       model :address
       model :disk_offering
       collection :disk_offerings
+      model :ip
+      collection :ips
       model :iso
       collection :isos
       model :flavor
@@ -140,6 +142,7 @@ module Fog
       request :register_user_keys
       request :register_template
       request :register_iso
+      request :release_ip_address
       request :remove_from_load_balancer_rule
       request :reset_password_for_virtual_machine
       request :revoke_security_group_ingress
