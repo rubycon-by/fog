@@ -33,8 +33,8 @@ module Fog
       collection :servers
       model :image
       collection :images
-      model :port_forwarding_rule
-      collection :port_forwarding_rules
+      model :port_forwarting_rule
+      collection :port_forwarting_rules
       model :security_group
       collection :security_groups
       model :security_group_rule
