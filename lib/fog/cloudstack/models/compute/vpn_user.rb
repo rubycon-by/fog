@@ -5,6 +5,7 @@ module Fog
 
         identity :id,    :aliases => 'id'
         attribute :username,    :aliases => 'username'
+        attribute :password,    :aliases => 'password'
         attribute :account,    :aliases => 'account'
         attribute :domain_id,    :aliases => 'domainid'
         attribute :domain_name,    :aliases => 'domainname'
