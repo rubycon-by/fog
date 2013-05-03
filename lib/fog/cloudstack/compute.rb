@@ -33,6 +33,8 @@ module Fog
       collection :servers
       model :image
       collection :images
+      model :load_balancer
+      collection :load_balancers
       model :port_forwarding_rule
       collection :port_forwarding_rules
       model :security_group
@@ -157,6 +159,7 @@ module Fog
       request :update_template
       request :update_account
       request :update_domain
+      request :update_load_balancer_rule
       request :update_user
       request :update_resource_count
       request :update_template
