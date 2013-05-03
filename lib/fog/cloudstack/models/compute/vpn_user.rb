@@ -12,6 +12,7 @@ module Fog
 
         def save attributes={}
           requires :username
+          p attributes
           service.add_vpn_user({'username' => self.username}.merge!(attributes))
         end
 
