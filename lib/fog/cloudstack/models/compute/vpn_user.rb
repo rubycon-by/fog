@@ -11,9 +11,9 @@ module Fog
 
 
         def save user_attributes = {}
-          p user_attributes
-          requires :username
-          options = {'username' => username, 'password' => password}
+          p self.inspect
+          # requires :username
+          options = {'username' => username, 'password' => 123}
           service.add_vpn_user(options)
         end
 
