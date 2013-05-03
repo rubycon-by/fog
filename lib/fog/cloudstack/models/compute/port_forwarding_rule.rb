@@ -27,12 +27,12 @@ module Fog
             'virtualmachineid' => virtual_machine_id,
             'ipaddressid' => self.id
           }
-          service.create_port_forwarting_rule(options)
+          service.create_port_forwarding_rule(options)
         end
 
         def destroy
           requires :id
-          service.delete_port_forwarting_rule({'id' => self.id})
+          service.delete_port_forwarding_rule({'id' => self.id})
         end
 
       end  #Ip
