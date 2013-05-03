@@ -10,10 +10,10 @@ module Fog
         attribute :domain_name,    :aliases => 'domainname'
 
 
-        def save vpn_user_password, attributes={}
+        def save
           requires :username
-          p vpn_user_password
-          service.add_vpn_user({'username' => self.username}.merge!(attributes))
+          options = {'username' => username, 'password' => password}
+          service.add_vpn_user(options)
         end
 
         def destroy
