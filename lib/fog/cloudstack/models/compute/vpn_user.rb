@@ -17,7 +17,7 @@ module Fog
 
         def destroy
           requires :username
-          service.delete_vpn_user({'username' => self.username})
+          service.remove_vpn_user({'username' => self.username})
         end
 
       end  #Ip
