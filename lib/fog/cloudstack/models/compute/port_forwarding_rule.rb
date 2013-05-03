@@ -23,7 +23,8 @@ module Fog
         end
 
         def save pfr_ip_address = nil
-          p service.ips.get ip_address_id
+          a = service.ips.get ip_address_id
+          p a.id
           p ip_address_id
           # requires :private_port, :public_port, :protocol, :virtual_machine_id
           # pfr_ip = ip || pfr_ip_address
