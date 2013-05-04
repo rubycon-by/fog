@@ -9,6 +9,8 @@ module Fog
 
         model Fog::Compute::Cloudstack::LoadBalancer
 
+        alias_method :find, :get
+
         def all(attributes={})
           response = service.list_load_balancer_rules attributes
           data = response["listloadbalancerrulesresponse"]["loadbalancerrule"] || []

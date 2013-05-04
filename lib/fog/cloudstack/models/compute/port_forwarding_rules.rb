@@ -9,6 +9,8 @@ module Fog
 
         model Fog::Compute::Cloudstack::PortForwardingRule
 
+        alias_method :find, :get
+
         def all(attributes={})
           response = service.list_port_forwarding_rules attributes
           data = response["listportforwardingrulesresponse"]["portforwardingrule"] || []
