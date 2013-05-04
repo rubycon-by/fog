@@ -45,6 +45,10 @@ module Fog
           service.load_balancers.all({'publicipid' => self.id})
         end
 
+        def static_nat_enabled?
+          requires :is_static_nat
+          self.is_static_nat
+        end
 
         def source_nat?
           requires :is_source_nat
