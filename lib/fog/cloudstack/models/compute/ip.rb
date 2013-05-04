@@ -22,7 +22,7 @@ module Fog
           requires :id
           response = service.list_remote_access_vpns({'publicipid' => self.id})
           data = response['listremoteaccessvpnsresponse']['remoteaccessvpn']
-          res = data ? data.first.presharedkey : false
+          res = data ? data.first.fetch('presharedkey') : false
         end
 
         def enable_vpn
