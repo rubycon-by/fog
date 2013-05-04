@@ -18,6 +18,13 @@ module Fog
         attribute :state,    :aliases => 'state'
 
 
+        def vpn_enabled?
+          requires :id
+          response = service.list_remote_access_vpns({'publicipid' => self.id})
+          data = response['listremoteaccessvpnsresponse']['remoteaccessvpn']
+          res = data ? data.presharedkey : false
+        end
+
         def enable_vpn
           requires :id
           service.create_remote_access_vpn({'publicipid' => self.id})
