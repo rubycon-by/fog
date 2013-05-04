@@ -9,7 +9,7 @@ module Fog
 
         model Fog::Compute::Cloudstack::LoadBalancer
 
-        alias_method :find, :get
+        alias_method :get, :find
 
         def all(attributes={})
           response = service.list_load_balancer_rules attributes
