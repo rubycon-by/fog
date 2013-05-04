@@ -135,6 +135,7 @@ module Fog
       request :list_pods
       request :list_port_forwarding_rules
       request :list_public_ip_addresses
+      request :list_remote_access_vpns
       request :list_resource_limits
       request :list_security_groups
       request :list_service_offerings
