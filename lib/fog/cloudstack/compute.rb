@@ -188,7 +188,6 @@ module Fog
           @port                         = options[:cloudstack_port]    || 443
           @scheme                       = options[:cloudstack_scheme]  || 'https'
           @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}#{@path}", options[:cloudstack_persistent], {:ssl_verify_peer => false})
-          p 'real initialize'
         end
 
         def reload
@@ -230,7 +229,7 @@ module Fog
           elsif has_keys?
             params, headers = authorize_api_keys(params)
           end
-          p 'real request'
+          p "real request #{params}"
           response = issue_request(params,headers)
           response = Fog::JSON.decode(response.body) unless response.body.empty?
           response
@@ -274,7 +273,7 @@ module Fog
               :method => method,
               :expects => expects
             })
-
+          p "issue_request #{params}"
           rescue Excon::Errors::HTTPStatusError => error
             error_response = Fog::JSON.decode(error.response.body)
 
