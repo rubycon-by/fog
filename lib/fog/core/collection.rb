@@ -7,6 +7,7 @@ module Fog
     include Fog::Core::DeprecatedConnectionAccessors
 
     attr_reader :service
+    attr_accessor :filter_attributes
 
     Array.public_instance_methods(false).each do |method|
       unless [:reject, :select, :slice].include?(method.to_sym)
@@ -70,10 +71,6 @@ module Fog
       @loaded = false
       @filter_attributes = attributes
       merge_attributes(attributes)
-    end
-
-    def filter_attributes
-      @filter_attributes
     end
 
 
