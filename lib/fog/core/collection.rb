@@ -121,6 +121,7 @@ module Fog
           :service => service
         }.merge(attributes)
       )
+      @filter_attributes = attributes
     end
 
     def reload
