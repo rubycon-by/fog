@@ -266,6 +266,7 @@ module Fog
         end
 
         def issue_request(params={},headers={},method='GET',expects=200)
+          p "issue_request #{params}"
           begin
             @connection.request({
               :query => params,
@@ -273,7 +274,6 @@ module Fog
               :method => method,
               :expects => expects
             })
-          p "issue_request #{params}"
           rescue Excon::Errors::HTTPStatusError => error
             error_response = Fog::JSON.decode(error.response.body)
 
