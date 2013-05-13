@@ -73,7 +73,7 @@ module Fog
       @loaded = false
       @filter_attributes = attributes
       merge_attributes(attributes)
-      p "initialize method"
+      p "initialize method -- attributes"
     end
 
 
@@ -125,7 +125,7 @@ module Fog
           :service => service
         }.merge(attributes)
       )
-      p "new method"
+      p "new method -- #{attributes}"
     end
 
     def reload
