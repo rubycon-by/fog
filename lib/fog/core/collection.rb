@@ -73,7 +73,7 @@ module Fog
       @loaded = false
       @filter_attributes = attributes
       merge_attributes(attributes)
-      p "initialize method -- attributes"
+      p "initialize method -- #{attributes}"
     end
 
 
