@@ -72,6 +72,10 @@ module Fog
       merge_attributes(attributes)
     end
 
+    def filter_attributes
+      @filter_attributes
+    end
+
 
     remove_method :inspect
     def inspect
