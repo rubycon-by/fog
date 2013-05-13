@@ -71,6 +71,7 @@ module Fog
       @loaded = false
       @filter_attributes = attributes
       merge_attributes(attributes)
+      p "initialize method -- #{attributes}"
     end
 
 
@@ -122,6 +123,7 @@ module Fog
         }.merge(attributes)
       )
       @filter_attributes = attributes
+      p "new method -- #{attributes}"
     end
 
     def reload
