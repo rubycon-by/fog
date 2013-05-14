@@ -14,7 +14,7 @@ module Fog
         class_eval <<-EOS, __FILE__, __LINE__
           def #{method}(*args)
             unless @loaded
-              p "#{method}"
+              p "!!!alert!!! #{method}"
               lazy_load
             end
             super
