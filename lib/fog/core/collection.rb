@@ -72,10 +72,10 @@ module Fog
       @service = attributes.delete(:service)
       @loaded = false
       p "pre collection initialize #{attributes}"
-      attributes
-      # t = merge_attributes(attributes)
-      # p "collection initialize #{t}"
-      # t
+      # attributes
+      t = merge_attributes(attributes)
+      p "collection initialize #{t}"
+      t
     end
 
 
@@ -105,12 +105,12 @@ module Fog
     end
 
     def load(objects)
+      p "load method #{objects}"
       clear
       for object in objects
         self << new(object)
       end
       self
-      p "load method"
     end
 
     def model
