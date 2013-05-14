@@ -231,7 +231,6 @@ module Fog
           end
           response = issue_request(params,headers)
           response = Fog::JSON.decode(response.body) unless response.body.empty?
-          p "real request #{response}"
           response
         end
 
