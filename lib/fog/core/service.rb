@@ -53,7 +53,6 @@ module Fog
       end
 
       def new(options={})
-        p "service new -- #{options}"
         options = Fog.symbolize_credentials(options)
         options = fetch_credentials(options).merge(options)
         validate_options(options)
@@ -90,10 +89,10 @@ module Fog
           for collection in collections
             require [@model_path, collection].join('/')
             constant = collection.to_s.split('_').map {|characters| characters[0...1].upcase << characters[1..-1]}.join('')
-            p 'setup_requirements call'
             service::Collections.module_eval <<-EOS, __FILE__, __LINE__
               def #{collection}(attributes = {})
                 p 'service ips'
+                #{service}::#{constant}.new({:service => self}.merge(attributes))
                 #{service}::#{constant}.new({:service => self}.merge(attributes))
               end
             EOS
