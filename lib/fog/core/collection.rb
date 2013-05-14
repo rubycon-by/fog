@@ -52,7 +52,7 @@ module Fog
       object = new(attributes)
       object.save
       object
-      # p "create method"
+      p "create method"
     end
 
     def destroy(identity)
@@ -109,7 +109,7 @@ module Fog
         self << new(object)
       end
       self
-      # p "load method"
+      p "load method"
     end
 
     def model
