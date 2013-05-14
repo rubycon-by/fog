@@ -69,11 +69,11 @@ module Fog
     # @return [Fog::Collection]
     #
     def initialize(attributes = {})
-      # @service = attributes.delete(:service)
+      @service = attributes.delete(:service)
       @loaded = false
       p "pre collection initialize #{attributes}"
       t = merge_attributes(attributes)
-      p "collection initialize"
+      p "collection initialize #{merge_attributes(attributes)}"
       t
     end
 
