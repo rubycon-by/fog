@@ -71,8 +71,8 @@ module Fog
     def initialize(attributes = {})
       @service = attributes.delete(:service)
       @loaded = false
+      p "initialize method -- #{attributes}"
       merge_attributes(attributes)
-      # p "initialize method -- #{attributes}"
     end
 
 
