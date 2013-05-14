@@ -229,9 +229,9 @@ module Fog
           elsif has_keys?
             params, headers = authorize_api_keys(params)
           end
-          p "real request #{params}"
           response = issue_request(params,headers)
           response = Fog::JSON.decode(response.body) unless response.body.empty?
+          p "real request #{response}"
           response
         end
 
@@ -266,7 +266,7 @@ module Fog
         end
 
         def issue_request(params={},headers={},method='GET',expects=200)
-          p "issue_request #{params} --- #{headers}"
+          # p "issue_request #{params} --- #{headers}"
           begin
             @connection.request({
               :query => params,
