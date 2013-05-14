@@ -14,6 +14,7 @@ module Fog
         class_eval <<-EOS, __FILE__, __LINE__
           def #{method}(*args)
             unless @loaded
+              p "#{method}"
               lazy_load
             end
             super
@@ -69,7 +70,7 @@ module Fog
     # @return [Fog::Collection]
     #
     def initialize(attributes = {})
-      # @service = attributes.delete(:service)
+      @service = attributes.delete(:service)
       @loaded = false
       p "pre collection initialize #{attributes}"
       t = merge_attributes(attributes)

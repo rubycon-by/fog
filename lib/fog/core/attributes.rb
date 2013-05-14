@@ -138,19 +138,17 @@ module Fog
       end
 
       def merge_attributes(new_attributes = {})
-        # p "merge_attributes #{new_attributes}"
-        # for key, value in new_attributes
-        #   unless self.class.ignored_attributes.include?(key)
-        #     if aliased_key = self.class.aliases[key]
-        #       send("#{aliased_key}=", value)
-        #     elsif self.respond_to?("#{key}=",true)
-        #       send("#{key}=", value)
-        #     else
-        #       attributes[key] = value
-        #     end
-        #   end
-        # end
-        # p "merge_attributes #{self}"
+        for key, value in new_attributes
+          unless self.class.ignored_attributes.include?(key)
+            if aliased_key = self.class.aliases[key]
+              send("#{aliased_key}=", value)
+            elsif self.respond_to?("#{key}=",true)
+              send("#{key}=", value)
+            else
+              attributes[key] = value
+            end
+          end
+        end
         self
       end
 
