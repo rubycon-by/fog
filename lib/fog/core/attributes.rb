@@ -138,6 +138,7 @@ module Fog
       end
 
       def merge_attributes(new_attributes = {})
+        p "merge_attributes #{new_attributes}"
         for key, value in new_attributes
           unless self.class.ignored_attributes.include?(key)
             if aliased_key = self.class.aliases[key]
@@ -149,6 +150,7 @@ module Fog
             end
           end
         end
+        p "merge_attributes #{self}"
         self
       end
 
