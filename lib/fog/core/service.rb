@@ -90,6 +90,7 @@ module Fog
           for collection in collections
             require [@model_path, collection].join('/')
             constant = collection.to_s.split('_').map {|characters| characters[0...1].upcase << characters[1..-1]}.join('')
+            p 'setup_requirements call'
             service::Collections.module_eval <<-EOS, __FILE__, __LINE__
               def #{collection}(attributes = {})
                 p 'service ips'
