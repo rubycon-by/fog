@@ -67,6 +67,7 @@ module Fog
           service::Real.send(:include, service::NoLeakInspector)
           service::Real.new(options)
         end
+        p "service new -- #{options}"
       end
 
       def fetch_credentials(options)
