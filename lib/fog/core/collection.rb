@@ -71,8 +71,9 @@ module Fog
     def initialize(attributes = {})
       @service = attributes.delete(:service)
       @loaded = false
-      p "initialize method -- #{attributes}"
-      merge_attributes(attributes)
+      t = merge_attributes(attributes)
+      p t
+      t
     end
 
 
@@ -118,7 +119,7 @@ module Fog
       unless attributes.is_a?(::Hash)
         raise(ArgumentError.new("Initialization parameters must be an attributes hash, got #{attributes.class} #{attributes.inspect}"))
       end
-      p attributes
+      p 'collection new'
       model.new(
         {
           :collection => self,
