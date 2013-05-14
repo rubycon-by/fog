@@ -17,6 +17,7 @@ module Fog
         Fog::Logger.deprecation("Passing :connection option is deprecated, use :service instead [light_black](#{caller.first})[/]")
         @service = new_attributes[:connection]
       end
+      p "model new #{new_attributes}"
       merge_attributes(new_attributes)
     end
 

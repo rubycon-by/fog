@@ -121,9 +121,7 @@ module Fog
       unless attributes.is_a?(::Hash)
         raise(ArgumentError.new("Initialization parameters must be an attributes hash, got #{attributes.class} #{attributes.inspect}"))
       end
-      p "#{self.class}"
       p 'collection new'
-      p model
       model.new(
         {
           :collection => self,
