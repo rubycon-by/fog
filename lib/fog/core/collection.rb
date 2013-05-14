@@ -73,7 +73,7 @@ module Fog
       @loaded = false
       p "pre collection initialize #{attributes}"
       # t = merge_attributes(attributes)
-      p "collection initialize #{t}"
+      p "collection initialize"
       self
     end
 
