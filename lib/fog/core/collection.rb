@@ -14,7 +14,6 @@ module Fog
         class_eval <<-EOS, __FILE__, __LINE__
           def #{method}(*args)
             unless @loaded
-              p "!!!alert #{method}"
               lazy_load
             end
             super
@@ -27,7 +26,6 @@ module Fog
       class_eval <<-EOS, __FILE__, __LINE__
         def #{method}(*args)
           unless @loaded
-            p "!!!alert #{method}"
             lazy_load
           end
           data = super
@@ -134,6 +132,7 @@ module Fog
 
     def reload
       clear
+      p "!!! reload"
       lazy_load
       self
     end
