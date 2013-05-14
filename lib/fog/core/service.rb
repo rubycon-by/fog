@@ -93,7 +93,7 @@ module Fog
             service::Collections.module_eval <<-EOS, __FILE__, __LINE__
               def #{collection}(attributes = {})
                 #{service}::#{constant}.new({:service => self}.merge(attributes))
-                p #{collection} -- #{attributes}
+                p '666666666'
               end
             EOS
           end
