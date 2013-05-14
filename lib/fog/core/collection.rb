@@ -123,6 +123,7 @@ module Fog
       end
       p "#{self.class}"
       p 'collection new'
+      p model
       model.new(
         {
           :collection => self,
