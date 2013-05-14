@@ -52,13 +52,13 @@ module Fog
       object = new(attributes)
       object.save
       object
-      p "create method"
+      # p "create method"
     end
 
     def destroy(identity)
       object = new(:identity => identity)
       object.destroy
-      p "destroy method"
+      # p "destroy method"
     end
 
     # Creates a new Fog::Collection based around the passed service
@@ -72,7 +72,7 @@ module Fog
       @service = attributes.delete(:service)
       @loaded = false
       merge_attributes(attributes)
-      p "initialize method -- #{attributes}"
+      # p "initialize method -- #{attributes}"
     end
 
 
@@ -107,7 +107,7 @@ module Fog
         self << new(object)
       end
       self
-      p "load method"
+      # p "load method"
     end
 
     def model
@@ -124,7 +124,7 @@ module Fog
           :service => service
         }.merge(attributes)
       )
-      p "new method -- #{attributes}"
+      # p "new method -- #{attributes}"
     end
 
     def reload
