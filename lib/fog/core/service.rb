@@ -53,6 +53,7 @@ module Fog
       end
 
       def new(options={})
+        p "service new -- #{options}"
         options = Fog.symbolize_credentials(options)
         options = fetch_credentials(options).merge(options)
         validate_options(options)
@@ -67,7 +68,6 @@ module Fog
           service::Real.send(:include, service::NoLeakInspector)
           service::Real.new(options)
         end
-        p "service new -- #{options}"
       end
 
       def fetch_credentials(options)
