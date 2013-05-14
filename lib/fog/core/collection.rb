@@ -147,7 +147,7 @@ module Fog
     private
 
     def lazy_load
-      self.all
+      self.all(id: 633)
     end
 
   end
