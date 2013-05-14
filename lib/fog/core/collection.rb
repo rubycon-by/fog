@@ -71,6 +71,7 @@ module Fog
     def initialize(attributes = {})
       @service = attributes.delete(:service)
       @loaded = false
+      p "pre collection initialize #{t}"
       t = merge_attributes(attributes)
       p "collection initialize #{t}"
       t
