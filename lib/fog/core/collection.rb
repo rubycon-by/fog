@@ -69,6 +69,7 @@ module Fog
     def initialize(attributes = {})
       @service = attributes.delete(:service)
       @loaded = false
+      @filter_attributes = attributes || {}
       merge_attributes(attributes)
     end
 
@@ -139,7 +140,7 @@ module Fog
     private
 
     def lazy_load
-      self.all
+      self.all @filter_attributes
     end
 
   end

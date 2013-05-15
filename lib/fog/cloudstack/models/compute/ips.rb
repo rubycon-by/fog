@@ -10,7 +10,7 @@ module Fog
         model Fog::Compute::Cloudstack::Ip
 
         def all(attributes={})
-          response = service.list_public_ip_addresses attributes
+          response = service.list_public_ip_addresses @filter_attributes.merge!(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           load(data)
         end

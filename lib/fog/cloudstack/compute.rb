@@ -265,7 +265,6 @@ module Fog
         end
 
         def issue_request(params={},headers={},method='GET',expects=200)
-          # p "issue_request #{params} --- #{headers}"
           begin
             @connection.request({
               :query => params,
