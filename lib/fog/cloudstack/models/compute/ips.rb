@@ -16,7 +16,6 @@ module Fog
         end
 
         def get(ip_id)
-          p test
           response = service.list_public_ip_addresses(scoped_attributes(id: ip_id))
           if ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
             new(ip)
