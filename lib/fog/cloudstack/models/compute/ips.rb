@@ -10,12 +10,14 @@ module Fog
         model Fog::Compute::Cloudstack::Ip
 
         def all(attributes={})
+          p @filter_attributes
           response = service.list_public_ip_addresses @filter_attributes.merge!(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           load(data)
         end
 
         def get(ip_id)
+          p @filter_attributes
           response = service.list_public_ip_addresses({id: ip_id}.merge!(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value })
           if ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
             new(ip)
