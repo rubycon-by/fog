@@ -11,7 +11,7 @@ module Fog
 
         def all(attributes={})
           p "#{attributes} -- #{@filter_attributes}"
-          response = service.list_public_ip_addresses @filter_attributes.merge!(attributes)
+          response = service.list_public_ip_addresses scoped_attributes(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           load(data)
         end
@@ -29,7 +29,7 @@ module Fog
         protected
 
         def scoped_attributes attributes = {}
-          attributes.merge!(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
+          @filter_attributes.merge!(attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
         end
 
       end
