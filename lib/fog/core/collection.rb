@@ -52,13 +52,11 @@ module Fog
       object = new(attributes)
       object.save
       object
-      p "create method"
     end
 
     def destroy(identity)
       object = new(:identity => identity)
       object.destroy
-      # p "destroy method"
     end
 
     # Creates a new Fog::Collection based around the passed service
@@ -69,12 +67,9 @@ module Fog
     # @return [Fog::Collection]
     #
     def initialize(attributes = {})
-      # @service = attributes.delete(:service)
+      @service = attributes.delete(:service)
       @loaded = false
-      # p "pre collection initialize #{attributes}"
-      t = merge_attributes(attributes)
-      # p "collection initialize"
-      t
+      merge_attributes(attributes)
     end
 
 
@@ -104,7 +99,6 @@ module Fog
     end
 
     def load(objects)
-      p "load method #{objects}"
       clear
       for object in objects
         self << new(object)
@@ -120,14 +114,12 @@ module Fog
       unless attributes.is_a?(::Hash)
         raise(ArgumentError.new("Initialization parameters must be an attributes hash, got #{attributes.class} #{attributes.inspect}"))
       end
-      p "collection new #{self.inspect}"
       model.new(
         {
           :collection => self,
           :service => service
         }.merge(attributes)
       )
-      # p "new method -- #{attributes}"
     end
 
     def reload
