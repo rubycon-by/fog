@@ -27,8 +27,7 @@ module Fog
         protected
 
         def scoped_attributes attributes = {}
-          self.filter_attributes
-          attributes.merge!(){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
+          attributes.merge!(self.filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
         end
 
       end
