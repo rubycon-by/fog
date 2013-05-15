@@ -17,6 +17,7 @@ module Fog
 
         def get(ip_id)
           p test
+          p @filter_attributes
           response = service.list_public_ip_addresses({id: ip_id}).merge!(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
           if ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
             new(ip)
