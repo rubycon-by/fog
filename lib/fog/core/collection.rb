@@ -69,7 +69,9 @@ module Fog
     def initialize(attributes = {})
       @service = attributes.delete(:service)
       @loaded = false
+      p attributes
       @filter_attributes = attributes || {}
+      p @filter_attributes
       merge_attributes(@filter_attributes)
     end
 
