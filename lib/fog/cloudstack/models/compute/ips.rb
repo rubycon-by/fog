@@ -25,7 +25,6 @@ module Fog
           nil
         end
 
-        protected
 
         def test
           p @filter_attributes
