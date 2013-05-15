@@ -10,7 +10,6 @@ module Fog
         model Fog::Compute::Cloudstack::Ip
 
         def all(attributes={})
-          p "#{attributes} -- #{@filter_attributes}"
           response = service.list_public_ip_addresses scoped_attributes(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           load(data)
@@ -30,7 +29,7 @@ module Fog
 
         def scoped_attributes attributes = {}
           p "#{attributes} -- #{@filter_attributes}"
-          @filter_attributes.merge!(attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
+          @filter_attributes.merge(attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
         end
 
       end
