@@ -73,8 +73,7 @@ module Fog
       # p "collection initialize #{attributes}"
       @service = attributes.delete(:service)
       @loaded = false
-      @filter_attributes = {}.merge(attributes)
-      merge_attributes(@filter_attributes)
+      merge_attributes(attributes)
     end
 
 
