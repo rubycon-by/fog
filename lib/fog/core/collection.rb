@@ -13,9 +13,6 @@ module Fog
       unless [:reject, :select, :slice].include?(method.to_sym)
         class_eval <<-EOS, __FILE__, __LINE__
           def #{method}(*args)
-            test = *args
-            p test
-            p "#{method}"
             unless @loaded
               lazy_load
             end
@@ -73,7 +70,8 @@ module Fog
       # p "collection initialize #{attributes}"
       @service = attributes.delete(:service)
       @loaded = false
-      merge_attributes(attributes)
+      @filter_attributes = {}.merge(attributes)
+      merge_attributes(@filter_attributes)
     end
 
 
