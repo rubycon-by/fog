@@ -11,12 +11,14 @@ module Fog
 
         def initialize args
           p "tt = #{args}"
+
+          p "tt = #{args.class}"
           super
         end
 
         def all(attributes={})
-          # p "#{attributes} -- #{@filter_attributes}"
-          response = service.list_public_ip_addresses @filter_attributes.merge!(attributes)
+          p "#{attributes} -- #{@filter_attributes}"
+          response = service.list_public_ip_addresses attributes
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           load(data)
         end
