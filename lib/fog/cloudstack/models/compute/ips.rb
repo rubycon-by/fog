@@ -13,13 +13,14 @@ module Fog
           p "#{attributes} -- #{@filter_attributes}"
           response = service.list_public_ip_addresses attributes
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
-          load(data)
+          load(data) & self.to_a
         end
 
         def get(ip_id)
-          response = service.list_public_ip_addresses(scoped_attributes(id: ip_id))
+          response = service.list_public_ip_addresses(id: ip_id)
           if ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
-            new(ip)
+            res = new(ip)
+            return self.to_a.include?(res) ? res : nil
           end
         rescue Fog::Compute::Cloudstack::BadRequest
           nil
