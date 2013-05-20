@@ -9,13 +9,6 @@ module Fog
 
         model Fog::Compute::Cloudstack::Ip
 
-        def initialize args
-          p "tt = #{args}"
-
-          p "tt = #{args.class}"
-          super
-        end
-
         def all(attributes={})
           p "#{attributes} -- #{@filter_attributes}"
           response = service.list_public_ip_addresses attributes

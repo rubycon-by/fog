@@ -70,8 +70,7 @@ module Fog
       # p "collection initialize #{attributes}"
       @service = attributes.delete(:service)
       @loaded = false
-      @filter_attributes = {}.merge(attributes)
-      merge_attributes(@filter_attributes)
+      merge_attributes(attributes)
     end
 
 
@@ -141,7 +140,8 @@ module Fog
     private
 
     def lazy_load
-      self.all @filter_attributes
+      p "i'm lasy load"
+      self.all
     end
 
   end
