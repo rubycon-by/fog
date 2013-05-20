@@ -66,8 +66,8 @@ module Fog
     #
     # @return [Fog::Collection]
     #
-    def initialize(args = {})
-      p "collection initialize #{args}"
+    def initialize(attributes = {})
+      p "collection initialize #{attributes.to_json}"
       @service = attributes.delete(:service)
       @loaded = false
       @filter_attributes = {}.merge(attributes)
