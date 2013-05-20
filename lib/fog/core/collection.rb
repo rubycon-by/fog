@@ -15,6 +15,7 @@ module Fog
           def #{method}(*args)
             test = *args
             p test
+            p method
             unless @loaded
               lazy_load
             end
