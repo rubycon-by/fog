@@ -13,7 +13,8 @@ module Fog
       unless [:reject, :select, :slice].include?(method.to_sym)
         class_eval <<-EOS, __FILE__, __LINE__
           def #{method}(*args)
-            p #{*args}
+            test = *args
+            p test
             unless @loaded
               lazy_load
             end
