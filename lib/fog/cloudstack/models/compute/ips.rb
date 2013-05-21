@@ -18,7 +18,7 @@ module Fog
           tt = arr1 & arr2
           clear
           for object in tt
-            self << object
+            p object
           end
           self
         end
