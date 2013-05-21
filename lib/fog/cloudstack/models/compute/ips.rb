@@ -15,8 +15,6 @@ module Fog
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           tt = load(data) & self.to_a
           clear
-          p "#{load(data).to_a} -- #{self.to_a}"
-          p tt
           for object in tt
             self << object
           end
