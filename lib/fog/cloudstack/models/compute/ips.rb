@@ -19,7 +19,7 @@ module Fog
             self << object
           end
           p self.class
-          p self.inspect
+          p tt
           self
         end
 
