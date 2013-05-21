@@ -15,11 +15,11 @@ module Fog
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           tt = load(data) & self.to_a
           clear
+          p "#{load(data).to_a} -- #{self.to_a}"
           for object in tt
             self << object
           end
           p self.class
-          p "#{load(data).to_a} -- #{self.to_a}"
           self
         end
 
