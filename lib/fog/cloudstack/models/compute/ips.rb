@@ -14,7 +14,7 @@ module Fog
           response = service.list_public_ip_addresses attributes
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           clear
-          data.map{|x| new(x)}
+          data.map{|x| new(x)} & self.to_a
         end
 
         def get(ip_id)
