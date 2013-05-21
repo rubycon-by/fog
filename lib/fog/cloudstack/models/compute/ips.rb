@@ -14,7 +14,8 @@ module Fog
           response = service.list_public_ip_addresses attributes
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           arr1 = self.to_a
-          arr2 = load(data) & arr1
+          arr2 = load(data)
+          tt = arr1 & arr2
           clear
           for object in tt
             self << object
