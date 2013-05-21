@@ -19,7 +19,7 @@ module Fog
             self << object
           end
           p self.class
-          p "#{load(data).to_a} -- self.to_a"
+          p "#{load(data).to_a} -- #{self.to_a}"
           self
         end
 
