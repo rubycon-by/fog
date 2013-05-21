@@ -13,7 +13,8 @@ module Fog
           p "#{attributes} -- #{@filter_attributes}"
           response = service.list_public_ip_addresses attributes
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
-          tt = load(data) & self.to_a
+          arr1 = self.to_a
+          arr2 = load(data) & arr1
           clear
           for object in tt
             self << object
