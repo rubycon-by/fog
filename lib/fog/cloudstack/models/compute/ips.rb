@@ -23,14 +23,6 @@ module Fog
         rescue Fog::Compute::Cloudstack::BadRequest
           nil
         end
-
-
-      protected
-
-      def scoped_attributes attributes = {}
-        @filter_attributes ? attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } : attributes
-      end
-
       end
 
     end

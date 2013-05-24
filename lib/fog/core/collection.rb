@@ -136,6 +136,12 @@ module Fog
       Fog::JSON.encode(self.map {|member| member.attributes})
     end
 
+    protected
+
+    def scoped_attributes attributes = {}
+      @filter_attributes ? attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } : attributes
+    end
+
     private
 
     def lazy_load
