@@ -18,10 +18,7 @@ module Fog
 
         def get(ip_id)
           response = service.list_public_ip_addresses(scoped_attributes(id: ip_id))
-          if ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
-            res = new(ip)
-            return self.to_a.include?(res) ? res : nil
-          end
+          new(ip) if ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
         rescue Fog::Compute::Cloudstack::BadRequest
           nil
         end
