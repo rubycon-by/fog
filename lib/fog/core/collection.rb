@@ -142,6 +142,7 @@ module Fog
     private
 
     def lazy_load
+      p 'its lasy load'
       self.all
     end
 
