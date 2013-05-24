@@ -13,6 +13,7 @@ module Fog
           p "#{attributes} -- #{@filter_attributes}"
           response = service.list_public_ip_addresses attributes
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
+          @filter_attributes ||= attributes
           load(data)
         end
 
