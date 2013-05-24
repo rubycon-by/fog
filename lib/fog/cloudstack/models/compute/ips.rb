@@ -30,7 +30,7 @@ module Fog
         protected
 
         def scoped_attributes attributes = {}
-          attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } if @filter_attributes
+          attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } if @filter_attributes and attributes
         end
 
       end
