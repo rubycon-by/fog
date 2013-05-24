@@ -27,7 +27,7 @@ module Fog
         end
 
 
-        protected
+        # protected
 
         def scoped_attributes attributes = {}
           if @filter_attributes
