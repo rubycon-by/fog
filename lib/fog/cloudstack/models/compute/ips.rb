@@ -25,15 +25,11 @@ module Fog
         end
 
 
-        # protected
+      protected
 
-        def scoped_attributes attributes = {}
-          if @filter_attributes
-            attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value }
-          else
-            attributes
-          end
-        end
+      def scoped_attributes attributes = {}
+        @filter_attributes ? attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } : attributes
+      end
 
       end
 
