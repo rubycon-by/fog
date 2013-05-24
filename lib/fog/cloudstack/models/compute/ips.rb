@@ -12,7 +12,7 @@ module Fog
         def all(attributes={})
           response = service.list_public_ip_addresses scoped_attributes(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
-          @filter_attributes ||= attributes.except("command", "response", "sessionkey")
+          @filter_attributes = @filter_attributes.nil? ? {} : attributes.except("command", "response", "sessionkey")
           load(data)
         end
 
