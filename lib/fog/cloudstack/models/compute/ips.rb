@@ -10,7 +10,6 @@ module Fog
         model Fog::Compute::Cloudstack::Ip
 
         def all(attributes={})
-          p @filter_attributes
           response = service.list_public_ip_addresses scoped_attributes(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
           condition = !@filter_attributes.nil?
