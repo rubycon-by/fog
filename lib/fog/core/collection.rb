@@ -98,12 +98,17 @@ module Fog
       data
     end
 
-    def load(objects)
-      clear
-      for object in objects
-        self << new(object)
+    def load(objects, save_in_self = true)
+      if save_in_self
+        clear
+        for object in objects
+          self << new(object)
+        end
+        a = self
+      else
+        a = load(object)
       end
-      self
+       a
     end
 
     def model
