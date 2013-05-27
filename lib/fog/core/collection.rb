@@ -106,7 +106,7 @@ module Fog
         end
         a = self
       else
-        a = load(objects)
+        a = Collection.new.load(objects)
       end
        a
     end
