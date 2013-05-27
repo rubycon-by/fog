@@ -229,7 +229,6 @@ module Fog
           elsif has_keys?
             params, headers = authorize_api_keys(params)
           end
-
           response = issue_request(params,headers)
           response = Fog::JSON.decode(response.body) unless response.body.empty?
           response
@@ -273,7 +272,6 @@ module Fog
               :method => method,
               :expects => expects
             })
-
           rescue Excon::Errors::HTTPStatusError => error
             error_response = Fog::JSON.decode(error.response.body)
 

@@ -7,6 +7,7 @@ module Fog
     include Fog::Core::DeprecatedConnectionAccessors
 
     attr_reader :service
+    attr_accessor :filter_attributes
 
     Array.public_instance_methods(false).each do |method|
       unless [:reject, :select, :slice].include?(method.to_sym)
@@ -97,12 +98,17 @@ module Fog
       data
     end
 
-    def load(objects)
-      clear
-      for object in objects
-        self << new(object)
+    def load(objects, save_in_self = true)
+      if save_in_self
+        clear
+        for object in objects
+          self << new(object)
+        end
+        a = self
+      else
+        a = self.class.new.load(objects)
       end
-      self
+       a
     end
 
     def model
@@ -133,6 +139,12 @@ module Fog
 
     def to_json(options = {})
       Fog::JSON.encode(self.map {|member| member.attributes})
+    end
+
+    protected
+
+    def scoped_attributes attributes = {}
+      @filter_attributes ? attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } : attributes
     end
 
     private

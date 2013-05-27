@@ -88,23 +88,6 @@ module Fog
           }
         end
 
-        def update
-          requires :id
-
-          options = {
-            'id'               => id,
-            'bootable'         => bootable,
-            'displaytext'      => display_text,
-            'format'           => format,
-            'name'             => name,
-            'ostypeid'         => os_type_id,
-            'passwordenabled'  => password_enabled,
-          }
-
-          data = service.update_template(options)
-          merge_attributes(data['updatetemplateresponse'])
-        end
-
         def register_as_template
           requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
 

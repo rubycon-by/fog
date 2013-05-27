@@ -37,9 +37,9 @@ module Fog
 
         def port_forwarding_rules
           requires :id
-          if state = 'Allocated'
-            service.port_forwarding_rules.all({'ipaddressid' => self.id})
-          end
+          service.port_forwarding_rules.all({'ipaddressid' => self.id})
+        rescue Fog::Compute::Cloudstack::BadRequest
+          []
         end
 
         def load_balancers

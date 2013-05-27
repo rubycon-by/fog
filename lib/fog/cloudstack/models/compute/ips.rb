@@ -10,15 +10,18 @@ module Fog
         model Fog::Compute::Cloudstack::Ip
 
         def all(attributes={})
-          response = service.list_public_ip_addresses attributes
+          response = service.list_public_ip_addresses scoped_attributes(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
-          load(data)
+          condition = @filter_attributes.nil?
+          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
+          p condition
+          load(data, condition)
         end
 
         def get(ip_id)
-          if ip = service.list_public_ip_addresses('id' => ip_id)["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
-            new(ip)
-          end
+          response = service.list_public_ip_addresses(scoped_attributes(id: ip_id))
+          ip = response["listpublicipaddressesresponse"]["publicipaddress"].try(:first)
+          new(ip) if ip
         rescue Fog::Compute::Cloudstack::BadRequest
           nil
         end
