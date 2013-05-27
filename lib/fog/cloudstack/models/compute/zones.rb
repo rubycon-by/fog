@@ -19,7 +19,7 @@ module Fog
         end
 
         def get(zone_id)
-          if zone = service.list_zones('id' => zone_id)["listzonesresponse"]["zone"].first
+          if zone = service.list_zones('id' => zone_id)["listzonesresponse"]["zone"].try(:first)
             new(zone)
           end
         rescue Fog::Compute::Cloudstack::BadRequest

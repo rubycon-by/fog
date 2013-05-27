@@ -15,7 +15,7 @@ module Fog
         end
 
         def get(volume_id)
-          if volume = service.list_volumes('id' => volume_id)["listvolumesresponse"]["volume"].first
+          if volume = service.list_volumes('id' => volume_id)["listvolumesresponse"]["volume"].try(:first)
             new(volume)
           end
         rescue Fog::Compute::Cloudstack::BadRequest

@@ -15,7 +15,7 @@ module Fog
         end
 
         def get(snapshot_id)
-          snapshot = service.list_snapshots('id' => snapshot_id)["listsnapshotsresponse"]["snapshot"].first
+          snapshot = service.list_snapshots('id' => snapshot_id)["listsnapshotsresponse"]["snapshot"].try(:first)
           new(snapshot) if snapshot
         end
       end
