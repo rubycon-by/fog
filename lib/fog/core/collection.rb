@@ -106,7 +106,7 @@ module Fog
         end
         a = self
       else
-        a = load(object)
+        a = load(objects)
       end
        a
     end
