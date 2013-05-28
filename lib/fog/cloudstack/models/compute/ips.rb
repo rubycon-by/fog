@@ -12,10 +12,9 @@ module Fog
         def all(attributes={})
           response = service.list_public_ip_addresses scoped_attributes(attributes)
           data = response["listpublicipaddressesresponse"]["publicipaddress"] || []
-          condition = @filter_attributes.nil?
-          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
-          p condition
-          load(data, condition)
+          # condition = @filter_attributes.nil?
+          # @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
+          load(data)
         end
 
         def get(ip_id)

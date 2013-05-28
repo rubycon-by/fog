@@ -104,11 +104,11 @@ module Fog
         for object in objects
           self << new(object)
         end
-        a = self
+        result = self
       else
-        a = self.class.new.load(objects)
+        result = self.class.new.load(objects)
       end
-       a
+      result
     end
 
     def model
