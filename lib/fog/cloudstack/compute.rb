@@ -92,6 +92,7 @@ module Fog
       request :delete_snapshot
       request :delete_snapshot_policies
       request :delete_iso
+      request :delete_instance_group
       request :delete_template
       request :delete_user
       request :delete_volume
