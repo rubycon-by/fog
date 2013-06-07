@@ -106,7 +106,7 @@ module Fog
         end
         result = self
       else
-        result = self.class.new.load(objects)
+        result = self.class.new(:service => service).load(objects)
       end
       result
     end
