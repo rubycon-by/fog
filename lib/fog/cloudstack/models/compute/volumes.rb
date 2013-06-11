@@ -11,11 +11,13 @@ module Fog
 
         def all(params = {})
           data = service.list_volumes(params)["listvolumesresponse"]["volume"] || []
-          load(data)
+          condition = @filter_attributes.nil?
+          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
+          load(data, condition)
         end
 
         def get(volume_id)
-          if volume = service.list_volumes('id' => volume_id)["listvolumesresponse"]["volume"].first
+          if volume = service.list_volumes(scoped_attributes(id: volume_id))["listvolumesresponse"]["volume"].first
             new(volume)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
