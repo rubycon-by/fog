@@ -59,6 +59,10 @@ module Fog
       object.destroy
     end
 
+    def filter_attributes
+      @scoped_attributes || {}
+    end
+
     # Creates a new Fog::Collection based around the passed service
     #
     # @param [Hash] attributes
