@@ -9,16 +9,17 @@ module Fog
 
         model Fog::Compute::Cloudstack::LoadBalancer
 
-        alias_method :get, :find
 
         def all(attributes={})
-          response = service.list_load_balancer_rules attributes
+          response = service.list_load_balancer_rules scoped_attributes(attributes)
           data = response["listloadbalancerrulesresponse"]["loadbalancerrule"] || []
-          load(data)
+          condition = @filter_attributes.nil?
+          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
+          load(data, condition)
         end
 
         def get(balance_id)
-          if data = service.list_load_balancer_rules('id' => balance_id)["listloadbalancerrulesresponse"]["loadbalancerrule"].try(:first)
+          if data = service.list_load_balancer_rules(scoped_attributes(id: balance_id))["listloadbalancerrulesresponse"]["loadbalancerrule"].try(:first)
             new(data)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
