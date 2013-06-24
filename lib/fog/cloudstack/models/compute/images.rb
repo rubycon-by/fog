@@ -9,16 +9,24 @@ module Fog
 
         model Fog::Compute::Cloudstack::Image
 
-        def all(params = {})
-          data = service.list_templates(params)["listtemplatesresponse"]["template"] || []
-          condition = @filter_attributes.nil?
-          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
-          load(data, condition)
+        def all(filters={})
+          as_iso = filters.try(:delete, 'as_iso') || false
+          options = get_filter_options(filters, as_iso)
+
+          data = if as_iso
+            service.list_isos(options)["listisosresponse"]["iso"] || []
+          else
+            service.list_templates(options)["listtemplatesresponse"]["template"] || []
+          end
+          load(data)
         end
 
+        def get(image_id, filters={})
+          as_iso = filters.try(:delete, 'as_iso') || false
+          filter_option = get_filter_options(filters, as_iso)
+          options = filter_option.merge('id' => image_id)
 
-        def get(image_id)
-          if template = service.list_isos('id' => image_id)["listtemplatesresponse"]["template"].try(:first)
+          if template = service.list_templates(options)["listtemplatesresponse"]["template"].try(:first)
             new(template)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
@@ -26,7 +34,7 @@ module Fog
         end
 
         def register(attributes={})
-          as_iso = attributes.try(:delete,'as_iso') || false
+          as_iso = attributes.try(:delete, 'as_iso') || false
           image = new(attributes)
           as_iso ? image.register_as_iso : image.register_as_template
         end
