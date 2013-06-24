@@ -33,6 +33,7 @@ module Fog
         response-content-language
         response-content-type
         response-expires
+        restore
         torrent
         uploadId
         uploads
@@ -87,6 +88,7 @@ module Fog
       request :list_multipart_uploads
       request :list_parts
       request :post_object_hidden_fields
+      request :post_object_restore
       request :put_bucket
       request :put_bucket_acl
       request :put_bucket_cors
@@ -201,8 +203,6 @@ module Fog
             if !path_style && COMPLIANT_BUCKET_NAMES !~ bucket_name
               Fog::Logger.warning("fog: the specified s3 bucket name(#{bucket_name}) is not a valid dns name, which will negatively impact performance.  For details see: http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html")
               path_style = true
-            elsif bucket_name.include?('.')
-              Fog::Logger.warning("fog: the specified s3 bucket name(#{bucket_name}) might fail with https.")
             end
 
             if path_style
@@ -219,7 +219,7 @@ module Fog
             :path         => path,
             :headers      => headers,
           })
-          
+
           #
           ret.delete(:path_style)
           ret.delete(:bucket_name)
@@ -451,7 +451,7 @@ DATA
               if VALID_QUERY_KEYS.include?(key)
                 value = params[:query][key]
                 if value
-                  query_args << "#{key}=#{Fog::AWS.escape(value.to_s)}"
+                  query_args << "#{key}=#{value}"
                 else
                   query_args << key
                 end
@@ -492,7 +492,7 @@ DATA
 
           expires = Fog::Time.now.to_date_header
           signature = signature(params, expires)
-          
+
           params = request_params(params)
           params.delete(:port) unless params[:port]
 

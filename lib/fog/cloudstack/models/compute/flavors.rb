@@ -15,7 +15,7 @@ module Fog
         end
 
         def get(flavor_id)
-          if flavor = service.list_service_offerings('id' => flavor_id)["listserviceofferingsresponse"]["serviceoffering"].first
+          if flavor = service.list_service_offerings('id' => flavor_id)["listserviceofferingsresponse"]["serviceoffering"].try(:first)
             new(flavor)
           end
         rescue Fog::Compute::Cloudstack::BadRequest

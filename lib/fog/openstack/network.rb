@@ -9,7 +9,7 @@ module Fog
       recognizes :openstack_auth_token, :openstack_management_url, :persistent,
                  :openstack_service_type, :openstack_service_name, :openstack_tenant,
                  :openstack_api_key, :openstack_username, :openstack_endpoint_type,
-                 :current_user, :current_tenant
+                 :current_user, :current_tenant, :openstack_region
 
       ## MODELS
       #
@@ -24,6 +24,14 @@ module Fog
       collection  :floating_ips
       model       :router
       collection  :routers
+      model       :lb_pool
+      collection  :lb_pools
+      model       :lb_member
+      collection  :lb_members
+      model       :lb_health_monitor
+      collection  :lb_health_monitors
+      model       :lb_vip
+      collection  :lb_vips
 
       ## REQUESTS
       #
@@ -67,6 +75,37 @@ module Fog
       request :add_router_interface
       request :remove_router_interface
 
+      # LBaaS Pool CRUD
+      request :list_lb_pools
+      request :create_lb_pool
+      request :delete_lb_pool
+      request :get_lb_pool
+      request :get_lb_pool_stats
+      request :update_lb_pool
+
+      # LBaaS Member CRUD
+      request :list_lb_members
+      request :create_lb_member
+      request :delete_lb_member
+      request :get_lb_member
+      request :update_lb_member
+
+      # LBaaS Health Monitor CRUD
+      request :list_lb_health_monitors
+      request :create_lb_health_monitor
+      request :delete_lb_health_monitor
+      request :get_lb_health_monitor
+      request :update_lb_health_monitor
+      request :associate_lb_health_monitor
+      request :disassociate_lb_health_monitor
+
+      # LBaaS VIP CRUD
+      request :list_lb_vips
+      request :create_lb_vip
+      request :delete_lb_vip
+      request :get_lb_vip
+      request :update_lb_vip
+
       # Tenant
       request :set_tenant
 
@@ -79,6 +118,10 @@ module Fog
               :subnets => {},
               :floating_ips => {},
               :routers => {},
+              :lb_pools => {},
+              :lb_members => {},
+              :lb_health_monitors => {},
+              :lb_vips => {},
             }
           end
         end
@@ -113,6 +156,8 @@ module Fog
         attr_reader :current_tenant
 
         def initialize(options={})
+          require 'multi_json'
+
           @openstack_auth_token = options[:openstack_auth_token]
 
           unless @openstack_auth_token
@@ -132,6 +177,7 @@ module Fog
           @openstack_service_type         = options[:openstack_service_type] || ['network']
           @openstack_service_name         = options[:openstack_service_name]
           @openstack_endpoint_type        = options[:openstack_endpoint_type] || 'adminURL'
+          @openstack_region               = options[:openstack_region]
 
           @connection_options = options[:connection_options] || {}
 
@@ -150,7 +196,8 @@ module Fog
             :openstack_auth_token     => @auth_token,
             :openstack_management_url => @openstack_management_url,
             :current_user             => @current_user,
-            :current_tenant           => @current_tenant }
+            :current_tenant           => @current_tenant,
+            :openstack_region         => @openstack_region }
         end
 
         def reload
@@ -185,7 +232,7 @@ module Fog
             end
           end
           unless response.body.empty?
-            response.body = Fog::JSON.decode(response.body)
+            response.body = MultiJson.decode(response.body)
           end
           response
         end
@@ -202,7 +249,8 @@ module Fog
               :openstack_auth_token => @openstack_auth_token,
               :openstack_service_type => @openstack_service_type,
               :openstack_service_name => @openstack_service_name,
-              :openstack_endpoint_type => @openstack_endpoint_type
+              :openstack_endpoint_type => @openstack_endpoint_type,
+              :openstack_region => @openstack_region
             }
 
             credentials = Fog::OpenStack.authenticate_v2(options, @connection_options)

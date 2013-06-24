@@ -93,6 +93,11 @@ module Fog
       request :create_flavor
       request :delete_flavor
 
+      # Flavor Access
+      request :add_flavor_access
+      request :remove_flavor_access
+      request :list_tenants_with_flavor_access
+
       # Metadata
       request :list_metadata
       request :get_metadata
@@ -358,7 +363,7 @@ module Fog
               end
           end
 
-          unless response.body.empty?
+          if !response.body.empty? and response.get_header('Content-Type') == 'application/json'
             response.body = Fog::JSON.decode(response.body)
           end
 

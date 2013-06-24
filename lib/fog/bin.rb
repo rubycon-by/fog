@@ -4,7 +4,6 @@ module Fog
   class << self
 
     def available_providers
-	  Kernel.const_get('Ninefold')
       @available_providers ||= Fog.providers.values.select {|provider| Kernel.const_get(provider).available?}.sort
     end
 
@@ -94,3 +93,5 @@ require 'fog/bin/vsphere'
 require 'fog/bin/voxel'
 require 'fog/bin/xenserver'
 require 'fog/bin/zerigo'
+require 'fog/bin/cloudsigma'
+require 'fog/bin/openvz'
