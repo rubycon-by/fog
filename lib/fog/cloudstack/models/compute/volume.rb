@@ -106,7 +106,7 @@ module Fog
 
           data = service.detach_volume('id' => id)
 
-          service.jobs.new(data["detachvolumeresponse"])
+          # service.jobs.new(data["detachvolumeresponse"])
         end
 
         def destroy
