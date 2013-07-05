@@ -7,6 +7,7 @@ module Fog
     include Fog::Core::DeprecatedConnectionAccessors
 
     attr_reader :service
+    attr_accessor :filter_attributes
 
     Array.public_instance_methods(false).each do |method|
       unless [:reject, :select, :slice].include?(method.to_sym)
@@ -58,6 +59,10 @@ module Fog
       object.destroy
     end
 
+    def filter_attributes
+      @scoped_attributes || {}
+    end
+
     # Creates a new Fog::Collection based around the passed service
     #
     # @param [Hash] attributes
@@ -97,12 +102,17 @@ module Fog
       data
     end
 
-    def load(objects)
-      clear
-      for object in objects
-        self << new(object)
+    def load(objects, save_in_self = true)
+      if save_in_self
+        clear
+        for object in objects
+          self << new(object)
+        end
+        result = self
+      else
+        result = self.class.new(:service => service).load(objects)
       end
-      self
+      result
     end
 
     def model
@@ -133,6 +143,12 @@ module Fog
 
     def to_json(options = {})
       Fog::JSON.encode(self.map {|member| member.attributes})
+    end
+
+    protected
+
+    def scoped_attributes attributes = {}
+      @filter_attributes ? attributes.merge(@filter_attributes){|key, new_value, old_value| new_value != old_value ? -1 : new_value } : attributes
     end
 
     private

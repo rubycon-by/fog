@@ -10,7 +10,6 @@ module Fog
           options.merge!(
             'command' => 'listSnapshotPolicies'
           )
-          
           request(options)
         end
 

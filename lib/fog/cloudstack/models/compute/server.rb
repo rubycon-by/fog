@@ -30,7 +30,7 @@ module Fog
         attribute :cpu_used,                                :aliases => 'cpuused'
         attribute :network_kbs_read,                        :aliases => 'networkkbsread'
         attribute :network_kbs_write,                       :aliases => 'networkkbswrite'
-        attribute :guest_os_id,                             :aliases => 'guestosid'
+        attribute :guest_os_id,                             :aliases => ['guestosid', 'ostypeid']
         attribute :root_device_id,                          :aliases => 'rootdeviceid'
         attribute :root_device_type,                        :aliases => 'rootdevicetype'
         attribute :group
@@ -44,6 +44,15 @@ module Fog
           nics.map{|nic| Address.new(nic)}
         end
 
+        def guest_os_name
+          os = service.list_os_types['listostypesresponse']['ostype'].detect{|os| os['id'] == self.guest_os_id }
+          os['description']
+        end
+
+        def password
+          service.get_vm_password(self.id)
+        end
+
         def destroy
           requires :id
           data = service.destroy_virtual_machine("id" => id)
@@ -54,8 +63,27 @@ module Fog
           service.flavors.get(self.flavor_id)
         end
 
+        def flavor=(flavor_id)
+          data = service.change_service_for_virtual_machine('id' => self.id, 'serviceofferingid' => flavor_id )
+          service.jobs.new(data["changeserviceforvirtualmachineresponse"])
+        end
+
         def ready?
           state == 'Running'
+        end
+
+        def volumes
+          service.volumes.all('virtualmachineid' => self.id)
+        end
+
+        def snapshots
+          volume_ids = volumes.collect(&:id)
+          volume_ids.collect{ |id| service.snapshots.all('volumeid' => id) }.flatten
+        end
+
+        def create_snapshots_for_root_volume
+          volumes = self.volumes.all('type' => 'ROOT')
+          volumes.each{|volume| service.snapshots.create('volume_id' => volume.id) }
         end
 
         def reboot
@@ -99,6 +127,11 @@ module Fog
 
           data = service.deploy_virtual_machine(options)
           merge_attributes(data['deployvirtualmachineresponse'])
+        end
+
+        def update options
+          requires :id
+          service.update_virtual_machine({'id' => self.id}.merge!(options))
         end
 
         def start

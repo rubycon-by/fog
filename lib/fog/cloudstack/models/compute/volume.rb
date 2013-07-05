@@ -47,6 +47,11 @@ module Fog
           state == 'Allocated' || state == 'Ready'
         end
 
+        def snapshot_policies
+          data = service.list_snapshot_policies('volumeid' => self.id)
+          data["listsnapshotpoliciesresponse"]
+        end
+
         def flavor
           service.disk_offerings.get(self.disk_offering_id)
         end
@@ -93,7 +98,7 @@ module Fog
 
           data = service.attach_volume(options)
 
-					service.jobs.new(data["attachvolumeresponse"])
+					data["attachvolumeresponse"].values.try(:first)
         end
 
         def detach
@@ -101,7 +106,7 @@ module Fog
 
           data = service.detach_volume('id' => id)
 
-          service.jobs.new(data["detachvolumeresponse"])
+          # service.jobs.new(data["detachvolumeresponse"])
         end
 
         def destroy

@@ -19,8 +19,14 @@ module Fog
 
       model_path 'fog/cloudstack/models/compute'
       model :address
+      model :balancer_instance
+      collection :balancer_instances
       model :disk_offering
       collection :disk_offerings
+      model :ip
+      collection :ips
+      model :iso
+      collection :isos
       model :flavor
       collection :flavors
       model :job
@@ -29,6 +35,10 @@ module Fog
       collection :servers
       model :image
       collection :images
+      model :load_balancer
+      collection :load_balancers
+      model :port_forwarding_rule
+      collection :port_forwarding_rules
       model :security_group
       collection :security_groups
       model :security_group_rule
@@ -39,7 +49,13 @@ module Fog
       collection :snapshots
       model :zone
       collection :zones
+      model :snapshot_policy
+      collection :snapshot_policies
+      model :vpn_user
+      collection :vpn_users
 
+
+      request :add_vpn_user
       request :acquire_ip_address
       request :assign_to_load_balancer_rule
       request :assign_virtual_machine
@@ -47,10 +63,15 @@ module Fog
       request :authorize_security_group_egress
       request :authorize_security_group_ingress
       request :change_service_for_virtual_machine
+      request :copy_iso
+      request :copy_template
       request :create_account
       request :create_disk_offering
       request :create_domain
+      request :create_iso
+      request :create_template
       request :create_load_balancer_rule
+      request :create_remote_access_vpn
       request :create_network
       request :create_port_forwarding_rule
       request :create_security_group
@@ -59,6 +80,7 @@ module Fog
       request :create_snapshot_policy
       request :create_user
       request :create_volume
+      request :create_template
       request :create_zone
       request :delete_account
       request :delete_disk_offering
@@ -69,6 +91,8 @@ module Fog
       request :delete_ssh_key_pair
       request :delete_snapshot
       request :delete_snapshot_policies
+      request :delete_iso
+      request :delete_instance_group
       request :delete_template
       request :delete_user
       request :delete_volume
@@ -76,7 +100,12 @@ module Fog
       request :deploy_virtual_machine
       request :destroy_virtual_machine
       request :disable_user
+      request :disable_static_nat
+      request :delete_remote_access_vpn
       request :enable_user
+      request :enable_static_nat
+      request :extract_iso
+      request :extract_template
       request :generate_usage_records
       request :get_vm_password
       request :list_accounts
@@ -107,6 +136,7 @@ module Fog
       request :list_pods
       request :list_port_forwarding_rules
       request :list_public_ip_addresses
+      request :list_remote_access_vpns
       request :list_resource_limits
       request :list_security_groups
       request :list_service_offerings
@@ -117,6 +147,7 @@ module Fog
       request :list_templates
       request :list_usage_records
       request :list_users
+      request :list_vpn_users
       request :list_virtual_machines
       request :list_volumes
       request :list_zones
@@ -127,16 +158,23 @@ module Fog
       request :register_ssh_key_pair
       request :register_user_keys
       request :register_template
+      request :register_iso
+      request :release_ip_address
       request :remove_from_load_balancer_rule
+      request :remove_vpn_user
       request :reset_password_for_virtual_machine
       request :revoke_security_group_ingress
       request :revoke_security_group_egress
-      request :start_virtual_machine      
+      request :start_virtual_machine
       request :stop_virtual_machine
+      request :update_iso
+      request :update_template
       request :update_account
       request :update_domain
+      request :update_load_balancer_rule
       request :update_user
       request :update_resource_count
+      request :update_template
       request :update_virtual_machine
 
       class Real
@@ -192,7 +230,6 @@ module Fog
           elsif has_keys?
             params, headers = authorize_api_keys(params)
           end
-
           response = issue_request(params,headers)
           response = Fog::JSON.decode(response.body) unless response.body.empty?
           response
@@ -234,9 +271,8 @@ module Fog
               :query => params,
               :headers => headers,
               :method => method,
-              :expects => expects  
+              :expects => expects
             })
-
           rescue Excon::Errors::HTTPStatusError => error
             error_response = Fog::JSON.decode(error.response.body)
 
