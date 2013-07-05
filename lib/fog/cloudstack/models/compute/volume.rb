@@ -98,7 +98,7 @@ module Fog
 
           data = service.attach_volume(options)
 
-					# service.jobs.new(data["attachvolumeresponse"])
+					service.jobs.get(data["attachvolumeresponse"].values.try(:first))
         end
 
         def detach
