@@ -28,6 +28,15 @@ module Fog
           self.job_result_code == 0
         end
 
+        # temp method
+        def result_job
+          if ready?
+            job_result.values.first.try(:fetch, 'id')
+          else
+            self.job_result
+          end
+        end
+
         # so dirty
         def result
           if successful? && model = Fog::Compute::Cloudstack.constants.find{|c| c.to_s.downcase == self.job_result.keys.first.to_s}.to_s

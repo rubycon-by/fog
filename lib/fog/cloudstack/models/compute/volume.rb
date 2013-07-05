@@ -98,7 +98,7 @@ module Fog
 
           data = service.attach_volume(options)
 
-					service.jobs.new(data["attachvolumeresponse"])
+					data["attachvolumeresponse"].values.try(:first)
         end
 
         def detach
@@ -106,7 +106,7 @@ module Fog
 
           data = service.detach_volume('id' => id)
 
-          service.jobs.new(data["detachvolumeresponse"])
+          # service.jobs.new(data["detachvolumeresponse"])
         end
 
         def destroy
