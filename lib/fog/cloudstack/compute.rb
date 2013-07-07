@@ -27,6 +27,8 @@ module Fog
       collection :ips
       model :iso
       collection :isos
+      model :event
+      collection :events
       model :flavor
       collection :flavors
       model :job

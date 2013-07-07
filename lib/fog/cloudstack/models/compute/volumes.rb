@@ -11,9 +11,8 @@ module Fog
 
         def all(params = {})
           data = service.list_volumes(params)["listvolumesresponse"]["volume"] || []
-          condition = @filter_attributes.nil?
           @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
-          load(data, condition)
+          load(data, @filter_attributes.nil?)
         end
 
         def get(volume_id)
