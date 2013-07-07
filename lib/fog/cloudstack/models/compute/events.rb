@@ -11,8 +11,7 @@ module Fog
 
         def all
           data = service.list_events["listeventsresponse"]["event"] || []
-          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
-          load(data, @filter_attributes.nil?)
+          load(data)
         end
       end
 
