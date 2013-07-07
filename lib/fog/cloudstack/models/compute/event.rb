@@ -2,7 +2,7 @@ module Fog
   module Compute
     class Cloudstack
       class Event < Fog::Model
-      "id", "username", "type", "level", "description", "account", "domainid", "domain", "created", "state", "parentid"
+
         identity  :id,               :aliases => 'id'
         attribute :username,         :aliases => 'username'
         attribute :type,             :aliases => 'type'
