@@ -7,7 +7,7 @@ module Fog
 
       class Events < Fog::Collection
 
-        model Fog::Compute::Cloudstack::Job
+        model Fog::Compute::Cloudstack::Event
 
         def all
           data = service.list_events["listeventsresponse"]["event"] || []
