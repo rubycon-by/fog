@@ -24,7 +24,7 @@ module Fog
 
         def save pfr_ip_address = nil
           requires :ip_address_id, :private_port, :public_port, :protocol, :virtual_machine_id
-          pfr_ip = service.ips.get(ip_address_id).id || pfr_ip_address
+          pfr_ip = service.ips.get(ip_address_id).try(:id) || pfr_ip_address
           options = {
             'privateport' => private_port,
             'publicport' => public_port,
@@ -32,7 +32,8 @@ module Fog
             'virtualmachineid' => virtual_machine_id,
             'ipaddressid' => pfr_ip
           }
-          service.create_port_forwarding_rule(options)
+          data = service.create_port_forwarding_rule(options)
+          data['createportforwardingruleresponse']
         end
 
         def destroy

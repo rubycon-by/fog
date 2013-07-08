@@ -46,7 +46,8 @@ module Fog
             'algorithm' => algorithm,
             'publicipid' => lb_ip
           }
-          service.create_load_balancer_rule(options)
+          data = service.create_load_balancer_rule(options)
+          data['createloadbalancerruleresponse']
         end
 
         def destroy
