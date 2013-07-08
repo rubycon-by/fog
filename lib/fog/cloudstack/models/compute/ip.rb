@@ -70,6 +70,7 @@ module Fog
         def save
           requires :zone_id
           data = service.acquire_ip_address({'zoneid' => self.zone_id})
+          data['associateipaddressresponse']
           # merge_attributes(data['listpublicipaddressesresponse'])
         end
 
