@@ -2,7 +2,7 @@ module Fog
   module Compute
     class Cloudstack
       class Event < Fog::Model
-
+        COMPLETED = %w(Started Scheduled)
         identity  :id,               :aliases => 'id'
         attribute :username,         :aliases => 'username'
         attribute :type,             :aliases => 'type'
@@ -15,6 +15,12 @@ module Fog
         attribute :parent_id,        :aliases => 'parentid'
 
         attribute :created_at,      :aliases => 'created',       :type => :time
+
+
+        def completed?
+          COMPLETED.include?(state) ? true : service.events.get(parent_id).present?
+        end
+
       end
     end
   end
