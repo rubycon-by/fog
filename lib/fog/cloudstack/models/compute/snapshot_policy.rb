@@ -21,7 +21,8 @@ module Fog
             'timezone'      => timezone
           }
           data = service.create_snapshot_policy(options)
-          merge_attributes(data['createsnapshotpolicyresponse'])
+          data['createsnapshotpolicyresponse']
+          # merge_attributes(data['createsnapshotpolicyresponse'])
         end
 
         def destroy

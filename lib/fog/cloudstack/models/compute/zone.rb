@@ -29,7 +29,8 @@ module Fog
             'securitygroupenabled'  => security_groups_enabled,
           }
           data = service.create_zone(options)
-          merge_attributes(data['createzoneresponse'])
+          data['createzoneresponse']
+          # merge_attributes(data['createzoneresponse'])
         end
       end # Zone
     end # Cloudstack

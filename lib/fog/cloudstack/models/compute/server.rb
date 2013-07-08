@@ -126,7 +126,8 @@ module Fog
           options.merge!('securitygroupids' => security_group_ids) unless security_group_ids.empty?
 
           data = service.deploy_virtual_machine(options)
-          merge_attributes(data['deployvirtualmachineresponse'])
+          data['deployvirtualmachineresponse']
+          # merge_attributes(data['deployvirtualmachineresponse'])
         end
 
         def update options

@@ -24,7 +24,8 @@ module Fog
             'domainid'      => domain_id
           }
           data = service.create_snapshot(options)
-          merge_attributes(data['createsnapshotresponse'])
+          data['createsnapshotresponse']
+          # merge_attributes(data['createsnapshotresponse'])
         end
 
         def ready?

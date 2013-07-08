@@ -42,7 +42,8 @@ module Fog
 
         def save
           data = service.create_template(get_options_hash)
-          merge_attributes(data['createtemplateresponse'])
+          data['createtemplateresponse']
+          # merge_attributes(data['createtemplateresponse'])
         end
 
         def copy destination_zone_id

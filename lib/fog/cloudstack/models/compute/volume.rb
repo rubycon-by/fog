@@ -40,7 +40,8 @@ module Fog
             'projectid'      => project_id
           }
           data = service.create_volume(options)
-          merge_attributes(data['createvolumeresponse'])
+          data['createvolumeresponse']
+          # merge_attributes(data['createvolumeresponse'])
         end
 
         def ready?
