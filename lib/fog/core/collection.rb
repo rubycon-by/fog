@@ -51,7 +51,7 @@ module Fog
     def create(attributes = {})
       object = new(attributes)
       object.save
-      object
+      # object
     end
 
     def destroy(identity)
