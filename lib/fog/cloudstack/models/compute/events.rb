@@ -15,6 +15,15 @@ module Fog
           @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
           load(data, condition)
         end
+
+        def get(event_id)
+          if event = service.list_isos('id' => event_id)["listeventsresponse"]["event"].try(:first)
+            new(event)
+          end
+        rescue Fog::Compute::Cloudstack::BadRequest
+          nil
+        end
+
       end
 
     end
