@@ -18,7 +18,7 @@ module Fog
 
 
         def completed?
-          COMPLETED.include?(state) ? true : service.events.get(parent_id).present?
+          COMPLETED.include?(state) ? service.events.get(parent_id).present? : true
         end
 
       end
