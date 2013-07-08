@@ -17,7 +17,7 @@ module Fog
         end
 
         def get(event_id)
-          if event = service.list_isos('id' => event_id)["listeventsresponse"]["event"].try(:first)
+          if event = service.list_events('id' => event_id)["listeventsresponse"]["event"].try(:first)
             new(event)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
