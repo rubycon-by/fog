@@ -9,8 +9,8 @@ module Fog
 
         model Fog::Compute::Cloudstack::Event
 
-        def all
-          data = service.list_events["listeventsresponse"]["event"] || []
+        def all(params = {})
+          data = service.list_events(params)["listeventsresponse"]["event"] || []
           condition = @filter_attributes.nil?
           @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
           load(data, condition)
