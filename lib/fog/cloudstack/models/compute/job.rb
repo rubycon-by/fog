@@ -31,9 +31,13 @@ module Fog
         # temp method
         def result_job
           if successful?
-            {id: job_result.values.first.try(:fetch, 'id')}
+            if job_result.values.first.try(:fetch, 'id')
+              {id: job_result.values.first.try(:fetch, 'id')}
+            else
+              {text: job_result}
+            end
           else
-            {error: self.job_result['errortext']}
+            {text: job_result['errortext']}
           end
         end
 
