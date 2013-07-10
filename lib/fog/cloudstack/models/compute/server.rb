@@ -144,7 +144,7 @@ module Fog
         def stop(force=false)
           requires :id
           data = service.stop_virtual_machine("id" => self.id, "force" => force)
-          data["stopvirtualmachineresponse"])
+          data["stopvirtualmachineresponse"]
         end
       end # Server
     end # Cloudstack
