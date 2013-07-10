@@ -138,13 +138,13 @@ module Fog
         def start
           requires :id
           data = service.start_virtual_machine("id" => self.id)
-          service.jobs.new(data["startvirtualmachineresponse"])
+          data["startvirtualmachineresponse"]
         end
 
         def stop(force=false)
           requires :id
           data = service.stop_virtual_machine("id" => self.id, "force" => force)
-          service.jobs.new(data["stopvirtualmachineresponse"])
+          data["stopvirtualmachineresponse"])
         end
       end # Server
     end # Cloudstack
