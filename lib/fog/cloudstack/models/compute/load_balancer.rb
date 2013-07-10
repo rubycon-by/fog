@@ -18,7 +18,9 @@ module Fog
 
         def instances
           requires :id
-          service.balancer_instances.all('id' => self.id)
+          response = service.list_load_balancer_rule_instances('id' => self.id)
+          data = response["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"] || []
+          service.servers.load(data)
         end
 
         def ip
