@@ -49,7 +49,11 @@ module Fog
             'publicipid' => lb_ip
           }
           data = service.create_load_balancer_rule(options)
-          data['createloadbalancerruleresponse']
+          if data['createloadbalancerruleresponse'].try(:fetch, 'loadbalancer')
+            {'object' => data['createloadbalancerruleresponse']['loadbalancer']}
+          else
+            {error: data['createloadbalancerruleresponse'].values.first }
+          end
         end
 
         def destroy
