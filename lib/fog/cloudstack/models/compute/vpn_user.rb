@@ -15,11 +15,13 @@ module Fog
           requires :username, :password
           options = {'username' => username, 'password' => password}
           service.add_vpn_user(options)
+          data['addvpnuserresponce']
         end
 
         def destroy
           requires :username
           service.remove_vpn_user({'username' => self.username})
+          data['removevpnuserresponce']
         end
 
       end  #Ip

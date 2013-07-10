@@ -37,7 +37,7 @@ module Fog
               {text: job_result}
             end
           else
-            {text: job_result['errortext']}
+            {error: job_result['errortext']}
           end
         end
 

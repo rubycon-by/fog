@@ -28,16 +28,18 @@ module Fog
 
         def assign_instances virtual_machine_ids = []
           requires :id
-          service.assign_to_load_balancer_rule(self.id, virtual_machine_ids)
+          data = service.assign_to_load_balancer_rule(self.id, virtual_machine_ids)
+          data['assigntoloadbalancerruleresponse']
         end
 
         def remove_instances virtual_machine_ids = []
           requires :id
-          service.remove_from_load_balancer_rule(self.id, virtual_machine_ids)
+          data = service.remove_from_load_balancer_rule(self.id, virtual_machine_ids)
+          data['removefromloadbalancerruleresponse']
         end
 
         def save
-          requires :name, :private_port, :public_port, :algorithm
+          requires :name, :private_port, :public_port, :algorithm, :public_ip_id
           lb_ip = service.ips.get(public_ip_id).id
           options = {
             'privateport' => private_port,
