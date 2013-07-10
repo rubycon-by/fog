@@ -89,7 +89,7 @@ module Fog
         def reboot
           requires :id
           data = service.reboot_virtual_machine('id' => self.id) # FIXME: does this ever fail?
-          service.jobs.new(data["rebootvirtualmachineresponse"])
+          data["rebootvirtualmachineresponse"]
         end
 
         def security_groups=(security_groups)
@@ -133,6 +133,7 @@ module Fog
         def update options
           requires :id
           service.update_virtual_machine({'id' => self.id}.merge!(options))
+          data['updatevirtualmachineresponse']
         end
 
         def start
