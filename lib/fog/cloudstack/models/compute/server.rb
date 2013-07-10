@@ -132,7 +132,7 @@ module Fog
 
         def update options
           requires :id
-          service.update_virtual_machine({'id' => self.id}.merge!(options))
+          data = service.update_virtual_machine({'id' => self.id}.merge!(options))
           data['updatevirtualmachineresponse']
         end
 
