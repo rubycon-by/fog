@@ -66,6 +66,7 @@ module Fog
         def update options
           requires :id
           service.update_load_balancer_rule({'id' => self.id}.merge!(options))
+          data['updateloadbalancerruleresponse']
         end
 
       end  #Ip

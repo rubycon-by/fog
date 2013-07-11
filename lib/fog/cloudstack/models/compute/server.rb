@@ -56,7 +56,7 @@ module Fog
         def destroy
           requires :id
           data = service.destroy_virtual_machine("id" => id)
-          service.jobs.new(data["destroyvirtualmachineresponse"])
+          data["destroyvirtualmachineresponse"]
         end
 
         def flavor
@@ -65,7 +65,7 @@ module Fog
 
         def flavor=(flavor_id)
           data = service.change_service_for_virtual_machine('id' => self.id, 'serviceofferingid' => flavor_id )
-          service.jobs.new(data["changeserviceforvirtualmachineresponse"])
+          data["changeserviceforvirtualmachineresponse"]
         end
 
         def ready?
