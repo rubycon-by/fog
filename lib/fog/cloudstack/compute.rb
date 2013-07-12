@@ -39,6 +39,8 @@ module Fog
       collection :images
       model :load_balancer
       collection :load_balancers
+      model :os_type
+      collection :os_types
       model :port_forwarding_rule
       collection :port_forwarding_rules
       model :security_group
