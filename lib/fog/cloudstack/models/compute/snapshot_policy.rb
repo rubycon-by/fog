@@ -27,8 +27,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_snapshot_policy('id' => id)
-          true
+          data = service.delete_snapshot_policy('id' => id)
+          data['deletesnapshotpolicyresponse']
         end
       end # SnapshotPolicy
     end # Cloudstack

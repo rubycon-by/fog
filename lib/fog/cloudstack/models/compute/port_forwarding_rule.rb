@@ -38,7 +38,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_port_forwarding_rule({'id' => self.id})
+          data = service.delete_port_forwarding_rule({'id' => self.id})
+          data['deleteportforwardingruleresponse']
         end
 
       end  #Ip

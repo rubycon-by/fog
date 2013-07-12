@@ -60,7 +60,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_load_balancer_rule({'id' => self.id})
+          data = service.delete_load_balancer_rule({'id' => self.id})
+          data['deleteloadbalancerruleresponse']
         end
 
         def update options

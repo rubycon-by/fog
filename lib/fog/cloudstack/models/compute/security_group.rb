@@ -16,6 +16,7 @@ module Fog
         def destroy
           requires :id
           service.delete_security_group('id' => self.id)
+          data['deletesecuritygroupresponse']
           true
         end
 

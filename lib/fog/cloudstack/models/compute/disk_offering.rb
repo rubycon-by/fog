@@ -36,9 +36,7 @@ module Fog
           requires :id
 
           response = service.delete_disk_offering('id' => id )
-          success_status = response['deletediskofferingresponse']['success']
-
-          success_status == 'true'
+          response['deletediskofferingresponse']
         end
 
       end # DiskOffering

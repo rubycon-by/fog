@@ -141,8 +141,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_template('id' => self.id)
-          true
+          data = service.delete_template('id' => self.id)
+          data['deletetemplateresponse']
         end
       end # Image
     end # Cloudstack

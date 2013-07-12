@@ -49,12 +49,14 @@ module Fog
         def copy destination_zone_id
           requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
-          service.copy_iso(options)
+          data = service.copy_iso(options)
+          data['copyisoresponse']
         end
 
         def update options
           requires :id
-          service.update_iso({'id' => self.id}.merge!(options))
+          data = service.update_iso({'id' => self.id}.merge!(options))
+          data['updateisoresponse']
         end
 
         def extract url = nil
@@ -66,7 +68,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_iso('id' => self.id)
+          data = service.delete_iso('id' => self.id)
+          data['deleteisoresponse']
         end
 
 

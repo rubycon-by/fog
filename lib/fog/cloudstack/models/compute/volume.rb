@@ -112,8 +112,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_volume('id' => id)
-          true
+          data = service.delete_volume('id' => id)
+          data['deletevolumeresponse']
         end
       end # Volume
     end # Cloudstack
