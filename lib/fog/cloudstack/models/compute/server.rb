@@ -120,7 +120,6 @@ module Fog
             'ipaddress'         => ip_address,
             'iptonetworklist'   => ip_to_network_list,
             'projectid'         => project_id,
-            'startvm'           => 'false'
           }
 
           options.merge!('networkids' => network_ids) if network_ids
