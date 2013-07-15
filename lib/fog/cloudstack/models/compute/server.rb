@@ -124,7 +124,7 @@ module Fog
 
           options.merge!('networkids' => network_ids) if network_ids
           options.merge!('securitygroupids' => security_group_ids) unless security_group_ids.empty?
-
+          puts options
           data = service.deploy_virtual_machine(options)
           data['deployvirtualmachineresponse']
           # merge_attributes(data['deployvirtualmachineresponse'])
