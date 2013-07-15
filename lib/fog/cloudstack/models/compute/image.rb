@@ -66,7 +66,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_template('id' => self.id)
+          data = service.delete_template('id' => self.id)
+          data['deletetemplateresponse']
         end
 
 

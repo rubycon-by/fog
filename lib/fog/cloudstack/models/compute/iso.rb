@@ -69,7 +69,7 @@ module Fog
         def destroy
           requires :id
           data = service.delete_iso('id' => self.id)
-          data['deleteisoresponse']
+          data['deleteisosresponse']
         end
 
 
