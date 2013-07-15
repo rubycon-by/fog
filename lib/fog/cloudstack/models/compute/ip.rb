@@ -77,7 +77,7 @@ module Fog
         def destroy
           requires :id
           data = service.release_ip_address('id' => self.id)
-          data['releaseipaddressresponse']
+          data['disassociateipaddressresponse']
         end
 
       end  #Ip
