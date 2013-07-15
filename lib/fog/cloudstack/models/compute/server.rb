@@ -106,9 +106,6 @@ module Fog
 
         def save
           requires :image_id, :flavor_id, :zone_id
-          p '============================'
-          p self
-          p self.attributes
           options = {
             'templateid'        => image_id,
             'serviceofferingid' => flavor_id,
