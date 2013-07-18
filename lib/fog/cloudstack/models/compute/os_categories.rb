@@ -18,7 +18,7 @@ module Fog
 
         def get(category_id)
           p category_id
-          if category = service.list_os_types('id' => category_id)["listoscategoriesresponse"]["oscategory"].try(:first)
+          if category = service.list_os_categories('id' => category_id)["listoscategoriesresponse"]["oscategory"].try(:first)
             new(category)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
