@@ -19,7 +19,7 @@ module Fog
         end
 
         def get(balance_id)
-          if data = service.list_load_balancer_rules(scoped_attributes(id: balance_id))["listloadbalancerrulesresponse"]["loadbalancerrule"].try(:first)
+          if data = balance_id.nil? ? nil : service.list_load_balancer_rules(scoped_attributes(id: balance_id))["listloadbalancerrulesresponse"]["loadbalancerrule"].try(:first)
             new(data)
           end
         rescue Fog::Compute::Cloudstack::BadRequest
