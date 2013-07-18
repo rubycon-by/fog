@@ -17,7 +17,7 @@ module Fog
         attribute :zoneid,    :aliases => 'zoneid'
 
         def instances
-          requires :id
+          # requires :id
           response = service.list_load_balancer_rule_instances('id' => self.id)
           data = response["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"] || []
           service.servers.load(data)
