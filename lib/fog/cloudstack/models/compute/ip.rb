@@ -46,7 +46,7 @@ module Fog
           requires :id
           data = service.list_ip_forwarding_rules({'ipaddressid' => self.id})
           data = data['listipforwardingrulesresponse']['ipforwardingrule'] || []
-          Fog::Compute::Cloudstack::PortForwardingRules.load data
+          PortForwardingRules.new.load data
         rescue Fog::Compute::Cloudstack::BadRequest
           []  
         end
