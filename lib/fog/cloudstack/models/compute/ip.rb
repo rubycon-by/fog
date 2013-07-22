@@ -44,7 +44,7 @@ module Fog
 
         def port_range
           requires :id
-          service.list_ip_port_forwarding_rules({'ipaddressid' => self.id})
+          service.list_ip_forwarding_rules({'ipaddressid' => self.id})
         rescue Fog::Compute::Cloudstack::BadRequest
           []  
         end
