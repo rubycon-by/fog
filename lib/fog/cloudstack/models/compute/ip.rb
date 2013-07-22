@@ -42,6 +42,13 @@ module Fog
           []
         end
 
+        def port_range
+          requires :id
+          service.port_forwarding_rules.all({'ipaddressid' => self.id})
+        rescue Fog::Compute::Cloudstack::BadRequest
+          []  
+        end
+
         def load_balancers
           requires :id
           service.load_balancers.all({'publicipid' => self.id})
