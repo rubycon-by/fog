@@ -133,7 +133,7 @@ module Fog
       request :list_hypervisors
       request :list_instance_groups
       request :list_isos
-      # request :list_ip_port_forwarding_rules
+      request :list_ip_port_forwarding_rules
       request :list_load_balancer_rules
       request :list_load_balancer_rule_instances
       request :list_network_offerings
