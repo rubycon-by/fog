@@ -25,6 +25,8 @@ module Fog
       collection :disk_offerings
       model :ip
       collection :ips
+      model :ip_forwarding_rule
+      collection :ip_forwarding_rules
       model :iso
       collection :isos
       model :event
@@ -77,6 +79,7 @@ module Fog
       request :create_iso
       request :create_template
       request :create_load_balancer_rule
+      request :create_ip_forwarding_rule
       request :create_remote_access_vpn
       request :create_network
       request :create_port_forwarding_rule
@@ -91,6 +94,7 @@ module Fog
       request :delete_account
       request :delete_disk_offering
       request :delete_domain
+      request :delete_ip_forwarding_rule
       request :delete_load_balancer_rule
       request :delete_port_forwarding_rule
       request :delete_security_group
