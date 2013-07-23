@@ -19,12 +19,9 @@ module Fog
         end
 
         def destroy
-          p id
-          p self.inspect
-          # requires :username
-          # puts username
-          # data = service.remove_vpn_user({'username' => username})
-          # data['removevpnuserresponse']
+          requires :username
+          data = service.remove_vpn_user({'username' => username})
+          data['removevpnuserresponse']
         end
 
       end  #Ip
