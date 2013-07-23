@@ -20,7 +20,7 @@ module Fog
 
         def destroy
           p id
-          p username
+          p self.inspect
           # requires :username
           # puts username
           # data = service.remove_vpn_user({'username' => username})
