@@ -16,6 +16,9 @@ module Fog
         attribute :associated_network_id,    :aliases => 'associatednetworkid'
         attribute :network_id,    :aliases => 'networkid'
         attribute :state,    :aliases => 'state'
+        attribute :virtual_machine_id,    :aliases => 'virtualmachineid'
+        attribute :virtual_machine_name,    :aliases => 'virtualmachinename'
+        attribute :virtual_machine_display_name,    :aliases => 'virtualmachinedisplayname'
 
 
         def vpn_enabled?
