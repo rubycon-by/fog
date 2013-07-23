@@ -26,10 +26,9 @@ module Fog
           requires :ip_address_id, :private_port, :public_port, :protocol, :virtual_machine_id
           pfr_ip = service.ips.get(ip_address_id).try(:id) || pfr_ip_address
           options = {
-            'privateport' => private_port,
-            'publicport' => public_port,
+            'startport' => private_port,
+            'endport' => public_port,
             'protocol' => protocol,
-            'virtualmachineid' => virtual_machine_id,
             'ipaddressid' => pfr_ip
           }
           data = service.create_ip_forwarding_rule(options)
