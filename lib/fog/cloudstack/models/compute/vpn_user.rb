@@ -19,6 +19,8 @@ module Fog
         end
 
         def destroy
+          requires :username
+          puts username
           data = service.remove_vpn_user({'username' => username})
           data['removevpnuserresponse']
         end
