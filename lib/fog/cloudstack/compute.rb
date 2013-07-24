@@ -231,6 +231,12 @@ module Fog
           user
         end
 
+        def logout
+          response = issue_request({
+            'command'  => 'logout',
+          })
+        end
+
         def request(params)
           params.reject!{|k,v| v.nil?}
 
