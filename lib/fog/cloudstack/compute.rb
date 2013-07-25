@@ -37,6 +37,8 @@ module Fog
       collection :jobs
       model :server
       collection :servers
+      model :tag
+      collection :tags
       model :image
       collection :images
       model :load_balancer
@@ -155,6 +157,7 @@ module Fog
       request :list_snapshot_policies
       request :list_ssh_key_pairs
       request :list_storage_pools
+      request :list_tags
       request :list_templates
       request :list_usage_records
       request :list_users

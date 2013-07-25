@@ -13,7 +13,7 @@ module Fog
           data = service.list_async_jobs["listasyncjobsresponse"]["asyncjobs"] || []
           load(data)
         end
-
+      
         def get(job_id)
           if job = service.query_async_job_result('jobid' => job_id)["queryasyncjobresultresponse"]
             new(job)
