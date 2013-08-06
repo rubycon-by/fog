@@ -165,6 +165,7 @@ module Fog
       request :list_virtual_machines
       request :list_volumes
       request :list_zones
+      request :login
       request :logout
       request :migrate_virtual_machine
       request :query_async_job_result
