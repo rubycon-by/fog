@@ -14,6 +14,24 @@ module Fog
         attribute :resource_type,    :aliases => 'resourcetype'
         attribute :value,    :aliases => 'value'
 
+        # def save hash
+        #   # requires :name, :disk_offering_id, :zone_id
+
+        #   options = {
+        #     'resourceids'  => hash[:ids],
+        #     'name'         => name,
+        #     'resourcetype' => disk_offering_id,
+        #     'tags'         => zone_id,
+        #     'customer'     => snapshot_id,
+        #   }
+        #   data = service.create_volume(options)
+        #   data['createvolumeresponse']
+        # end
+
+        def destroy
+          
+        end
+
       end
     end
   end
