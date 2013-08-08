@@ -28,6 +28,11 @@ module Fog
           res = data ? data.first.fetch('presharedkey') : false
         end
 
+        def instance
+          requires :virtual_machine_id
+          service.servers.get virtual_machine_id
+        end
+
         def enable_vpn
           requires :id
           service.create_remote_access_vpn({'publicipid' => self.id})

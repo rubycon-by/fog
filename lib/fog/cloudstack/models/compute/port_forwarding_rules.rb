@@ -21,7 +21,7 @@ module Fog
 
         def get(rule_id)
           if ip = service.list_port_forwarding_rules('id' => rule_id)["listportforwardingrulesresponse"]["portforwardingrule"].try(:first)
-            new(ip)
+            new(ip) if ip
           end
         rescue Fog::Compute::Cloudstack::BadRequest
           nil
