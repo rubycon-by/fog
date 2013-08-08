@@ -56,8 +56,9 @@ module Fog
         def reset_password
           requires :id
           data = service.reset_password_for_virtual_machine(id)
-          job = service.jobs.get data['resetpasswordforvirtualmachineresponse'].fetch('jobid')
-          job.wait_for { ready? }
+          data['resetpasswordforvirtualmachineresponse']
+          # job = service.jobs.get data['resetpasswordforvirtualmachineresponse'].fetch('jobid')
+          # job.wait_for { ready? }
         end
 
         def destroy
