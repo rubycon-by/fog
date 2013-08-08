@@ -53,6 +53,12 @@ module Fog
           service.get_vm_password(self.id)
         end
 
+        def reset_password
+          requires :id
+          data = service.reset_password_for_virtual_machine('id' => id)
+          data['resetpasswordforvirtualmachineresponse']
+        end
+
         def destroy
           requires :id
           data = service.destroy_virtual_machine("id" => id)
