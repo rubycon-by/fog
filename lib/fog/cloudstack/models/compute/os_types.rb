@@ -9,8 +9,8 @@ module Fog
 
         model Fog::Compute::Cloudstack::OsType
 
-        def all
-          data = service.list_os_types['listostypesresponse']['ostype'] || []
+        def all attributes={}
+          data = service.list_os_types(attributes)['listostypesresponse']['ostype'] || []
           condition = @filter_attributes.nil?
           @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
           load(data, condition)
