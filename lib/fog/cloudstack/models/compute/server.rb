@@ -55,7 +55,7 @@ module Fog
 
         def reset_password
           requires :id
-          data = service.reset_password_for_virtual_machine('id' => id)
+          data = service.reset_password_for_virtual_machine(id)
           data['resetpasswordforvirtualmachineresponse']
         end
 
