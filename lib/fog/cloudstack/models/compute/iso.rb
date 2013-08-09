@@ -51,6 +51,11 @@ module Fog
           data['attachisoresponse']
         end
 
+        def detach server_id
+          data = service.detach_iso('virtualmachineid' => server_id)
+          data['detachisoresponse']
+        end
+
         def copy destination_zone_id
           requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}

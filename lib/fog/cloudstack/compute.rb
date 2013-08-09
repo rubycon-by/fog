@@ -71,6 +71,7 @@ module Fog
       request :assign_virtual_machine
       request :attach_volume
       request :attach_iso
+      request :detach_iso
       request :authorize_security_group_egress
       request :authorize_security_group_ingress
       request :change_service_for_virtual_machine
