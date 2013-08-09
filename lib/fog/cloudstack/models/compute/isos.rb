@@ -10,7 +10,7 @@ module Fog
         model Fog::Compute::Cloudstack::Iso
 
         def all(attributes={})
-          response = service.list_isos
+          response = service.list_isos attributes
           data = response["listisosresponse"]["iso"] || []
           load(data)
         end
