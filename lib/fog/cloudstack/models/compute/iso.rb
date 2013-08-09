@@ -46,6 +46,11 @@ module Fog
           # merge_attributes(data['createtemplateresponse'])
         end
 
+        def attach server_id
+          data = service.attach_iso('virtualmachineid' => server_id, 'id' => id)
+          data['attachisoresponse']
+        end
+
         def copy destination_zone_id
           requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
