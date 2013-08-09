@@ -48,6 +48,11 @@ module Fog
           state == 'Allocated' || state == 'Ready'
         end
 
+        def snapshots
+          data = service.list_snapshots('volumeid' => self.id)
+          data['listsnapshotsresponse'].try(:fetch, 'snapshot')
+        end
+
         def snapshot_policies
           data = service.list_snapshot_policies('volumeid' => self.id)
           data["listsnapshotpoliciesresponse"]
