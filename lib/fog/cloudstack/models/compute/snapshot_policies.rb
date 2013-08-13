@@ -6,6 +6,19 @@ module Fog
     class Cloudstack
       class SnapshotPolicies < Fog::Collection
         model Fog::Compute::Cloudstack::SnapshotPolicy
+
+        def all(params={})
+          data = service.list_snapshot_policies(params)["listsnapshotpoliciesresponse"]["snapshotpolicy"] || []
+          condition = @filter_attributes.nil?
+          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
+          load(data, condition)
+        end
+
+        def get(snapshot_id)
+          snapshot = service.list_snapshot_policies('id' => snapshot_id)["listsnapshotpoliciesresponse"]["snapshotpolicy"].try(:first)
+          new(snapshot) if snapshot
+        end
+
       end
     end
   end
