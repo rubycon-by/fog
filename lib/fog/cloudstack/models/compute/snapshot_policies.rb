@@ -8,6 +8,7 @@ module Fog
         model Fog::Compute::Cloudstack::SnapshotPolicy
 
         def all(params={})
+          p params
           data = service.list_snapshot_policies(params)["listsnapshotpoliciesresponse"]["snapshotpolicy"] || []
           condition = @filter_attributes.nil?
           @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
