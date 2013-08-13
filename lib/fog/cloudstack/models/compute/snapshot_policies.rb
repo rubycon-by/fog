@@ -7,9 +7,9 @@ module Fog
       class SnapshotPolicies < Fog::Collection
         model Fog::Compute::Cloudstack::SnapshotPolicy
 
-        def all(params={})
+        def all(volume_id,params={})
           p params
-          data = service.list_snapshot_policies(params)["listsnapshotpoliciesresponse"]["snapshotpolicy"] || []
+          data = service.list_snapshot_policies({'volumeid' => volume_id}.merge(params))["listsnapshotpoliciesresponse"]["snapshotpolicy"] || []
           condition = @filter_attributes.nil?
           @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
           load(data, condition)
