@@ -49,7 +49,8 @@ module Fog
         def copy destination_zone_id
           requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
-          service.copy_template(options)
+          data = service.copy_template(options)
+          data['copytemplateresponse']
         end
 
         def update options
@@ -61,7 +62,8 @@ module Fog
           requires :id, :zone_id
           options = { 'id' => self.id, 'zoneid' => self.zone_id }
           options.merge!({'url' => url}) if url.present?
-          service.extract_template options
+          data = service.extract_template options
+          data['extracttemplateresponse']
         end
 
         def destroy
