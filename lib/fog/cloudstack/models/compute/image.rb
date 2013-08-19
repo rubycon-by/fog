@@ -93,31 +93,32 @@ module Fog
         end
 
         def register
-          requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
+          p 'coutch'
+          # requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
 
-          options = {
-            'displaytext'      => display_text,
-            'format'           => format,
-            'hypervisor'       => hypervisor,
-            'name'             => name,
-            'ostypeid'         => os_type_id,
-            'url'              => url,
-            'zoneid'           => zone_id,
-            'account'          => account,
-            'bits'             => bits,
-            'checksum'         => checksum,
-            'details'          => details,
-            'domainid'         => domain_id,
-            'isextractable'    => is_extractable,
-            'isfeatured'       => is_featured,
-            'ispublic'         => is_public,
-            'passwordenabled'  => password_enabled,
-            'projectid'        => project_id,
-            'requireshvm'      => requires_hvm,
-            'sshkeyenabled'  => ssh_key_enabled,
-            'templatetag'      => template_tag
-          }
-          data = service.register_template(options)
+          # options = {
+          #   'displaytext'      => display_text,
+          #   'format'           => format,
+          #   'hypervisor'       => hypervisor,
+          #   'name'             => name,
+          #   'ostypeid'         => os_type_id,
+          #   'url'              => url,
+          #   'zoneid'           => zone_id,
+          #   'account'          => account,
+          #   'bits'             => bits,
+          #   'checksum'         => checksum,
+          #   'details'          => details,
+          #   'domainid'         => domain_id,
+          #   'isextractable'    => is_extractable,
+          #   'isfeatured'       => is_featured,
+          #   'ispublic'         => is_public,
+          #   'passwordenabled'  => password_enabled,
+          #   'projectid'        => project_id,
+          #   'requireshvm'      => requires_hvm,
+          #   'sshkeyenabled'  => ssh_key_enabled,
+          #   'templatetag'      => template_tag
+          # }
+          # data = service.register_template(options)
           # data['registertemplateresponse']
         end
 
