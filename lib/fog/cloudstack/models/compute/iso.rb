@@ -74,7 +74,7 @@ module Fog
           options = { 'id' => self.id, 'zoneid' => self.zone_id }
           options.merge!({'url' => url}) if url.present?
           data = service.extract_iso options
-          data['extracttemplateresponse']
+          data['extractisoresponse']
         end
 
         def destroy
