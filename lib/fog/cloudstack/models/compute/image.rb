@@ -118,7 +118,7 @@ module Fog
             'templatetag'      => template_tag
           }
           data = service.register_template(options)
-          data['registertemplateresponse']
+          # data['registertemplateresponse']
         end
 
         def destroy

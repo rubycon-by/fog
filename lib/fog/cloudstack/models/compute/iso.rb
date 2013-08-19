@@ -101,7 +101,7 @@ module Fog
             'projectid'        => project_id,
           }
           data = service.register_iso(options)
-          data['registerisoresponse']
+          # data['registerisoresponse']
         end
 
         def get_options_hash
