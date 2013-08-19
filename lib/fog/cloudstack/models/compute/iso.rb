@@ -87,7 +87,7 @@ module Fog
           requires :display_text, :name, :url, :zone_id
 
           options = {
-            'bootable'         => bootable
+            'bootable'         => bootable,
             'displaytext'      => display_text,
             'name'             => name,
             'ostypeid'         => os_type_id,
