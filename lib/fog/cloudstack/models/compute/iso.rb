@@ -83,6 +83,26 @@ module Fog
           data['deleteisosresponse']
         end
 
+        def register
+          requires :display_text, :name, :url, :zone_id
+
+          options = {
+            'displaytext'      => display_text,
+            'name'             => name,
+            'ostypeid'         => os_type_id,
+            'url'              => url,
+            'zoneid'           => zone_id,
+            'account'          => account,
+            'checksum'         => checksum,
+            'domainid'         => domain_id,
+            'isextractable'    => is_extractable,
+            'isfeatured'       => is_featured,
+            'ispublic'         => is_public,
+            'projectid'        => project_id,
+          }
+          data = service.register_iso(options)
+          data['registerisoresponse']
+        end
 
         def get_options_hash
           options = {
