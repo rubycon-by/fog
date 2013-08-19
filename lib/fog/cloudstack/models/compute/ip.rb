@@ -29,7 +29,7 @@ module Fog
         end
 
         def instance
-          requires :virtual_machine_id
+          # requires :virtual_machine_id
           service.servers.get virtual_machine_id
         end
 
