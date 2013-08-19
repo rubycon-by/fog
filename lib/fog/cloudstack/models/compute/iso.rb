@@ -87,6 +87,7 @@ module Fog
           requires :display_text, :name, :url, :zone_id
 
           options = {
+            'bootable'         => bootable
             'displaytext'      => display_text,
             'name'             => name,
             'ostypeid'         => os_type_id,
@@ -101,7 +102,7 @@ module Fog
             'projectid'        => project_id,
           }
           data = service.register_iso(options)
-          # data['registerisoresponse']
+          data['registerisoresponse']
         end
 
         def get_options_hash
