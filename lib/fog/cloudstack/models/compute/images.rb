@@ -34,9 +34,8 @@ module Fog
         end
 
         def register(attributes={})
-          as_iso = attributes.try(:delete, 'as_iso') || false
           image = new(attributes)
-          as_iso ? image.register_as_iso : image.register_as_template
+          image.register
         end
 
         private

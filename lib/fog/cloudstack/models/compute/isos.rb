@@ -22,6 +22,12 @@ module Fog
         rescue Fog::Compute::Cloudstack::BadRequest
           nil
         end
+
+        def register(attributes={})
+          iso = new(attributes)
+          iso.register
+        end
+        
       end
 
     end

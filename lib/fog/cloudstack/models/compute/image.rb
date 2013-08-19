@@ -94,6 +94,10 @@ module Fog
 
         def register
           requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
+          
+          #'displayText' => 'efref', 'format' => 'QCOW2', 'hypervisor' => 'KVM', 'ispublic' => false, 'name' => 'erfrf', 'osTypeId' => 69, 'passwordEnabled' => false, 'url' => 'erfrf','zoneid' => 2
+
+        #  display_text: 'test', format: 'QCOW2', hypervisor: 'KVM', is_public: false, name: 'test', os_type_id: 69, password_enabled: false, url: 'dev.by', zone_id: 2
 
           options = {
             'displaytext'      => display_text,
