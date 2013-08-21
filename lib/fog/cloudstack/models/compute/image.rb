@@ -93,7 +93,7 @@ module Fog
         end
 
         def register
-          requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
+          # requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
           
           #'displayText' => 'efref', 'format' => 'QCOW2', 'hypervisor' => 'KVM', 'ispublic' => false, 'name' => 'erfrf', 'osTypeId' => 69, 'passwordEnabled' => false, 'url' => 'erfrf','zoneid' => 2
 

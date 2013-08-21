@@ -84,7 +84,7 @@ module Fog
         end
 
         def register
-          requires :display_text, :name, :url, :zone_id
+          # requires :display_text, :name, :url, :zone_id
           # options = {
           #   'bootable' => true,
           #   'displayText' => 'ere',
