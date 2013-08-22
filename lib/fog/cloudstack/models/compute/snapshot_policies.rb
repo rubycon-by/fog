@@ -15,8 +15,8 @@ module Fog
           load(data, condition)
         end
 
-        def get(snapshot_id)
-          snapshot = service.list_snapshot_policies('id' => snapshot_id)["listsnapshotpoliciesresponse"]["snapshotpolicy"].try(:first)
+        def get(volume_id, snapshot_id)
+          snapshot = service.list_snapshot_policies('volumeid' => volume_id, 'id' => snapshot_id)["listsnapshotpoliciesresponse"]["snapshotpolicy"].try(:first)
           new(snapshot) if snapshot
         end
 

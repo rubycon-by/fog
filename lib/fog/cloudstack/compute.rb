@@ -83,6 +83,7 @@ module Fog
       request :create_iso
       request :create_template
       request :create_load_balancer_rule
+      request :create_instance_group
       request :create_ip_forwarding_rule
       request :create_remote_access_vpn
       request :create_network
