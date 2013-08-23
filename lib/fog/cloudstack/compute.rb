@@ -189,6 +189,7 @@ module Fog
       request :update_template
       request :update_account
       request :update_domain
+      request :update_instance_group
       request :update_load_balancer_rule
       request :update_user
       request :update_resource_count
