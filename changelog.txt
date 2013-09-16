@@ -1,3 +1,575 @@
+1.15.0 08/16/2013 73c5497a16a5374b6bec2f533da872aee682a73a
+==========================================================
+
+Stats! { 'collaborators' => 50, 'downloads' => 2932167, 'forks' => 891, 'open_issues' => 165, 'watchers' => 2679 }
+
+MVP! Daniel Reichert
+
+[AWS]
+  print out raw response string when DEBUG_RESPONSE env var is set. thanks Michael Hale
+
+[AWS|ASG]
+  filtering for ASG Scaling Policies. thanks Blake Gentry
+  filtering for ASG Scaling Activities. thanks Blake Gentry
+  parse ScalingPolicy MinAdjustmentStep. thanks Blake Gentry
+  filtering for ASGs. thanks Blake Gentry
+  filter mocked results for describe_auto_scaling_groups. thanks Blake Gentry
+  filter mocked results for describe_auto_scaling_policies. thanks Blake Gentry
+
+[AWS|ELB]
+  add ProxyProtocolPolicyType (and formatting). thanks Michael Hale
+  add set_load_balancer_policies_for_backend_server request. thanks Michael Hale
+  add support for seeing backend server descriptions. thanks Michael Hale
+  add support for OtherPolicies. thanks Michael Hale
+  fix InstancePort parsing in describe_load_balancers. thanks Michael Hale
+  load_balancer_tests cleanup cert from potentially failed previous test run. thanks Michael Hale
+  test describe_load_balancers parser directly. thanks Michael Hale
+  emulate AWS behavior: no BackendServerDescriptions by default. thanks Michael Hale
+  fix set_load_balancer_polices_for_backend mock to track set BackgroundServerDescriptions. thanks Michael Hale
+  update helper to include BackendServerDescriptions and OtherPolicies. thanks Michael Hale
+  fix backend server descriptions model test.     Reload the elb to pickup the latest descriptions. thanks Michael Hale
+  mocks emulate AWS behavior     when setting a policy for the backend server a subsequent describe is     required to update the local state with the current BackendServerDescriptions. thanks Michael Hale
+  fix PolicyTypeNotFound error in create_load_balancer_policy mock. thanks Michael Hale
+  policy model and collection support creating and showing OtherPolicies. thanks Michael Hale
+  fetch policy descriptions for elb.policies model call. thanks Michael Hale
+  actually check PublicKey. thanks Michael Hale
+  use ['Policies']['Proper'] as the canonical mock policy store. thanks Michael Hale
+  remove unused bits. thanks Michael Hale
+  check the result of describe_load_balancer_polices for each policy by name. thanks Michael Hale
+  test that describe_load_balancers mocks properly formats policy results. thanks Michael Hale
+  restore policy.cookie and policy.expiration methods. thanks Michael Hale
+
+[Brightbox]
+  Fixes service deprecations. thanks Paul Thornthwaite
+  Updates to collaboration models. thanks Paul Thornthwaite
+
+[Cloudstack|Compute]
+  Add support for keypair and userdata when creating cloudstack vms. thanks Christophe Roux
+
+[Vcloud]
+  Adding case insensitivity for set-cookie header. thanks Garima Singh
+
+[aws|elb]
+  add new style default security group. thanks Eugene Howe
+
+[aws|iam]
+  Make mock EntityAlreadyExists message match reality. thanks Dan Peterson
+
+[core]
+  excluded :headers hash from symbolize_credentials in order to properly pass headers onto Excon. thanks Kyle Rames
+  exclude :headers from symbolization for real this time; added better tests; Thanks @burns!. thanks Kyle Rames
+
+[glesys]
+  added options to resuse ip and/or ipv6 and description. thanks Andreas Josephson
+
+[google]
+  Add support for network and external_ip. thanks Romain Vrignaud
+  client.images doesn't list google public images. thanks Romain Vrignaud
+  Add support for network and external_ip. thanks Romain Vrignaud
+
+[google-compute-engine]
+  Add private_ip_address method for server. thanks Romain Vrignaud
+
+[google|compute]
+  Fix insert disk to deal with changes to insert image. thanks Nat Welch
+  servers.get don't catch errors. thanks Romain Vrignaud
+  disks.all shouldn't return nil. thanks Romain Vrignaud
+  fix typo on disk example. thanks Romain Vrignaud
+  zone in disks.get is now optional. thanks Romain Vrignaud
+  better check on server.public_ip_address. thanks Romain Vrignaud
+
+[misc]
+  Accept public_key and public_key_path when creating GCE server. thanks Akshay Moghe
+  Query global projects when get/list'ing compute images. thanks Akshay Moghe
+  Allow users to create images in GCE. thanks Akshay Moghe
+  Add 'status' attribute to GCE images. thanks Akshay Moghe
+  When 'insert'ing a disk, don't try to create an image. thanks Akshay Moghe
+  Add ability to get/list snapshots in GCE. thanks Akshay Moghe
+  Align the disk interface more closely with the API. thanks Akshay Moghe
+  Fix up the 'disk' api. thanks Akshay Moghe
+  Rackspace: add keypair support. thanks Bart Vercammen
+  AWS: remove logging. thanks Bart Vercammen
+  rackspace keypairs: add some Mocks. thanks Bart Vercammen
+  rename function 'get_key' => 'get_keypair'. thanks Bart Vercammen
+  Rackspace: add keypair support. thanks Bart Vercammen
+  rackspace keypairs: add some Mocks. thanks Bart Vercammen
+  rename function 'get_key' => 'get_keypair'. thanks Bart Vercammen
+  rackspace: create_server - API change: options[:keypair] takes String i.s.o. Hash (-> the keypair name). thanks Bart Vercammen
+  rackspace: keypairs - add unit tests. thanks Bart Vercammen
+  rackspace:keypairs - add 'model' unit tests. thanks Bart Vercammen
+  rackspace:kaypair - small corrections during unit test. thanks Bart Vercammen
+  rackspace: keypairs - throw Fog::Compute::RackspaceV2::NotFound when HTTP:404 received. thanks Bart Vercammen
+  rackspace: keypairs - additional unittests + correct keypairs.destroy behaviour. thanks Bart Vercammen
+  rackspace - keypairs : redo exception/no-exception logic for ::destroy and ::get functions. thanks Bart Vercammen
+  rackspace: keypairs - add documentation. thanks Bart Vercammen
+  Protect against missing fields in rackspace endpoint documents. thanks Brendan Fosberry
+  Added rackspace monitoring with correct namespace. thanks Daniel Reichert
+  Fixed file path to adhere to fog mainline. thanks Daniel Reichert
+  Fixing namespace transition issue. thanks Daniel Reichert
+  Adding monitoring tests and their required changes. thanks Daniel Reichert
+  Now catching errors correctly, all tests succeed. thanks Daniel Reichert
+  Catching errors correctly, all tests succeed. thanks Daniel Reichert
+  Adding progress on check tests. thanks Daniel Reichert
+  Cleaned up tests, removed ternary operators. thanks Daniel Reichert
+  Check tests now working, dns info required to run. thanks Daniel Reichert
+  Switched check from dns to http remote request. thanks Daniel Reichert
+  Added list tests, helper formats. Cleaned check_tests. thanks Daniel Reichert
+  Consolidated list tests, added alarm tests. thanks Daniel Reichert
+  Added alarm list and alarm get tests. thanks Daniel Reichert
+  Removed unneeded testing group. thanks Daniel Reichert
+  Adding alarm example list, get, and evaluate tests. thanks Daniel Reichert
+  Adding agent tests. thanks Daniel Reichert
+  Adding list data points tests. thanks Daniel Reichert
+  Removed redundant test from comments. thanks Daniel Reichert
+  Added rackspace monitoring with correct namespace. thanks Daniel Reichert
+  Fixed file path to adhere to fog mainline. thanks Daniel Reichert
+  Fixing namespace transition issue. thanks Daniel Reichert
+  Adding monitoring tests and their required changes. thanks Daniel Reichert
+  Now catching errors correctly, all tests succeed. thanks Daniel Reichert
+  Catching errors correctly, all tests succeed. thanks Daniel Reichert
+  Adding progress on check tests. thanks Daniel Reichert
+  Cleaned up tests, removed ternary operators. thanks Daniel Reichert
+  Check tests now working, dns info required to run. thanks Daniel Reichert
+  Switched check from dns to http remote request. thanks Daniel Reichert
+  Added list tests, helper formats. Cleaned check_tests. thanks Daniel Reichert
+  Consolidated list tests, added alarm tests. thanks Daniel Reichert
+  Added alarm list and alarm get tests. thanks Daniel Reichert
+  Removed unneeded testing group. thanks Daniel Reichert
+  Adding alarm example list, get, and evaluate tests. thanks Daniel Reichert
+  Adding delete agent token coverage of api. thanks Daniel Reichert
+  Adding test coverage of deleting agent tokens. thanks Daniel Reichert
+  Re-adding tests from rebase. thanks Daniel Reichert
+  Adding alarm delete coverage of API. thanks Daniel Reichert
+  Adding alarm delete test coverage. thanks Daniel Reichert
+  Forgot to add underscore for test groups. thanks Daniel Reichert
+  Removing bad Failure test. thanks Daniel Reichert
+  WIP:  Adding get tests for checks. thanks Daniel Reichert
+  Completed: get_check tests now working. thanks Daniel Reichert
+  Completed: get_entity tests implemented and passing. thanks Daniel Reichert
+  Removing list_entites failure test. thanks Daniel Reichert
+  forgot to return test group to original value. thanks Daniel Reichert
+  Removing test group. thanks Daniel Reichert
+  add support for openstack network quota endpoints. thanks Evan Petrie
+  fixes #1434 : How to use vcloud fog services. thanks Garima Singh
+  Fixed an uninitialized constant error. thanks Hongbin Lu
+  Add request/parser for DescribeOperableDBInstanceOptions. thanks James Bence
+  Return boolean, not index of match. thanks James Bence
+  Add model, collection for instance_options. thanks James Bence
+  Use correct filters in RDS model instance_options 'all' method. thanks James Bence
+  Set up tests (and make them pass) for orderable_db_instance_options. thanks James Bence
+  Adjust number of items returned for test. thanks James Bence
+  Remove failure test; non-existent engine sometimes has options. thanks James Bence
+  add(rackspace monitoring): list notification plans. thanks Jay Faulkner
+  test(rackspace_monitoring): Add specific test group. thanks Jay Faulkner
+  tests(list_notification_plans): Added basic tests. thanks Jay Faulkner
+  fix(tests): ArgumentError + NoMethodError are const. thanks Jay Faulkner
+  migrate(auth -> v2): Authenticate via 2.0 API. thanks Jay Faulkner
+  fix(alarm_tests): Use npTechnicalContactsEmail. thanks Jay Faulkner
+  add(rackspace monitoring): list notification plans. thanks Jay Faulkner
+  test(rackspace_monitoring): Add specific test group. thanks Jay Faulkner
+  tests(list_notification_plans): Added basic tests. thanks Jay Faulkner
+  fix(tests): ArgumentError + NoMethodError are const. thanks Jay Faulkner
+  migrate(auth -> v2): Authenticate via 2.0 API. thanks Jay Faulkner
+  add(notice): Direct future developers to old repo. thanks Jay Faulkner
+  fix for token timeout on cdn. thanks Jon Holt
+  Tests for reauthentication in CDN. thanks Jon Holt
+  Allow to configure server#scp and server#ssh on the instance level. thanks Jonas Pfenniger
+  Fixes issue where Net::SSH would only use the "password" authentication method. thanks Jonas Pfenniger
+  add support for m3.xlarge and m3.2xlarge instance flavors. thanks Kevin McFadden
+  removing coveralls support for Ruby 1.9.2 in hopes of fixing #1921. thanks Kyle Rames
+  removing coveralls support for Ruby 1.9.2 in hopes of fixing #1921 take two. thanks Kyle Rames
+  try 3 in removing coveralls for ruby 1.9.2. thanks Kyle Rames
+  trying to disable coveralls. thanks Kyle Rames
+  rebasing with master. thanks Kyle Rames
+  updating monitoring service to recognize rackspace_region. thanks Kyle Rames
+  trying one more times to disable coveralls on 1.9.2. thanks Kyle Rames
+  Adds light documentation for GCE and GCS. thanks Nat Welch
+  A set of smoke tests for GCE. thanks Nat Welch
+  fix some small bugs in the gce smoke tests. thanks Nat Welch
+  some more small bugs in the GCE examples. thanks Nat Welch
+  Be alittle more specific in the footer of Google Readme. thanks Nat Welch
+  Make public_url function easier to read and change acl request to deal with nokogiri changes. thanks Nat Welch
+  Examples tweak. thanks Nat Welch
+  remove networks. thanks Nat Welch
+  Fix some issues with GCE examples and disk requests. thanks Nat Welch
+  Fix comments in Google snapshot example. thanks Nat Welch
+  Renamed Fog::AWS::SES::Real#verify_domain to #verify_domain_identity. thanks Postmodern
+  Fix all in Fog::Compute::Servers. thanks Romain Vrignaud
+  Fix Fog::Compute::Google::Flavor all method. thanks Romain Vrignaud
+  Add a parameter to servers.all for rackspace v2 to make it the same as other providers. thanks Sam Kottler
+  Remove whitespace from the Rackspace V2 test. thanks Sam Kottler
+  Fix #server so that it returns the right server instead of all servers. thanks Shay Bergmann
+  Changing the non-ascii dash in the url. thanks Steve Frank
+  use params instead of prep. thanks Thomas Cate
+  Add VPC security groups to the RDS instances. thanks Timur Alperovich
+  [aws|rds]: PubliclyAccessible is boolean. thanks Timur Alperovich
+  remove dependency on active_support's present? method. thanks Toby Hede
+  Cleanup and refactor digitalocean integration. thanks Trae Robrock
+  Whitespace. thanks Trae Robrock
+  Whitespace, fix tests for running in non mock mode, and clean up in non mock mode. thanks Trae Robrock
+  digitalocean supports bootstrap. thanks Trae Robrock
+  Fix digitalocean server test. thanks Trae Robrock
+  Add digitalocean mock key to run these tests on travis. thanks Trae Robrock
+  Add ip_address to the mock. thanks Trae Robrock
+  Remove mock server from servers list on destroy. thanks Trae Robrock
+  Adding exception from net-ssh 2.6 that occurs during bootstrap as sshd is just starting up. thanks Trae Robrock
+  Add mock for dnsimple and fix tests for non mock mode. thanks Trae Robrock
+  Add mock and test for get_record. thanks Trae Robrock
+  Correct record creation response. thanks Trae Robrock
+  Return a 404 if the domain does no exist. thanks Trae Robrock
+  Add proper error message to 404. thanks Trae Robrock
+  handle zone with no records. thanks Trae Robrock
+  Handle missing record case. thanks Trae Robrock
+  Use the zone id for record creation. thanks Trae Robrock
+  Fix mock for creation by id. thanks Trae Robrock
+  Use the id for deletion also. thanks Trae Robrock
+  Use id for record update. thanks Trae Robrock
+  Add ip_address method back, but deprecate it. thanks Trae Robrock
+  Allow v1 auth for OpenStack. thanks Yauheni Kryudziuk
+  fix inner/outer variable shadowing. thanks geemus
+  random ip address support. thanks mlincoln
+  lib/fog/cloudstack/models/compute/servers.rb must check for nil before checking for empty. thanks torake.fransson
+
+[openstack|compute]
+  update volume tests. thanks Brian D. Burns
+  update flavor tests. thanks Brian D. Burns
+
+[openstack|image]
+  strip unused headers in #update_image. thanks Brian D. Burns
+
+[openstack|storage]
+  put_object with request_block can not be idempotent. thanks Brian D. Burns
+  added the ability to upload files using blocks in the same manner as the Rackspace provider. thanks Kyle Rames
+  updating object tests to support ruby 1.8.7. thanks Kyle Rames
+  Added temporary signed URL support. thanks Yauheni Kryudziuk
+
+[rackspace]
+  refined authentication endpoint tests. thanks Kyle Rames
+  updated exceptions to include the service transaction id if available. thanks Kyle Rames
+  added transaction id to monitoring exceptions; passing service into slurp for compute, databases, dns and load balancers. thanks Kyle Rames
+  fixing broken tests. thanks Kyle Rames
+
+[rackspace|compute_v2]
+  renaming keypairs to key_pairs to match other compute implementations. thanks Kyle Rames
+
+[rackspace|identity]
+  added error handling to make service catalog more robust. thanks Kyle Rames
+  fixing broken service catalog test. thanks Kyle Rames
+
+[rackspace|monitoring]
+  WIP initial commit of alarm example tests. thanks Daniel Reichert
+  Adding alarm examples tests. thanks Daniel Reichert
+  Adding alarm example tests. thanks Daniel Reichert
+  WIP Initial commit of alarm tests. thanks Daniel Reichert
+  Adding alarm example(s) tests. thanks Daniel Reichert
+  Adding working alarm tests. thanks Daniel Reichert
+  Adding support required for tests to pass. thanks Daniel Reichert
+  Correcting entity destroy logic. thanks Daniel Reichert
+  Fixing entity destroy logic. thanks Daniel Reichert
+  Addding Alarms and Check-Types tests. thanks Daniel Reichert
+  Adding mocks pending indication. thanks Daniel Reichert
+  Update Alarm bug fixed, uncommenting test. thanks Daniel Reichert
+  updating to re-authenticate token on expiration; adding monitoring authentication tests. thanks Kyle Rames
+  updating to use fog conventions. thanks Kyle Rames
+  adding model tests for agent_token, check, and entity; added destroy method to agent_token and check models; updated models to retrieve identity from header value 'X-Object-ID'; updated check model to take an entity object or id. thanks Kyle Rames
+  removing bad test per @irdan. thanks Kyle Rames
+  adding model tests for metrics and data points. thanks Kyle Rames
+  updated monitoring tests to skip sleeping if we are running in mocked mode. thanks Kyle Rames
+  fixing broken monitoring test. thanks Kyle Rames
+  replaced entity_id and check_id attributes with entity and check attributes; removed entity_id from base module. thanks Kyle Rames
+
+[rackspace|storage]
+  put_object with request_block can not be idempotent. thanks Brian D. Burns
+
+[vsphere]
+  Raise NotFound exception when Datacenter or Template is not found. thanks Carlos Sanchez
+  Make mock data consistent across operations. thanks Carlos Sanchez
+  searchIndex.FindByUuid datacenter parameter must be a RbVmomi::VIM::Datacenter. thanks Carlos Sanchez
+  Need to turn off vm and wait until off before destroying. thanks Carlos Sanchez
+  Fix NoMethodError: undefined method in list_virtual_machines. thanks Carlos Sanchez
+
+[xenserver]
+  Added support to get VM by uuid. thanks Celso Fernandes
+  Console model created. thanks Gustavo Villalta
+  Consoles collection created. thanks Gustavo Villalta
+
+
+1.14.0 07/19/2013 b9f1659ebd45c84db011c71b53cc581a1b7ac7e1
+==========================================================
+
+Stats! { 'collaborators' => 49, 'downloads' => 2713501, 'forks' => 860, 'open_issues' => 155, 'watchers' => 2634 }
+
+MVP! Erik Michaels-Ober
+
+[misc]
+  Create separate Gemfile for Ruby 1.8.7. thanks Erik Michaels-Ober
+  Update nokogiri dependency to version ~>1.5. thanks Erik Michaels-Ober
+  Add note about installing on Ruby 1.8.7 [ci skip]. thanks Erik Michaels-Ober
+  add coveralls to Gemfile.1.8.7. thanks geemus
+
+
+1.13.0 07/19/2013 7f5b0b4931d8fe85596f67013ef285fd0b8335e0
+==========================================================
+
+Stats! { 'collaborators' => 49, 'downloads' => 2712905, 'forks' => 860, 'open_issues' => 157, 'watchers' => 2634 }
+
+MVP! James Bence
+
+[AWS | AutoScaling]
+  Do not send Instances for update_auto_scaling_group     (Avoids 413 Request Entity Too Large for ASGs with lots of instances). thanks Michael Hale
+
+[AWS | Autoscaling]
+  whitelist the options for update_auto_scaling_group. thanks Michael Hale
+  whitelist the options for create_auto_scaling_group. thanks Michael Hale
+  dry up expected options. thanks Michael Hale
+  correct whitelist for create_auto_scaling_group. thanks Michael Hale
+  ensure tests work in 1.8.7. thanks Michael Hale
+
+[Brightbox]
+  Updates to add collaborations. thanks Hemant Kumar
+  Extract Compute::Shared to own file. thanks Paul Thornthwaite
+
+[Openstack|Volumes]
+  alias type to volume_type. thanks Grzesiek Kolodziejczyk
+
+[Openstack|volume]
+  Add #get to volumes collection. thanks Grzesiek Kolodziejczyk
+  fix key name for volume_type. thanks Grzesiek Kolodziejczyk
+  create volumes from other vol. thanks Grzesiek Kolodziejczyk
+
+[aws|storage]
+  parse #complete_multipart error. thanks Brian D. Burns
+
+[aws|sts]
+  Add support for the AssumeRole STS method.  Also enable the ability for the STS               service to use IAM profiles to grab credentials off the EC2 instance, as is in place               for the other AWS services. thanks Caleb Tennis
+
+[cli]
+  Changes `fog --version` short option to `-v`. thanks Paul Thornthwaite
+
+[core]
+  Removes unused getting of Constant. thanks Paul Thornthwaite
+  Comments why Nokogiri 1.6 is not being used. thanks Paul Thornthwaite
+  Move XML/JSON code up out of core. thanks Paul Thornthwaite
+  Fog::Connection documentation. thanks Paul Thornthwaite
+  Adds initial Fog::Connection tests. thanks Paul Thornthwaite
+  Test Core version not deprecated one. thanks Paul Thornthwaite
+
+[core/xml]
+  Splits SAX parsing from Connection. thanks Paul Thornthwaite
+
+[digitalocean]
+  Rename do to docean in examples. thanks Ørjan Blom
+
+[fix]
+  Corrected the service mocks for testing to respond with a 304 to values of If-Modified-Since that match Last-Modified. thanks Bob Lail and Luke Booth
+
+[google|compute]
+  Change default image to most recent version of wheezy. thanks Nat Welch
+  Fix some bugs with using create without bootstrap. thanks Nat Welch
+
+[misc]
+  Add PubliclyAccessible option to RDS. thanks Adam Tucker
+  Extend capability to restore_db_instance_from_db_snapshot. thanks Adam Tucker
+  Signature method requires x-amz-security-token header. thanks Adam Tucker
+  Infer the 'image' URL correctly when inserting a server. thanks Akshay Moghe
+  increased iops limit to 4000. http://aws.typepad.com/aws/2013/05/provision-up-to-4k-iops-per-ebs-volume.html. thanks Angelo Marletta
+  Added support for [xenserver] snapshot. thanks Celso Fernandes
+  Fixes security group handling for spot requests launching into a VPC on AWS. thanks Dave Myron
+  Swapped to SecurityGroupId. thanks Dave Myron
+  fix create_tenant Mock response description and name. thanks Doug McInnes
+  Update excon dependency to version ~>0.24.0. thanks Erik Michaels-Ober
+  Update excon dependency to version ~>0.25.0. thanks Erik Michaels-Ober
+  Passing the connection_options parameter to underlying Fog::Storage object. thanks Hector Castro
+  Passing the connection_options parameter to underlying Fog::Storage object     for Fog::RiakCS::Provisioning. thanks Hector Castro
+  Used publicURL as default endpoint type for OpenStack network. thanks Hongbin Lu
+  Rename 'each' method to 'each_page'. thanks James Bence
+  Loop over Marker header in 'all', remove 'each'. thanks James Bence
+  Inspect error.response.body, not error.message. thanks James Bence
+  Restore implementation of each/all. thanks James Bence
+  Refactor error handling. thanks James Bence
+  Remove code from other branch-in-progress. thanks James Bence
+  Remove mistaken version update. thanks James Bence
+  Construct hash with => (for 1.8.7). thanks James Bence
+  Use specific error classes, not generic Fog::Compute::AWS::Error. thanks James Bence
+  Add describe_db_log_files request for AWS, version 2013-05-15. thanks James Bence
+  Add 'each' that iterates over all log files. thanks James Bence
+  Add parser/request for DownloadDBLogFilePortion. thanks James Bence
+  Use correct filters on RDS model snapshots 'all' method. thanks James Bence
+  Use correct filters in RDS model logfiles 'all' method. thanks James Bence
+  More DRY, succinct implementation of tag parsing. thanks James Bence
+  Remove extraneous nil. thanks James Bence
+  Add db identifier to parser, use it for log_file model. thanks James Bence
+  Get partial log content via method call; add to log_file model attributes. thanks James Bence
+  adding proper fixed secondary_ip support. thanks John E. Vincent
+  remove a debug entry. thanks John E. Vincent
+  Allows to set the account meta key by setting hp_account_meta_key, needed to generate temp urls using the HP provider, explicitly, instead of using hp_secret_key. If hp_account_meta_key is not given hp_secret_key is used as hp_account_meta_key. thanks Julian Fischer
+  HP uses a different strategy to create the signature that is passed to swift than OpenStack.  As the HP provider is broadly used by OpenStack users the OpenStack strategy is applied when the @hp_account_meta_key is given. thanks Julian Fischer
+  Adds Fog::Storage::HP::File#url method to enable compatibility with Fog::Storage::AWS::File. thanks Julian Fischer
+  Fixed bug undefined local variable or method account_meta_key. thanks Julian Fischer
+  Bugfix: @hp_secret_key instead of @hp_account_meta_key required in storage.rb:186. thanks Julian Fischer
+  Avoids Digest::HMAC.hexdigest to remain 1.8.7 compatibility. thanks Julian Fischer
+  Remove File#url. thanks Julian Fischer
+  Renames hp_account_meta_key to os_account_meta_temp_url_key. thanks Julian Fischer
+  merging with master. thanks Kyle Rames
+  Add nil check on metadata mock. thanks Mike Moore
+  Add attachment check to detach_volume mock. thanks Mike Moore
+  Add array coalesce. thanks Mike Moore
+  Uping version to v1beta15. thanks Nat Welch
+  trying to fix sshable? for gce. thanks Nat Welch
+  more attempts to get ssh in compute workings. thanks Nat Welch
+  temporary debug info. thanks Nat Welch
+  Better comments and a logging attempt. thanks Nat Welch
+  bug in network interfaces code. thanks Nat Welch
+  Trying to be more consistent in code. Removing logging. thanks Nat Welch
+  trying to get metadata do one request per access. thanks Nat Welch
+  Forgot to delete two lines. thanks Nat Welch
+  correct syntax for the metadata craziness. thanks Nat Welch
+  I'm an idiot. thanks Nat Welch
+  trying again to get metadata working... thanks Nat Welch
+  Hashes not Arrays. thanks Nat Welch
+  ahh machine api changed as well... gotta figure out what the api is returning now. thanks Nat Welch
+  can't be private. thanks Nat Welch
+  whoops. thanks Nat Welch
+  Nope. thanks Nat Welch
+  not that either. thanks Nat Welch
+  so many syntax errors. thanks Nat Welch
+  in v15, there are all kinds of places images can hide. thanks Nat Welch
+  make sure I'm getting valid data back. thanks Nat Welch
+  trying to actually handle response error data. thanks Nat Welch
+  just the message. thanks Nat Welch
+  aha! This could be the issue. thanks Nat Welch
+  why isn't image_url getting set?. thanks Nat Welch
+  nil, not empty. thanks Nat Welch
+  try this... thanks Nat Welch
+  never being written. thanks Nat Welch
+  trying to use correct code location. thanks Nat Welch
+  alright! Insertion!. thanks Nat Welch
+  Why is this request failing. thanks Nat Welch
+  Send the right zone. thanks Nat Welch
+  zone looks to be bad in get_server. thanks Nat Welch
+  why!. thanks Nat Welch
+  this is probably not stable. thanks Nat Welch
+  Different trypes of input. thanks Nat Welch
+  modify all of the things. thanks Nat Welch
+  passing around teh data. thanks Nat Welch
+  better zone name. thanks Nat Welch
+  sshable? shouldn't just die. thanks Nat Welch
+  inifite loop get. thanks Nat Welch
+  more bad status code checks. thanks Nat Welch
+  init response. thanks Nat Welch
+  trying to figure out what's wrong. thanks Nat Welch
+  Patch from a fellow googler. thanks Nat Welch
+  Switch running? back to ready?. thanks Nat Welch
+  network_interfaces can be nil. thanks Nat Welch
+  Default to running user for username. thanks Nat Welch
+  A patch from a fellow googler. thanks Nat Welch
+  metadata could be nil. thanks Nat Welch
+  Throw errors instead of printing them. thanks Nat Welch
+  refactor image lookup code. thanks Nat Welch
+  Let's wait till sshable. thanks Nat Welch
+  whoops. thanks Nat Welch
+  small style tweaks for #1946. thanks Nat Welch
+  Added option parsing to bin/fog. thanks Postmodern
+  Added the -f, --fogrc option for specifying an alternate fogrc file. thanks Postmodern
+  Renamed -f,--fogrc to -C,--credentials-path. thanks Postmodern
+  Added Fog::AWS::SES.verify_domain_identity. thanks Postmodern
+  Fixed description for the #verify_domain_identity tests. thanks Postmodern
+  Actually call verify_domain_identity. thanks Postmodern
+  Add basic error handling for Fog::AWS::SES. thanks Postmodern
+  Convert the raw_message for send_raw_email, just in case. thanks Postmodern
+  Raise Fog::AWS::SES::InvalidParameterError for InvalidParameterValue. thanks Postmodern
+  Fix autoincrement when creating a flavor if private flavors exist. thanks Thomas Kadauke
+  Add RDS API version parameter option. thanks Timur Alperovich
+  Initial documentation for using Fog with CloudSigma. thanks Viktor Petersson
+  Fixed typos. thanks Viktor Petersson
+  add license to gempsec. thanks geemus
+  Added Disk and Disks to Google compute. Created new insert server request method that is backward compatible with the old request method, but also allows all insert server options to be used rather than a subset. thanks jordangbull
+  cleaned out print statements. Refactored disk(s) to be created the same way as other models. Fixed wait_for on disks to properly work. thanks jordangbull
+  Fixed minor import issue. thanks jordangbull
+  Rebased and cleaned up google fog. Changed insert_server to allow all options (not backwards compatible, but throws an informative error. thanks jordangbull
+  Cleaned code and fixed issue with getting a resource too soon after request for creation. thanks jordangbull
+  Added access configs name so public ip can be retrieved. thanks jordangbull
+  Fixed bug with bootstrapped servers not being sshable. thanks jordangbull
+  small fix in metadata for servers. thanks jordangbull
+  Fixed server bootstrap to remove default image if a boot disk is specified. thanks jordangbull
+  Google Cloud Compute now raises Errors rather than throwing them. thanks jordangbull
+  Added destroy method to disk and zone method. thanks jordangbull
+  Add SimpleCov and Coveralls.io dependenices     Add rake tasks for travis, which include publishing coverage reports. thanks mlincoln
+  Change travis to use a rake task instead of shindont directly.     This is partly necessary for     https://github.com/lemurheavy/coveralls-ruby/pull/20, though     I'm a fan of running just "rake" or "rake travis" for simplicity     anyways. thanks mlincoln
+  The actual simplecov/coveralls setup.     The use of Process.pid is an attempt to avoid confusing SimpleCov when     running tests in parallel.  Other tests frameworks take a similar     approach when they detect parallel_tests. thanks mlincoln
+  Some cleanup based on comments on the PR. thanks mlincoln
+
+[openstack|compute]
+  support block_device_mapping. thanks Grzesiek Kolodziejczyk
+
+[openstack|image]
+  Fix image reload. thanks Ferran Rodenas
+
+[openstack|metering]
+  Allow multiple filtering queries. thanks Alvin Garcia
+  Fix get_statistics mock. thanks Alvin Garcia
+  Added metering service for Ceilometer. thanks Philip Mark M. Deazeta
+
+[openstack|volume]
+  support imageRef option. thanks Grzesiek Kolodziejczyk
+
+[openvz]
+  Fixes #1871 test helper callback. thanks Paul Thornthwaite
+
+[rackspace]
+  fix JSON error parsing. thanks Brian D. Burns
+  updated services to re-authenticate when authentication token expires. thanks Kyle Rames
+  adding block and parse_json parameters to request parameter calls. thanks Kyle Rames
+  fixing broken user tests; adding wait_for_request method to add in testing. thanks Kyle Rames
+  setting default fog timeout to 2000 for testing; removing specific hard coded timeouts. thanks Kyle Rames
+
+[rackspace|block_storage]
+  fixing broken volume type tests. thanks Kyle Rames
+
+[rackspace|cdn]
+  updating cdn to throw exceptions from storage namespace rather than cdn. This was done for historical reasons. thanks Kyle Rames
+
+[rackspace|compute]
+  updating mocks. thanks Kyle Rames
+  fixing broken address test. thanks Kyle Rames
+  fixed metadata tests. thanks Kyle Rames
+  fixing broken tests. thanks Kyle Rames
+  adding parameter to save method in order to make it more polymorphic. thanks Kyle Rames
+
+[rackspace|dns]
+  fixing DNS pagination issue #1887. thanks Kyle Rames
+  added total_entries attribute to zones. thanks Kyle Rames
+  adding :limit => 100 to clarify that all returns a limit of 100 records per page at @rupakg suggestion. thanks Kyle Rames
+  fixing broken tests. thanks Kyle Rames
+
+[rackspace|identity]
+  fixing broken identity tests. thanks Kyle Rames
+
+[rackspace|load balancers]
+  making failing usage tests cases pending until I can get them fixed. thanks Kyle Rames
+
+[rackspace|storage]
+  add methods for SLO support. thanks Brian D. Burns
+  add #put_dynamic_obj_manifest. thanks Brian D. Burns
+  patch #delete_static_large_object for Swift v1.8. thanks Brian D. Burns
+  fix tests under ruby-1.8.7. thanks Brian D. Burns
+  add #delete_multiple_objects. thanks Brian D. Burns
+  patch #delete_multiple_objects for Swift v1.8. thanks Brian D. Burns
+  update File model to submit etags if they are specified. thanks Kyle Rames
+
+[rackspce|block_storage]
+  fixing tests. thanks Kyle Rames
+
+[vcloud|compute]
+  better defaults for configuring vm content-type. thanks geemus
+
+[vsphere]
+  fix regex typo. thanks Dominic Cleal
+
+[xenserver|compute]
+  Small fix for snapshot tests added in #1914. thanks Sergio Rubio
+
+
 1.12.1 06/11/2013 8663e9079edb69f1a56ea887379f94e6d5efd0d8
 ==========================================================
 

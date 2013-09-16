@@ -31,6 +31,10 @@ module Fog
           @rackspace_region
         end
 
+        def request_id_header
+          "X-Trans-Id"
+        end
+
         def endpoint_uri(service_endpoint_url=nil)
           @uri = super(@rackspace_cdn_url || service_endpoint_url, :rackspace_cdn_url)
         end
@@ -115,6 +119,10 @@ module Fog
         include Base
 
         def initialize(options={})
+          # api_key and username missing from instance variable sets
+          @rackspace_api_key = options[:rackspace_api_key]
+          @rackspace_username = options[:rackspace_username]
+          
           @connection_options = options[:connection_options] || {}
           @rackspace_auth_url = options[:rackspace_auth_url]
           @rackspace_cdn_url = options[:rackspace_cdn_url]
@@ -152,30 +160,16 @@ module Fog
           true
         end        
 
-        def request(params, parse_json = true)
-          begin
-            response = @connection.request(params.merge!({
-              :headers  => {
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'X-Auth-Token' => auth_token
-              }.merge!(params[:headers] || {}),
-              :host     => endpoint_uri.host,
-              :path     => "#{endpoint_uri.path}/#{params[:path]}",
-            }))
-          rescue Excon::Errors::NotFound => error
-            raise Fog::Storage::Rackspace::NotFound.slurp(error, region)
-          rescue Excon::Errors::BadRequest => error
-            raise Fog::Storage::Rackspace::BadRequest.slurp error
-          rescue Excon::Errors::InternalServerError => error
-            raise Fog::Storage::Rackspace::InternalServerError.slurp error
-          rescue Excon::Errors::HTTPStatusError => error
-            raise Fog::Storage::Rackspace::ServiceError.slurp error
-          end
-          if !response.body.empty? && parse_json && response.headers['Content-Type'] =~ %r{application/json}
-            response.body = Fog::JSON.decode(response.body)
-          end
-          response
+        def request(params, parse_json = true, &block)
+          super(params, parse_json, &block)
+        rescue Excon::Errors::NotFound => error
+          raise Fog::Storage::Rackspace::NotFound.slurp(error, self)
+        rescue Excon::Errors::BadRequest => error
+          raise Fog::Storage::Rackspace::BadRequest.slurp(error, self)
+        rescue Excon::Errors::InternalServerError => error
+          raise Fog::Storage::Rackspace::InternalServerError.slurp(error, self)
+        rescue Excon::Errors::HTTPStatusError => error
+          raise Fog::Storage::Rackspace::ServiceError.slurp(error, self)
         end
         
         private 
@@ -186,6 +180,15 @@ module Fog
           @auth_token = credentials['X-Auth-Token']
         end
 
+        # Fix for invalid auth_token, likely after 24 hours.
+        def authenticate(options={})
+         super({
+           :rackspace_api_key  => @rackspace_api_key,
+           :rackspace_username => @rackspace_username,
+           :rackspace_auth_url => @rackspace_auth_url,
+           :connection_options => @connection_options
+         })
+        end
       end
     end
   end

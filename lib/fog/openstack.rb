@@ -47,6 +47,17 @@ module Fog
     service(:network, 'openstack/network', 'Network')
     service(:storage, 'openstack/storage', 'Storage')
     service(:volume,  'openstack/volume',  'Volume')
+    service(:metering,  'openstack/metering',  'Metering')
+    service(:orchestration,  'openstack/orchestration',  'Orchestration')
+
+    def self.authenticate(options, connection_options = {})
+      case options[:openstack_auth_uri].path
+      when /v1(\.\d+)?/
+        authenticate_v1(options, connection_options)
+      else
+        authenticate_v2(options, connection_options)
+      end
+    end
 
     # legacy v1.0 style auth
     def self.authenticate_v1(options, connection_options = {})
@@ -68,7 +79,7 @@ module Fog
 
       return {
         :token => response.headers['X-Auth-Token'],
-        :server_management_url => response.headers['X-Server-Management-Url'],
+        :server_management_url => response.headers['X-Server-Management-Url'] || response.headers['X-Storage-Url'],
         :identity_public_endpoint => response.headers['X-Keystone']
       }
     end
@@ -119,7 +130,7 @@ module Fog
       end if openstack_region
 
       if service['endpoints'].empty?
-        raise Errors::NotFound.new("No endpoints available for region '#{openstack_region}'")
+        raise Fog::Errors::NotFound.new("No endpoints available for region '#{openstack_region}'")
       end if openstack_region
 
       unless service

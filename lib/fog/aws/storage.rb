@@ -335,7 +335,6 @@ module Fog
         end
 
         def initialize(options={})
-          require 'mime/types'
           @use_iam_profile = options[:use_iam_profile]
           setup_credentials(options)
           @region = options[:region] || DEFAULT_REGION
@@ -387,7 +386,6 @@ module Fog
         # * S3 object with connection to aws.
         def initialize(options={})
           require 'fog/core/parser'
-          require 'mime/types'
 
           @use_iam_profile = options[:use_iam_profile]
           setup_credentials(options)
@@ -491,13 +489,14 @@ DATA
           refresh_credentials_if_expired
 
           expires = Fog::Time.now.to_date_header
+
+          params[:headers]['x-amz-security-token'] = @aws_session_token if @aws_session_token
           signature = signature(params, expires)
 
           params = request_params(params)
           params.delete(:port) unless params[:port]
 
           params[:headers]['Date'] = expires
-          params[:headers]['x-amz-security-token'] = @aws_session_token if @aws_session_token
           params[:headers]['Authorization'] = "AWS #{@aws_access_key_id}:#{signature}"
           # FIXME: ToHashParser should make this not needed
           original_params = params.dup

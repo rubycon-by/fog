@@ -12,13 +12,14 @@ module Fog
 
     module Errors
       class ServiceError < Fog::Errors::Error
-        attr_reader :response_data, :status_code
+        attr_reader :response_data, :status_code, :transaction_id
 
         def to_s
-          status_code ? "[HTTP #{status_code}] #{super}" : super
+          status = status_code ? "HTTP #{status_code}" : "HTTP <Unknown>"
+          "[#{status} | #{transaction_id}] #{super}"
         end
 
-        def self.slurp(error)
+        def self.slurp(error, service=nil)
           data = nil
           message = nil
           status_code = nil
@@ -28,7 +29,7 @@ module Fog
             unless error.response.body.empty?
               begin
                 data = Fog::JSON.decode(error.response.body)
-                message = data.values.first ? data.values.first['message'] : data['message']
+                message = extract_message(data)
               rescue  => e
                 Fog::Logger.warning("Received exception '#{e}' while decoding>> #{error.response.body}")
                 message = error.response.body
@@ -40,7 +41,21 @@ module Fog
           new_error = super(error, message)
           new_error.instance_variable_set(:@response_data, data)
           new_error.instance_variable_set(:@status_code, status_code)
+          new_error.set_transaction_id(error, service)
           new_error
+        end
+
+        def set_transaction_id(error, service)
+          return unless service && service.respond_to?(:request_id_header) && error.response
+          @transaction_id = error.response.headers[service.request_id_header]
+        end
+
+        def self.extract_message(data)
+          if data.is_a?(Hash)
+            message = data.values.first['message'] if data.values.first.is_a?(Hash)
+            message ||= data['message']
+          end
+          message || data.inspect
         end
       end
 
@@ -52,11 +67,15 @@ module Fog
         #TODO - Need to find a better way to print out these validation errors when they are thrown
         attr_reader :validation_errors
 
-        def self.slurp(error)
+        def self.slurp(error, service=nil)
           new_error = super(error)
           unless new_error.response_data.nil? or new_error.response_data['badRequest'].nil?
             new_error.instance_variable_set(:@validation_errors, new_error.response_data['badRequest']['validationErrors'])
           end
+
+          status_code = error.response ? error.response.status : nil
+          new_error.instance_variable_set(:@status_code, status_code)
+          new_error.set_transaction_id(error, service)
           new_error
         end
       end
@@ -71,6 +90,7 @@ module Fog
     service(:load_balancers,   'rackspace/load_balancers',    'LoadBalancers')
     service(:identity,         'rackspace/identity',          'Identity')
     service(:databases,        'rackspace/databases',         'Databases')
+    service(:monitoring,       'rackspace/monitoring',        'Monitoring')
 
     def self.authenticate(options, connection_options = {})
       rackspace_auth_url = options[:rackspace_auth_url]
@@ -96,6 +116,11 @@ module Fog
       end
     end
 
+    def self.json_response?(response)
+      return false unless response && response.headers
+      response.headers['Content-Type'] =~ %r{application/json}i ? true : false
+    end
+
     def self.normalize_url(endpoint)
       return nil unless endpoint
       str = endpoint.chomp " "
@@ -105,7 +130,10 @@ module Fog
 
     # CGI.escape, but without special treatment on spaces
     def self.escape(str,extra_exclude_chars = '')
-      str.gsub(/([^a-zA-Z0-9_.-#{extra_exclude_chars}]+)/) do
+      # '-' is a special character inside a regex class so it must be first or last.
+      # Add extra excludes before the final '-' so it always remains trailing, otherwise
+      # an unwanted range is created by mistake.
+      str.gsub(/([^a-zA-Z0-9_.#{extra_exclude_chars}-]+)/) do
         '%' + $1.unpack('H2' * $1.bytesize).join('%').upcase
       end
     end

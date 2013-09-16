@@ -47,7 +47,6 @@ module Fog
         include Utils
 
         def initialize(options = {})
-          require 'mime/types'
           require 'multi_json'
 
           configure_uri_options(options)
@@ -64,7 +63,8 @@ module Fog
             :aws_secret_access_key => @riakcs_secret_access_key,
             :host                  => @host,
             :port                  => @port,
-            :scheme                => @scheme
+            :scheme                => @scheme,
+            :connection_options    => @connection_options
           )
         end
 

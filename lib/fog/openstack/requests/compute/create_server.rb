@@ -13,7 +13,7 @@ module Fog
           }
 
           vanilla_options = ['metadata', 'accessIPv4', 'accessIPv6',
-                             'availability_zone', 'user_data', 'key_name', 'adminPass']
+                             'availability_zone', 'user_data', 'key_name', 'adminPass', 'config_drive']
           vanilla_options.select{|o| options[o]}.each do |key|
             data['server'][key] = options[key]
           end
@@ -56,11 +56,29 @@ module Fog
             data['os:scheduler_hints'] = options['os:scheduler_hints']
           end
 
+          if options['block_device_mapping']
+            data['server']['block_device_mapping'] =
+            [options['block_device_mapping']].flatten.map do |mapping|
+              {
+                'volume_size' => mapping[:volume_size],
+                'volume_id' => mapping[:volume_id],
+                'delete_on_termination' => mapping[:delete_on_termination],
+                'device_name' => mapping[:device_name]
+              }
+            end
+          end
+
+          path = if data['server']['block_device_mapping']
+                   'os-volumes_boot.json'
+                 else
+                   'servers.json'
+                 end
+
           request(
             :body     => Fog::JSON.encode(data),
             :expects  => [200, 202],
             :method   => 'POST',
-            :path     => 'servers.json'
+            :path     => path
           )
         end
 
@@ -104,6 +122,7 @@ module Fog
             'created'    => '2012-09-27T00:04:18Z',
             'updated'    => '2012-09-27T00:04:27Z',
             'user_id'    => @openstack_username,
+            'config_drive' => options['config_drive'] || '',
           }
 
           response_data = {

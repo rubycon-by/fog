@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'fog'
-  s.version           = '1.12.1'
-  s.date              = '2013-06-10'
+  s.version           = '1.15.0'
+  s.date              = '2013-08-16'
   s.rubyforge_project = 'fog'
 
   ## Make sure your summary is short. The description may be as long
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.authors  = ["geemus (Wesley Beary)"]
   s.email    = 'geemus@gmail.com'
   s.homepage = 'http://github.com/fog/fog'
+  s.license  = 'MIT'
 
   ## This sections is only necessary if you have C extensions.
   # s.require_paths << 'ext'
@@ -47,11 +48,8 @@ Gem::Specification.new do |s|
   s.add_dependency('mime-types')
   s.add_dependency('net-scp', '~>1.1')
   s.add_dependency('net-ssh', '>=2.1.3')
+  s.add_dependency('nokogiri', '~>1.5')
   s.add_dependency('ruby-hmac')
-
-  # Nokogiri >= 1.6 drops support for Ruby 1.8.7 so should not be used
-  # See https://github.com/fog/fog/issues/1878 for more details
-  s.add_dependency('nokogiri', '~>1.5.0')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
@@ -66,6 +64,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency('fission')
   s.add_development_dependency('pry')
   s.add_development_dependency('google-api-client', '~>0.6.2')
+  s.add_development_dependency('vcr', '~>2.5.0')
+  s.add_development_dependency('webmock', '~>1.11.0')
 #  s.add_development_dependency('ruby-libvirt','~>0.4.0')
 
   s.files = `git ls-files`.split("\n")

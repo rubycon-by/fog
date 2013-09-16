@@ -109,6 +109,12 @@ module Fog
       # Tenant
       request :set_tenant
 
+      # Quota
+      request :get_quotas
+      request :get_quota
+      request :update_quota
+      request :delete_quota
+
       class Mock
         def self.data
           @data ||= Hash.new do |hash, key|
@@ -122,6 +128,23 @@ module Fog
               :lb_members => {},
               :lb_health_monitors => {},
               :lb_vips => {},
+              :quota => {
+                "subnet" => 10,
+                "router" => 10,
+                "port" => 50,
+                "network" => 10,
+                "floatingip" => 50
+              },
+              :quotas => [
+                {
+                  "subnet" => 10,
+                  "network" => 10,
+                  "floatingip" => 50,
+                  "tenant_id" => Fog::Mock.random_hex(8),
+                  "router" => 10,
+                  "port" => 30
+                }
+              ],
             }
           end
         end
@@ -176,7 +199,7 @@ module Fog
           @openstack_must_reauthenticate  = false
           @openstack_service_type         = options[:openstack_service_type] || ['network']
           @openstack_service_name         = options[:openstack_service_name]
-          @openstack_endpoint_type        = options[:openstack_endpoint_type] || 'adminURL'
+          @openstack_endpoint_type        = options[:openstack_endpoint_type] || 'publicURL'
           @openstack_region               = options[:openstack_region]
 
           @connection_options = options[:connection_options] || {}
