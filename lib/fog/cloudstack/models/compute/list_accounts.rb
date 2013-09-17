@@ -5,7 +5,7 @@ module Fog
   module Compute
     class Cloudstack
 
-      class Accounts < Fog::Collection
+      class ListAccounts < Fog::Collection
 
         model Fog::Compute::Cloudstack::Account
 

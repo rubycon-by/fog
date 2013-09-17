@@ -52,8 +52,8 @@ module Fog
       collection :snapshot_policies
       model :vpn_user
       collection :vpn_users
-      model :account
-      collection :accounts
+      model :list_account
+      collection :list_accounts
 
 
       request :add_vpn_user
