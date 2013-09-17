@@ -18,11 +18,10 @@ module Fog
         # @see https://api.gb1.brightbox.com/1.0/#user_update_user
         #
         def update_user(identifier, options)
-          return nil if identifier.nil? || identifier == ""
+          return nil if identifier.nil? || identifier == ''
           return nil if options.empty? || options.nil?
           wrapped_request("put", "/1.0/users/#{identifier}", [200], options)
         end
-
       end
     end
   end

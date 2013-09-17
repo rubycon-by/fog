@@ -16,7 +16,6 @@ module Fog
 
       request_path 'fog/cloudstack/requests/compute'
 
-
       model_path 'fog/cloudstack/models/compute'
       model :address
       model :balancer_instance
@@ -53,6 +52,8 @@ module Fog
       collection :snapshot_policies
       model :vpn_user
       collection :vpn_users
+      model :account
+      collection :accounts
 
 
       request :add_vpn_user
