@@ -1,13 +1,13 @@
 require 'fog/core/collection'
-require 'fog/cloudstack/models/compute/list_account'
+require 'fog/cloudstack/models/compute/account'
 
 module Fog
   module Compute
     class Cloudstack
 
-      class ListAccounts < Fog::Collection
+      class Accounts < Fog::Collection
 
-        model Fog::Compute::Cloudstack::ListAccount
+        model Fog::Compute::Cloudstack::Account
 
         def all
           response = service.list_accounts
