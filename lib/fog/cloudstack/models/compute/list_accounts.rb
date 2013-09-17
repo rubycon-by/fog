@@ -1,5 +1,5 @@
 require 'fog/core/collection'
-require 'fog/cloudstack/models/compute/vpn_user'
+require 'fog/cloudstack/models/compute/list_account'
 
 module Fog
   module Compute
@@ -7,7 +7,7 @@ module Fog
 
       class ListAccounts < Fog::Collection
 
-        model Fog::Compute::Cloudstack::Account
+        model Fog::Compute::Cloudstack::ListAccount
 
         def all(attributes={})
           response = service.list_accounts attributes
