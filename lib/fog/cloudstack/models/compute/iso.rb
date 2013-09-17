@@ -42,32 +42,78 @@ module Fog
 
         def save
           data = service.create_template(get_options_hash)
-          merge_attributes(data['createtemplateresponse'])
+          data['createtemplateresponse']
+          # merge_attributes(data['createtemplateresponse'])
+        end
+
+        def attach server_id
+          data = service.attach_iso('virtualmachineid' => server_id, 'id' => id)
+          data['attachisoresponse']
+        end
+
+        def detach server_id
+          data = service.detach_iso('virtualmachineid' => server_id)
+          data['detachisoresponse']
         end
 
         def copy destination_zone_id
           requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
-          service.copy_iso(options)
+          data = service.copy_iso(options)
+          data['copytemplateresponse']
         end
 
         def update options
           requires :id
-          service.update_iso({'id' => self.id}.merge!(options))
+          data = service.update_iso({'id' => self.id}.merge!(options))
+          data['updateisoresponse']
         end
 
         def extract url = nil
           requires :id, :zone_id
           options = { 'id' => self.id, 'zoneid' => self.zone_id }
           options.merge!({'url' => url}) if url.present?
-          service.extract_iso options
+          data = service.extract_iso options
+          data['extractisoresponse']
         end
 
         def destroy
           requires :id
-          service.delete_iso('id' => self.id)
+          data = service.delete_iso('id' => self.id)
+          data['deleteisosresponse']
         end
 
+        def register
+          # requires :display_text, :name, :url, :zone_id
+          # options = {
+          #   'bootable' => true,
+          #   'displayText' => 'ere',
+          #   'isPublic' => false,
+          #   'name' => 'rett',
+          #   'osTypeId' => 70,
+          #   'url' => 'etert',
+          #   'zoneId' => 2
+          # }
+
+
+          options = {
+            'bootable'         => bootable,
+            'displaytext'      => display_text,
+            'name'             => name,
+            'ostypeid'         => os_type_id,
+            'url'              => url,
+            'zoneid'           => zone_id,
+            'account'          => account,
+            'checksum'         => checksum,
+            'domainid'         => domain_id,
+            'isextractable'    => is_extractable,
+            'isfeatured'       => is_featured,
+            'ispublic'         => is_public,
+            'projectid'        => project_id,
+          }
+          data = service.register_iso(options)
+          data['registerisoresponse']
+        end
 
         def get_options_hash
           options = {

@@ -55,10 +55,18 @@ module Fog
           service.get_vm_password(self.id)
         end
 
+        def reset_password
+          requires :id
+          data = service.reset_password_for_virtual_machine(id)
+          data['resetpasswordforvirtualmachineresponse']
+          # job = service.jobs.get data['resetpasswordforvirtualmachineresponse'].fetch('jobid')
+          # job.wait_for { ready? }
+        end
+
         def destroy
           requires :id
           data = service.destroy_virtual_machine("id" => id)
-          service.jobs.new(data["destroyvirtualmachineresponse"])
+          data["destroyvirtualmachineresponse"]
         end
 
         def flavor
@@ -67,7 +75,7 @@ module Fog
 
         def flavor=(flavor_id)
           data = service.change_service_for_virtual_machine('id' => self.id, 'serviceofferingid' => flavor_id )
-          service.jobs.new(data["changeserviceforvirtualmachineresponse"])
+          data["changeserviceforvirtualmachineresponse"]
         end
 
         def ready?
@@ -91,7 +99,7 @@ module Fog
         def reboot
           requires :id
           data = service.reboot_virtual_machine('id' => self.id) # FIXME: does this ever fail?
-          service.jobs.new(data["rebootvirtualmachineresponse"])
+          data["rebootvirtualmachineresponse"]
         end
 
         def security_groups=(security_groups)
@@ -108,7 +116,6 @@ module Fog
 
         def save
           requires :image_id, :flavor_id, :zone_id
-
           options = {
             'templateid'        => image_id,
             'serviceofferingid' => flavor_id,
@@ -128,26 +135,27 @@ module Fog
 
           options.merge!('networkids' => network_ids) if network_ids
           options.merge!('securitygroupids' => security_group_ids) unless security_group_ids.empty?
-
           data = service.deploy_virtual_machine(options)
-          merge_attributes(data['deployvirtualmachineresponse'])
+          data['deployvirtualmachineresponse']
+          # merge_attributes(data['deployvirtualmachineresponse'])
         end
 
         def update options
           requires :id
-          service.update_virtual_machine({'id' => self.id}.merge!(options))
+          data = service.update_virtual_machine({'id' => self.id}.merge!(options))
+          data['updatevirtualmachineresponse']
         end
 
         def start
           requires :id
           data = service.start_virtual_machine("id" => self.id)
-          service.jobs.new(data["startvirtualmachineresponse"])
+          data["startvirtualmachineresponse"]
         end
 
         def stop(force=false)
           requires :id
           data = service.stop_virtual_machine("id" => self.id, "force" => force)
-          service.jobs.new(data["stopvirtualmachineresponse"])
+          data["stopvirtualmachineresponse"]
         end
       end # Server
     end # Cloudstack

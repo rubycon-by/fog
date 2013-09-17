@@ -16,6 +16,9 @@ module Fog
         attribute :associated_network_id,    :aliases => 'associatednetworkid'
         attribute :network_id,    :aliases => 'networkid'
         attribute :state,    :aliases => 'state'
+        attribute :virtual_machine_id,    :aliases => 'virtualmachineid'
+        attribute :virtual_machine_name,    :aliases => 'virtualmachinename'
+        attribute :virtual_machine_display_name,    :aliases => 'virtualmachinedisplayname'
 
 
         def vpn_enabled?
@@ -23,6 +26,11 @@ module Fog
           response = service.list_remote_access_vpns({'publicipid' => self.id})
           data = response['listremoteaccessvpnsresponse']['remoteaccessvpn']
           res = data ? data.first.fetch('presharedkey') : false
+        end
+
+        def instance
+          # requires :virtual_machine_id
+          service.servers.get virtual_machine_id
         end
 
         def enable_vpn
@@ -40,6 +48,13 @@ module Fog
           service.port_forwarding_rules.all({'ipaddressid' => self.id})
         rescue Fog::Compute::Cloudstack::BadRequest
           []
+        end
+
+        def port_range
+          requires :id
+          service.ip_forwarding_rules.all({'ipaddressid' => self.id})
+        rescue Fog::Compute::Cloudstack::BadRequest
+          []  
         end
 
         def load_balancers
@@ -70,12 +85,14 @@ module Fog
         def save
           requires :zone_id
           data = service.acquire_ip_address({'zoneid' => self.zone_id})
+          data['associateipaddressresponse']
           # merge_attributes(data['listpublicipaddressesresponse'])
         end
 
         def destroy
           requires :id
-          service.release_ip_address('id' => self.id)
+          data = service.release_ip_address('id' => self.id)
+          data['disassociateipaddressresponse']
         end
 
       end  #Ip

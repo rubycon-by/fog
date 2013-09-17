@@ -10,7 +10,9 @@ module Fog
         def all(attributes={})
           response = service.list_virtual_machines(attributes)
           data = response["listvirtualmachinesresponse"]["virtualmachine"] || []
-          load(data)
+          condition = @filter_attributes.nil?
+          @filter_attributes = attributes.except("command", "response", "sessionkey") if @filter_attributes.nil?
+          load(data, condition)
         end
 
         def bootstrap(new_attributes = {})

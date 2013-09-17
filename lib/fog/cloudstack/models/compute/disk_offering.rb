@@ -28,16 +28,15 @@ module Fog
           }
 
           response = service.create_disk_offering(options)
-          merge_attributes(response['creatediskofferingresponse'])
+          response['creatediskofferingresponse']
+          # merge_attributes(response['creatediskofferingresponse'])
         end
 
         def destroy
           requires :id
 
           response = service.delete_disk_offering('id' => id )
-          success_status = response['deletediskofferingresponse']['success']
-
-          success_status == 'true'
+          response['deletediskofferingresponse']
         end
 
       end # DiskOffering

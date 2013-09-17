@@ -14,12 +14,14 @@ module Fog
         def save
           requires :username, :password
           options = {'username' => username, 'password' => password}
-          service.add_vpn_user(options)
+          data = service.add_vpn_user(options)
+          data['addvpnuserresponse']
         end
 
         def destroy
           requires :username
-          service.remove_vpn_user({'username' => self.username})
+          data = service.remove_vpn_user({'username' => username})
+          data['removevpnuserresponse']
         end
 
       end  #Ip

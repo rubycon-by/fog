@@ -21,13 +21,14 @@ module Fog
             'timezone'      => timezone
           }
           data = service.create_snapshot_policy(options)
-          merge_attributes(data['createsnapshotpolicyresponse'])
+          data['createsnapshotpolicyresponse']
+          # merge_attributes(data['createsnapshotpolicyresponse'])
         end
 
         def destroy
           requires :id
-          service.delete_snapshot_policy('id' => id)
-          true
+          data = service.delete_snapshot_policy('id' => id)
+          data['deletesnapshotpolicyresponse']
         end
       end # SnapshotPolicy
     end # Cloudstack

@@ -24,18 +24,28 @@ module Fog
       collection :disk_offerings
       model :ip
       collection :ips
+      model :ip_forwarding_rule
+      collection :ip_forwarding_rules
       model :iso
       collection :isos
+      model :event
+      collection :events
       model :flavor
       collection :flavors
       model :job
       collection :jobs
       model :server
       collection :servers
+      model :tag
+      collection :tags
       model :image
       collection :images
       model :load_balancer
       collection :load_balancers
+      model :os_type
+      collection :os_types
+      model :os_category
+      collection :os_categories
       model :port_forwarding_rule
       collection :port_forwarding_rules
       model :security_group
@@ -61,6 +71,8 @@ module Fog
       request :assign_to_load_balancer_rule
       request :assign_virtual_machine
       request :attach_volume
+      request :attach_iso
+      request :detach_iso
       request :authorize_security_group_egress
       request :authorize_security_group_ingress
       request :change_service_for_virtual_machine
@@ -72,6 +84,8 @@ module Fog
       request :create_iso
       request :create_template
       request :create_load_balancer_rule
+      request :create_instance_group
+      request :create_ip_forwarding_rule
       request :create_remote_access_vpn
       request :create_network
       request :create_port_forwarding_rule
@@ -86,6 +100,7 @@ module Fog
       request :delete_account
       request :delete_disk_offering
       request :delete_domain
+      request :delete_ip_forwarding_rule
       request :delete_load_balancer_rule
       request :delete_port_forwarding_rule
       request :delete_security_group
@@ -128,6 +143,7 @@ module Fog
       request :list_hypervisors
       request :list_instance_groups
       request :list_isos
+      request :list_ip_forwarding_rules
       request :list_load_balancer_rules
       request :list_load_balancer_rule_instances
       request :list_network_offerings
@@ -145,6 +161,7 @@ module Fog
       request :list_snapshot_policies
       request :list_ssh_key_pairs
       request :list_storage_pools
+      request :list_tags
       request :list_templates
       request :list_usage_records
       request :list_users
@@ -152,6 +169,7 @@ module Fog
       request :list_virtual_machines
       request :list_volumes
       request :list_zones
+      request :logout
       request :migrate_virtual_machine
       request :query_async_job_result
       request :reboot_virtual_machine
@@ -172,6 +190,7 @@ module Fog
       request :update_template
       request :update_account
       request :update_domain
+      request :update_instance_group
       request :update_load_balancer_rule
       request :update_user
       request :update_resource_count
@@ -219,6 +238,12 @@ module Fog
           @cloudstack_session_key = user['sessionkey']
 
           user
+        end
+
+        def logout
+          response = issue_request({
+            'command'  => 'logout',
+          })
         end
 
         def request(params)

@@ -40,11 +40,17 @@ module Fog
             'projectid'      => project_id
           }
           data = service.create_volume(options)
-          merge_attributes(data['createvolumeresponse'])
+          data['createvolumeresponse']
+          # merge_attributes(data['createvolumeresponse'])
         end
 
         def ready?
           state == 'Allocated' || state == 'Ready'
+        end
+
+        def snapshots
+          data = service.list_snapshots('volumeid' => self.id)
+          data['listsnapshotsresponse'].try(:fetch, 'snapshot')
         end
 
         def snapshot_policies
@@ -98,21 +104,21 @@ module Fog
 
           data = service.attach_volume(options)
 
-					data["attachvolumeresponse"].values.try(:first)
+					data["attachvolumeresponse"]
         end
 
         def detach
           requires :id
 
           data = service.detach_volume('id' => id)
-
+          data["detachvolumeresponse"]
           # service.jobs.new(data["detachvolumeresponse"])
         end
 
         def destroy
           requires :id
-          service.delete_volume('id' => id)
-          true
+          data = service.delete_volume('id' => id)
+          data['deletevolumeresponse']
         end
       end # Volume
     end # Cloudstack

@@ -17,7 +17,7 @@ module Fog
 
         def get(disk_offering_id)
           response = service.list_disk_offerings('id' => disk_offering_id)
-          disk_offering_data = response["listdiskofferingsresponse"]["diskoffering"].first
+          disk_offering_data = response["listdiskofferingsresponse"]["diskoffering"].try(:first)
           new(disk_offering_data)
         end
       end

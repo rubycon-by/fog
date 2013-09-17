@@ -24,7 +24,8 @@ module Fog
             'domainid'      => domain_id
           }
           data = service.create_snapshot(options)
-          merge_attributes(data['createsnapshotresponse'])
+          data['createsnapshotresponse']
+          # merge_attributes(data['createsnapshotresponse'])
         end
 
         def ready?
@@ -37,8 +38,8 @@ module Fog
 
         def destroy
           requires :id
-          service.delete_snapshot('id' => id)
-          true
+          data = service.delete_snapshot('id' => id)
+          data['deletesnapshotresponse']
         end
       end # Snapshot
     end # Cloudstack

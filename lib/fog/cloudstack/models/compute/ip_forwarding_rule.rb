@@ -1,7 +1,7 @@
 module Fog
   module Compute
     class Cloudstack
-      class PortForwardingRule < Fog::Model
+      class IpForwardingRule < Fog::Model
 
         identity :id,    :aliases => 'id'
         attribute :private_port,    :aliases => 'privateport'
@@ -16,35 +16,31 @@ module Fog
         attribute :ip_address,    :aliases => 'ipaddress'
         attribute :state,    :aliases => 'state'
         attribute :cidrlist,    :aliases => 'cidrlist'
+        attribute :start_port,    :aliases => 'startport'
+        attribute :end_port,    :aliases => 'endport'
 
 
         def ip
           service.ips.get ip_address_id
         end
 
-        def instance
-          service.servers.get virtual_machine_id
-        end
-
         def save pfr_ip_address = nil
           requires :ip_address_id, :private_port, :public_port, :protocol, :virtual_machine_id
           pfr_ip = service.ips.get(ip_address_id).try(:id) || pfr_ip_address
           options = {
-            'privateport' => private_port,
-            'publicport' => public_port,
+            'startport' => private_port,
+            'endport' => public_port,
             'protocol' => protocol,
-            'virtualmachineid' => virtual_machine_id,
-            'ipaddressid' => pfr_ip,
-            'cidrlist' => cidrlist
+            'ipaddressid' => pfr_ip
           }
-          data = service.create_port_forwarding_rule(options)
-          data['createportforwardingruleresponse']
+          data = service.create_ip_forwarding_rule(options)
+          data['createipforwardingruleresponse']
         end
 
         def destroy
           requires :id
-          data = service.delete_port_forwarding_rule({'id' => self.id})
-          data['deleteportforwardingruleresponse']
+          data = service.delete_ip_forwarding_rule({'id' => self.id})
+          data['deleteipforwardingruleresponse']
         end
 
       end  #Ip

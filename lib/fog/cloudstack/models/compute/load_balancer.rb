@@ -18,7 +18,9 @@ module Fog
 
         def instances
           requires :id
-          service.balancer_instances.all('id' => self.id)
+          response = service.list_load_balancer_rule_instances('id' => self.id)
+          data = response["listloadbalancerruleinstancesresponse"]["loadbalancerruleinstance"] || []
+          service.servers.load(data)
         end
 
         def ip
@@ -28,16 +30,18 @@ module Fog
 
         def assign_instances virtual_machine_ids = []
           requires :id
-          service.assign_to_load_balancer_rule(self.id, virtual_machine_ids)
+          data = service.assign_to_load_balancer_rule(self.id, virtual_machine_ids)
+          data['assigntoloadbalancerruleresponse']
         end
 
         def remove_instances virtual_machine_ids = []
           requires :id
-          service.remove_from_load_balancer_rule(self.id, virtual_machine_ids)
+          data = service.remove_from_load_balancer_rule(self.id, virtual_machine_ids)
+          data['removefromloadbalancerruleresponse']
         end
 
         def save
-          requires :name, :private_port, :public_port, :algorithm
+          requires :name, :private_port, :public_port, :algorithm, :public_ip_id
           lb_ip = service.ips.get(public_ip_id).id
           options = {
             'privateport' => private_port,
@@ -46,17 +50,24 @@ module Fog
             'algorithm' => algorithm,
             'publicipid' => lb_ip
           }
-          service.create_load_balancer_rule(options)
+          data = service.create_load_balancer_rule(options)
+          if data['createloadbalancerruleresponse'].try(:fetch, 'loadbalancer')
+            {'object' => data['createloadbalancerruleresponse']['loadbalancer']}
+          else
+            {error: data['createloadbalancerruleresponse'].values.first }
+          end
         end
 
         def destroy
           requires :id
-          service.delete_load_balancer_rule({'id' => self.id})
+          data = service.delete_load_balancer_rule({'id' => self.id})
+          data['deleteloadbalancerruleresponse']
         end
 
         def update options
           requires :id
-          service.update_load_balancer_rule({'id' => self.id}.merge!(options))
+          data = service.update_load_balancer_rule({'id' => self.id}.merge!(options))
+          data['updateloadbalancerruleresponse']
         end
 
       end  #Ip

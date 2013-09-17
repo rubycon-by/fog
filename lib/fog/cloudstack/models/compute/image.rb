@@ -42,13 +42,15 @@ module Fog
 
         def save
           data = service.create_template(get_options_hash)
-          merge_attributes(data['createtemplateresponse'])
+          data['createtemplateresponse']
+          # merge_attributes(data['createtemplateresponse'])
         end
 
         def copy destination_zone_id
           requires :id, :zone_id
           options = {'id' => self.id, 'destzoneid' => destination_zone_id, 'sourcezoneid' => self.zone_id}
-          service.copy_template(options)
+          data = service.copy_template(options)
+          data['copytemplateresponse']
         end
 
         def update options
@@ -60,12 +62,14 @@ module Fog
           requires :id, :zone_id
           options = { 'id' => self.id, 'zoneid' => self.zone_id }
           options.merge!({'url' => url}) if url.present?
-          service.extract_template options
+          data = service.extract_template options
+          data['extracttemplateresponse']
         end
 
         def destroy
           requires :id
-          service.delete_template('id' => self.id)
+          data = service.delete_template('id' => self.id)
+          data['deletetemplateresponse']
         end
 
 
@@ -88,8 +92,12 @@ module Fog
           }
         end
 
-        def register_as_template
-          requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
+        def register
+          # requires :display_text, :format, :hypervisor, :name, :os_type_id, :url, :zone_id
+          
+          #'displayText' => 'efref', 'format' => 'QCOW2', 'hypervisor' => 'KVM', 'ispublic' => false, 'name' => 'erfrf', 'osTypeId' => 69, 'passwordEnabled' => false, 'url' => 'erfrf','zoneid' => 2
+
+        #  display_text: 'test', format: 'QCOW2', hypervisor: 'KVM', is_public: false, name: 'test', os_type_id: 69, password_enabled: false, url: 'dev.by', zone_id: 2
 
           options = {
             'displaytext'      => display_text,
@@ -114,34 +122,13 @@ module Fog
             'templatetag'      => template_tag
           }
           data = service.register_template(options)
-          merge_attributes(data['registertemplateresponse'])
-        end
-
-        def register_as_iso
-          requires :display_text, :name, :url, :zone_id
-
-          options = {
-            'displaytext'      => display_text,
-            'name'             => name,
-            'ostypeid'         => os_type_id,
-            'url'              => url,
-            'zoneid'           => zone_id,
-            'account'          => account,
-            'checksum'         => checksum,
-            'domainid'         => domain_id,
-            'isextractable'    => is_extractable,
-            'isfeatured'       => is_featured,
-            'ispublic'         => is_public,
-            'projectid'        => project_id,
-          }
-          data = service.register_iso(options)
-          merge_attributes(data['registerisoresponse'])
+          data['registertemplateresponse']
         end
 
         def destroy
           requires :id
-          service.delete_template('id' => self.id)
-          true
+          data = service.delete_template('id' => self.id)
+          data['deletetemplateresponse']
         end
       end # Image
     end # Cloudstack
