@@ -9,13 +9,13 @@ module Fog
 
         model Fog::Compute::Cloudstack::ListAccount
 
-        def all(attributes={})
-          response = service.list_accounts attributes
+        def all
+          response = service.list_accounts
           data = response["listaccountsresponse"]["account"] || []
           load(data)
         end
 
-        def get(name)
+        def get_by_name(name)
           if data = service.list_accounts('name' => name)["listaccountsresponse"]["account"].try(:first)
             new(data)
           end
